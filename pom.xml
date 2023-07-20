@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<developers>
+		<developer>
+			<name>Paul Marcelin Bejan</name>
+			<email>paulmarcelinbejan.developer@gmail.com</email>
+		</developer>
+	</developers>
+	<name>HyperBank</name>
+	<description>High Performance Bank</description>
+	<groupId>com.hyperbank</groupId>
+	<artifactId>hyperbank</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<properties>
+		<!-- JAVA -->
+		<java.version>17</java.version>
+		<!-- MAVEN -->
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<!-- SPRING -->
+		<spring-boot.version>3.1.0</spring-boot.version>
+		<!-- LOMBOK -->
+		<lombok.version>1.18.28</lombok.version>
+		<!-- TOOLBOX -->
+		<paulmarcelinbejan-toolbox.version>1.0.0</paulmarcelinbejan-toolbox.version>
+		<!-- MAPSTRUCT -->
+		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+		<!-- HyperBank Architecture -->
+		<hyperbank-architecture.version>1.0.0</hyperbank-architecture.version>
+		<!-- HyperBank -->
+		<hyperbank-accounts.version>1.0.0</hyperbank-accounts.version>
+		<hyperbank-banks.version>1.0.0</hyperbank-banks.version>
+		<hyperbank-entities.version>1.0.0</hyperbank-entities.version>
+		<hyperbank-loans.version>1.0.0</hyperbank-loans.version>
+		<hyperbank-maps.version>1.0.0</hyperbank-maps.version>
+		<hyperbank-staff.version>1.0.0</hyperbank-staff.version>
+		<hyperbank-transactions.version>1.0.0</hyperbank-transactions.version>
+	</properties>
+	<modules>
+		<module>hyperbank-accounts</module>
+		<module>hyperbank-banks</module>
+		<module>hyperbank-entities</module>
+		<module>hyperbank-loans</module>
+		<module>hyperbank-maps</module>
+		<module>hyperbank-staff</module>
+		<module>hyperbank-transactions</module>
+	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.paulmarcelinbejan.toolbox</groupId>
+				<artifactId>toolbox</artifactId>
+				<version>${paulmarcelinbejan-toolbox.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank.architecture</groupId>
+				<artifactId>hyperbank-architecture</artifactId>
+				<version>${hyperbank-architecture.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-accounts</artifactId>
+				<version>${hyperbank-accounts.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-banks</artifactId>
+				<version>${hyperbank-banks.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-entities</artifactId>
+				<version>${hyperbank-entities.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-loans</artifactId>
+				<version>${hyperbank-loans.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-maps</artifactId>
+				<version>${hyperbank-maps.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-staff</artifactId>
+				<version>${hyperbank-staff.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-transactions</artifactId>
+				<version>${hyperbank-transactions.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		</dependency>
+	</dependencies>
+    <build>
+	    <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>${maven-compiler-plugin.version}</version>
+	            <configuration>
+	                <source>${java.version}</source> <!-- depending on your project -->
+	                <target>${java.version}</target> <!-- depending on your project -->
+	                <annotationProcessorPaths>
+	                    <path>
+	                        <groupId>org.mapstruct</groupId>
+	                        <artifactId>mapstruct-processor</artifactId>
+	                        <version>${org.mapstruct.version}</version>
+	                    </path>
+	                    <!-- other annotation processors -->
+	                    <path>
+			                <groupId>org.projectlombok</groupId>
+			                <artifactId>lombok</artifactId>
+			                <version>${lombok.version}</version>
+			            </path>
+			            <dependency>
+			                <groupId>org.projectlombok</groupId>
+			                <artifactId>lombok-mapstruct-binding</artifactId>
+			                <version>${lombok-mapstruct-binding.version}</version>
+			            </dependency>
+	                </annotationProcessorPaths>
+	            </configuration>
+	        </plugin>
+        </plugins>
+	</build>
+</project>
