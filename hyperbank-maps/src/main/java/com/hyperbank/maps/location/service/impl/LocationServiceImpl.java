@@ -43,37 +43,37 @@ public class LocationServiceImpl implements LocationService {
 	private final DeleteService<Long> deleteService;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Location findById(Long id) throws FunctionalException {
 		return readService.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public LocationDto findByIdToDto(Long id) throws FunctionalException {
 		return readService.findByIdToDto(id);
 	}
 
-	/**
-	 * If some or all ids are not found, no entities are returned for these IDs.
-	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Location> findManyById(Collection<Long> ids) {
 		return readService.findManyById(ids);
 	}
 
-	/**
-	 * If some or all ids are not found, no DTOs are returned for these IDs.
-	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<LocationDto> findManyByIdToDto(Collection<Long> ids) {
 		return readService.findManyByIdToDto(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Location> findAll() {
 		return readService.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<LocationDto> findAllToDto() {
 		return readService.findAllToDto();
 	}

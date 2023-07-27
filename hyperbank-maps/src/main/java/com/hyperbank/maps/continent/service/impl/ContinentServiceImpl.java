@@ -43,37 +43,37 @@ public class ContinentServiceImpl implements ContinentService {
 	private final DeleteService<Integer> deleteService;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Continent findById(Integer id) throws FunctionalException {
 		return readService.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ContinentDto findByIdToDto(Integer id) throws FunctionalException {
 		return readService.findByIdToDto(id);
 	}
 
-	/**
-	 * If some or all ids are not found, no entities are returned for these IDs.
-	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Continent> findManyById(Collection<Integer> ids) {
 		return readService.findManyById(ids);
 	}
 
-	/**
-	 * If some or all ids are not found, no DTOs are returned for these IDs.
-	 */
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<ContinentDto> findManyByIdToDto(Collection<Integer> ids) {
 		return readService.findManyByIdToDto(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Continent> findAll() {
 		return readService.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<ContinentDto> findAllToDto() {
 		return readService.findAllToDto();
 	}

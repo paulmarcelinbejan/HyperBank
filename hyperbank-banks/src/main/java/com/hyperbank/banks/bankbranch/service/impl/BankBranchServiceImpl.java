@@ -52,31 +52,37 @@ public class BankBranchServiceImpl implements BankBranchService {
 	private final MapsRemoteService mapsRemoteService;
 
 	@Override
+	@Transactional(readOnly = true)
 	public BankBranch findById(Integer id) throws FunctionalException {
 		return readService.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public BankBranchDto findByIdToDto(Integer id) throws FunctionalException {
 		return readService.findByIdToDto(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankBranch> findManyById(Collection<Integer> ids) {
 		return readService.findManyById(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankBranchDto> findManyByIdToDto(Collection<Integer> ids) {
 		return readService.findManyByIdToDto(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankBranch> findAll() {
 		return readService.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankBranchDto> findAllToDto() {
 		return readService.findAllToDto();
 	}

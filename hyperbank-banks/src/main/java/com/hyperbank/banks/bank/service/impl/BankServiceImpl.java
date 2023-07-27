@@ -43,31 +43,37 @@ public class BankServiceImpl implements BankService {
 	private final DeleteService<Integer> deleteService;
 
 	@Override
+	@Transactional(readOnly = true)
 	public Bank findById(Integer id) throws FunctionalException {
 		return readService.findById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public BankDto findByIdToDto(Integer id) throws FunctionalException {
 		return readService.findByIdToDto(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Bank> findManyById(Collection<Integer> ids) {
 		return readService.findManyById(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankDto> findManyByIdToDto(Collection<Integer> ids) {
 		return readService.findManyByIdToDto(ids);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<Bank> findAll() {
 		return readService.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Collection<BankDto> findAllToDto() {
 		return readService.findAllToDto();
 	}
