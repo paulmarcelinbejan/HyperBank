@@ -10,7 +10,7 @@ import com.hyperbank.maps.country.entity.Country;
 import com.hyperbank.maps.country.mapper.CountryMapper;
 import com.hyperbank.maps.country.repository.CountryRepository;
 import com.hyperbank.maps.country.service.CountryService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;

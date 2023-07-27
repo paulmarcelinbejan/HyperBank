@@ -11,7 +11,7 @@ import com.hyperbank.banks.bankbranch.mapper.BankBranchMapper;
 import com.hyperbank.banks.bankbranch.repository.BankBranchRepository;
 import com.hyperbank.banks.bankbranch.service.BankBranchService;
 import com.hyperbank.banks.feignclient.MapsRemoteService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;

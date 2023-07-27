@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.maps.city.dto.CityDto;
 import com.hyperbank.maps.city.service.CityService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.dto.OkResponse;
+import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
 import lombok.RequiredArgsConstructor;
 

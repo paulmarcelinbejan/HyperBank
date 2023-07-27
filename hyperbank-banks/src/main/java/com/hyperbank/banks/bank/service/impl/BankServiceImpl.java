@@ -10,7 +10,7 @@ import com.hyperbank.banks.bank.entity.Bank;
 import com.hyperbank.banks.bank.mapper.BankMapper;
 import com.hyperbank.banks.bank.repository.BankRepository;
 import com.hyperbank.banks.bank.service.BankService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;

@@ -10,7 +10,7 @@ import com.hyperbank.maps.location.entity.Location;
 import com.hyperbank.maps.location.mapper.LocationMapper;
 import com.hyperbank.maps.location.repository.LocationRepository;
 import com.hyperbank.maps.location.service.LocationService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;

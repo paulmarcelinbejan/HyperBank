@@ -4,10 +4,10 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.hyperbank.architecture.web.feign.configuration.ClientConfiguration;
+import com.hyperbank.architecture.web.feign.configuration.HyperBankClientConfiguration;
 import com.hyperbank.banks.feignclient.response.LocationDto;
 
-@FeignClient(name = "mapsClient", url = "http://localhost:9888", configuration = ClientConfiguration.class)
+@FeignClient(name = "mapsClient", url = "http://localhost:9888", configuration = HyperBankClientConfiguration.class)
 public interface MapsRemoteService {
 
 	@GetMapping(value = "/api/location/{id}")

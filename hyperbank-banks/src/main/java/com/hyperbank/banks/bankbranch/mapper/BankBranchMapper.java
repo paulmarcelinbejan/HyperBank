@@ -14,7 +14,7 @@ import com.hyperbank.banks.bank.entity.Bank;
 import com.hyperbank.banks.bank.service.BankService;
 import com.hyperbank.banks.bankbranch.dto.BankBranchDto;
 import com.hyperbank.banks.bankbranch.entity.BankBranch;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)

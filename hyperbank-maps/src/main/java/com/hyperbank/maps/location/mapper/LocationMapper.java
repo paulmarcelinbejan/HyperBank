@@ -14,7 +14,7 @@ import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.city.service.CityService;
 import com.hyperbank.maps.location.dto.LocationDto;
 import com.hyperbank.maps.location.entity.Location;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)

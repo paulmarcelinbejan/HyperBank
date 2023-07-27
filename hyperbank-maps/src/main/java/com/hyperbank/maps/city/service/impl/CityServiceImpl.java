@@ -10,7 +10,7 @@ import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.city.mapper.CityMapper;
 import com.hyperbank.maps.city.repository.CityRepository;
 import com.hyperbank.maps.city.service.CityService;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;

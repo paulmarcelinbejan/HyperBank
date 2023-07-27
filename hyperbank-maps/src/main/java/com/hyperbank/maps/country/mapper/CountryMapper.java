@@ -14,7 +14,7 @@ import com.hyperbank.maps.continent.entity.Continent;
 import com.hyperbank.maps.continent.service.ContinentService;
 import com.hyperbank.maps.country.dto.CountryDto;
 import com.hyperbank.maps.country.entity.Country;
-import com.paulmarcelinbejan.toolbox.exception.technical.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
