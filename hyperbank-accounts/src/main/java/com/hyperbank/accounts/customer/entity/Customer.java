@@ -1,4 +1,8 @@
-package com.hyperbank.accounts.entity;
+package com.hyperbank.accounts.customer.entity;
+
+import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
+import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
+import com.hyperbank.accounts.customertype.entity.CustomerType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

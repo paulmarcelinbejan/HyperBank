@@ -20,25 +20,26 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CityServiceImpl implements CityService {
 
 	public CityServiceImpl(CityMapper cityMapper, CityRepository cityRepository) {
-		readService = new ReadServiceImpl<>(cityMapper, cityRepository, City.class);
-		createService = new CreateServiceImpl<>(cityMapper, cityRepository, City.class);
+		createService = new CreateServiceImpl<>(cityMapper, cityRepository, City::getId);
+		readService = new ReadServiceImpl<>(cityMapper, cityRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(City.class));
 		updateService = new UpdateServiceImpl<>(
 				cityMapper,
 				cityRepository,
 				readService,
-				City.class,
-				CityDto.class);
+				City::getId,
+				CityDto::getId);
 		deleteService = new DeleteServiceImpl<>(cityRepository, readService);
 	}
 
-	private final ReadService<Integer, City, CityDto> readService;
 	private final CreateService<Integer, CityDto> createService;
+	private final ReadService<Integer, City, CityDto> readService;
 	private final UpdateService<Integer, CityDto> updateService;
 	private final DeleteService<Integer> deleteService;
 
@@ -56,14 +57,26 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<City> findManyById(Collection<Integer> ids) {
+	public Collection<City> findManyById(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<CityDto> findManyByIdToDto(Collection<Integer> ids) {
+	public Collection<City> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<CityDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<CityDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -94,30 +107,38 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
+	public CityDto updateAndReturn(CityDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Integer> update(Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<CityDto> updateAndReturn(Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
 		deleteService.delete(id);
 	}
+	
+	@Override
+	public void deleteIfPresent(Integer id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
+	}
 
-	/**
-	 * If an Entity is not found in the persistence store, a FunctionalException
-	 * will be thrown.
-	 */
 	@Override
 	public void delete(Collection<Integer> ids) throws FunctionalException {
 		deleteService.delete(ids);
 	}
 
-	/**
-	 * Entities that aren't found in the persistence store are silently ignored.
-	 */
 	@Override
 	public void deleteIfPresent(Collection<Integer> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

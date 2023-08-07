@@ -1,4 +1,4 @@
-package com.hyperbank.accounts.entity;
+package com.hyperbank.accounts.customerindividual.entity;
 
 import java.time.LocalDate;
 

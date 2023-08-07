@@ -1,7 +1,9 @@
-package com.hyperbank.accounts.entity;
+package com.hyperbank.accounts.accountinternal.entity;
 
 import java.time.LocalDate;
 
+import com.hyperbank.accounts.accounttype.entity.AccountType;
+import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.commonentities.entity.Currency;
 
 import jakarta.persistence.Column;
