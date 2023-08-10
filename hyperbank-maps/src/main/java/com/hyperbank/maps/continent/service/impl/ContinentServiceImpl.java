@@ -20,25 +20,26 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class ContinentServiceImpl implements ContinentService {
 
 	public ContinentServiceImpl(ContinentMapper continentMapper, ContinentRepository continentRepository) {
-		readService = new ReadServiceImpl<>(continentMapper, continentRepository, Continent.class);
-		createService = new CreateServiceImpl<>(continentMapper, continentRepository, Continent.class);
+		createService = new CreateServiceImpl<>(continentMapper, continentRepository, Continent::getId);
+		readService = new ReadServiceImpl<>(continentMapper, continentRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Continent.class));
 		updateService = new UpdateServiceImpl<>(
 				continentMapper,
 				continentRepository,
 				readService,
-				Continent.class,
-				ContinentDto.class);
+				Continent::getId,
+				ContinentDto::getId);
 		deleteService = new DeleteServiceImpl<>(continentRepository, readService);
 	}
 
-	private final ReadService<Integer, Continent, ContinentDto> readService;
 	private final CreateService<Integer, ContinentDto> createService;
+	private final ReadService<Integer, Continent, ContinentDto> readService;
 	private final UpdateService<Integer, ContinentDto> updateService;
 	private final DeleteService<Integer> deleteService;
 
@@ -56,14 +57,26 @@ public class ContinentServiceImpl implements ContinentService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Continent> findManyById(Collection<Integer> ids) {
+	public Collection<Continent> findManyById(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<ContinentDto> findManyByIdToDto(Collection<Integer> ids) {
+	public Collection<Continent> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<ContinentDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<ContinentDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -94,30 +107,38 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 
 	@Override
+	public ContinentDto updateAndReturn(ContinentDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Integer> update(Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<ContinentDto> updateAndReturn(Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
 		deleteService.delete(id);
 	}
+	
+	@Override
+	public void deleteIfPresent(Integer id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
+	}
 
-	/**
-	 * If an Entity is not found in the persistence store, a FunctionalException
-	 * will be thrown.
-	 */
 	@Override
 	public void delete(Collection<Integer> ids) throws FunctionalException {
 		deleteService.delete(ids);
 	}
 
-	/**
-	 * Entities that aren't found in the persistence store are silently ignored.
-	 */
 	@Override
 	public void deleteIfPresent(Collection<Integer> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

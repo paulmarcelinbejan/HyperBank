@@ -20,25 +20,26 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class BankServiceImpl implements BankService {
 
 	public BankServiceImpl(BankMapper bankMapper, BankRepository bankRepository) {
-		readService = new ReadServiceImpl<>(bankMapper, bankRepository, Bank.class);
-		createService = new CreateServiceImpl<>(bankMapper, bankRepository, Bank.class);
+		createService = new CreateServiceImpl<>(bankMapper, bankRepository, Bank::getId);
+		readService = new ReadServiceImpl<>(bankMapper, bankRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Bank.class));
 		updateService = new UpdateServiceImpl<>(
 				bankMapper,
 				bankRepository,
 				readService,
-				Bank.class,
-				BankDto.class);
+				Bank::getId,
+				BankDto::getId);
 		deleteService = new DeleteServiceImpl<>(bankRepository, readService);
 	}
 
-	private final ReadService<Integer, Bank, BankDto> readService;
 	private final CreateService<Integer, BankDto> createService;
+	private final ReadService<Integer, Bank, BankDto> readService;
 	private final UpdateService<Integer, BankDto> updateService;
 	private final DeleteService<Integer> deleteService;
 
@@ -56,14 +57,26 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Bank> findManyById(Collection<Integer> ids) {
+	public Collection<Bank> findManyById(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankDto> findManyByIdToDto(Collection<Integer> ids) {
+	public Collection<Bank> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<BankDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<BankDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -94,13 +107,28 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
+	public BankDto updateAndReturn(BankDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Integer> update(Collection<BankDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<BankDto> updateAndReturn(Collection<BankDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
 		deleteService.delete(id);
+	}
+	
+	@Override
+	public void deleteIfPresent(Integer id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
@@ -112,5 +140,5 @@ public class BankServiceImpl implements BankService {
 	public void deleteIfPresent(Collection<Integer> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

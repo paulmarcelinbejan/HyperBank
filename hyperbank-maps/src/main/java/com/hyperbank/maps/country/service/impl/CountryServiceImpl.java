@@ -20,25 +20,26 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CountryServiceImpl implements CountryService {
 
 	public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository) {
-		readService = new ReadServiceImpl<>(countryMapper, countryRepository, Country.class);
-		createService = new CreateServiceImpl<>(countryMapper, countryRepository, Country.class);
+		createService = new CreateServiceImpl<>(countryMapper, countryRepository, Country::getId);
+		readService = new ReadServiceImpl<>(countryMapper, countryRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Country.class));
 		updateService = new UpdateServiceImpl<>(
 				countryMapper,
 				countryRepository,
 				readService,
-				Country.class,
-				CountryDto.class);
+				Country::getId,
+				CountryDto::getId);
 		deleteService = new DeleteServiceImpl<>(countryRepository, readService);
 	}
 
-	private final ReadService<Integer, Country, CountryDto> readService;
 	private final CreateService<Integer, CountryDto> createService;
+	private final ReadService<Integer, Country, CountryDto> readService;
 	private final UpdateService<Integer, CountryDto> updateService;
 	private final DeleteService<Integer> deleteService;
 
@@ -56,14 +57,26 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Country> findManyById(Collection<Integer> ids) {
+	public Collection<Country> findManyById(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<CountryDto> findManyByIdToDto(Collection<Integer> ids) {
+	public Collection<Country> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<CountryDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<CountryDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -94,30 +107,38 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
+	public CountryDto updateAndReturn(CountryDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Integer> update(Collection<CountryDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<CountryDto> updateAndReturn(Collection<CountryDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
 		deleteService.delete(id);
 	}
+	
+	@Override
+	public void deleteIfPresent(Integer id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
+	}
 
-	/**
-	 * If an Entity is not found in the persistence store, a FunctionalException
-	 * will be thrown.
-	 */
 	@Override
 	public void delete(Collection<Integer> ids) throws FunctionalException {
 		deleteService.delete(ids);
 	}
 
-	/**
-	 * Entities that aren't found in the persistence store are silently ignored.
-	 */
 	@Override
 	public void deleteIfPresent(Collection<Integer> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

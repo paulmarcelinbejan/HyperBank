@@ -10,7 +10,6 @@ import com.hyperbank.banks.bankbranch.entity.BankBranch;
 import com.hyperbank.banks.bankbranch.mapper.BankBranchMapper;
 import com.hyperbank.banks.bankbranch.repository.BankBranchRepository;
 import com.hyperbank.banks.bankbranch.service.BankBranchService;
-import com.hyperbank.banks.feignclient.MapsRemoteService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
@@ -21,35 +20,28 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class BankBranchServiceImpl implements BankBranchService {
 
-	public BankBranchServiceImpl(
-			BankBranchMapper bankBranchMapper,
-			BankBranchRepository bankBranchRepository,
-			MapsRemoteService mapsRemoteService) {
-
-		readService = new ReadServiceImpl<>(bankBranchMapper, bankBranchRepository, BankBranch.class);
-		createService = new CreateServiceImpl<>(bankBranchMapper, bankBranchRepository, BankBranch.class);
+	public BankBranchServiceImpl(BankBranchMapper bankBranchMapper, BankBranchRepository bankBranchRepository) {
+		createService = new CreateServiceImpl<>(bankBranchMapper, bankBranchRepository, BankBranch::getId);
+		readService = new ReadServiceImpl<>(bankBranchMapper, bankBranchRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(BankBranch.class));
 		updateService = new UpdateServiceImpl<>(
 				bankBranchMapper,
 				bankBranchRepository,
 				readService,
-				BankBranch.class,
-				BankBranchDto.class);
+				BankBranch::getId,
+				BankBranchDto::getId);
 		deleteService = new DeleteServiceImpl<>(bankBranchRepository, readService);
-
-		this.mapsRemoteService = mapsRemoteService;
 	}
 
-	private final ReadService<Integer, BankBranch, BankBranchDto> readService;
 	private final CreateService<Integer, BankBranchDto> createService;
+	private final ReadService<Integer, BankBranch, BankBranchDto> readService;
 	private final UpdateService<Integer, BankBranchDto> updateService;
 	private final DeleteService<Integer> deleteService;
-
-	private final MapsRemoteService mapsRemoteService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -65,14 +57,26 @@ public class BankBranchServiceImpl implements BankBranchService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankBranch> findManyById(Collection<Integer> ids) {
+	public Collection<BankBranch> findManyById(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankBranchDto> findManyByIdToDto(Collection<Integer> ids) {
+	public Collection<BankBranch> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<BankBranchDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<BankBranchDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -89,7 +93,6 @@ public class BankBranchServiceImpl implements BankBranchService {
 
 	@Override
 	public Integer save(BankBranchDto dto) throws TechnicalException {
-		mapsRemoteService.findLocationById(dto.getLocationId()); // Only for validation.
 		return createService.save(dto);
 	}
 
@@ -100,18 +103,32 @@ public class BankBranchServiceImpl implements BankBranchService {
 
 	@Override
 	public Integer update(BankBranchDto dto) throws FunctionalException, TechnicalException {
-		mapsRemoteService.findLocationById(dto.getLocationId()); // Only for validation.
 		return updateService.update(dto);
 	}
 
 	@Override
+	public BankBranchDto updateAndReturn(BankBranchDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Integer> update(Collection<BankBranchDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<BankBranchDto> updateAndReturn(Collection<BankBranchDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
 		deleteService.delete(id);
+	}
+	
+	@Override
+	public void deleteIfPresent(Integer id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
@@ -123,5 +140,5 @@ public class BankBranchServiceImpl implements BankBranchService {
 	public void deleteIfPresent(Collection<Integer> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

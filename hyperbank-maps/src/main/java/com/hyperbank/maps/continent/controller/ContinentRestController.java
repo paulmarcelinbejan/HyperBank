@@ -41,29 +41,23 @@ public class ContinentRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			save(@Validated(ContinentDto.CreateValidation.class) @RequestBody final ContinentDto dto)
-					throws TechnicalException {
+	public @ResponseBody Integer save(@Validated(ContinentDto.CreateValidation.class) @RequestBody final ContinentDto dto) throws TechnicalException {
 		return continentService.save(dto);
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentDto> dtos)
-			throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentDto> dtos) throws TechnicalException {
 		ValidatorUtils.validateGroups(dtos, ContinentDto.CreateValidation.class);
 		return continentService.save(dtos);
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			update(@Validated(ContinentDto.UpdateValidation.class) @RequestBody final ContinentDto dto)
-					throws FunctionalException, TechnicalException {
+	public @ResponseBody Integer update(@Validated(ContinentDto.UpdateValidation.class) @RequestBody final ContinentDto dto) throws FunctionalException, TechnicalException {
 		return continentService.update(dto);
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<ContinentDto> dtos)
-			throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
 		ValidatorUtils.validateGroups(dtos, ContinentDto.UpdateValidation.class);
 		return continentService.update(dtos);
 	}

@@ -41,29 +41,23 @@ public class CountryRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			save(@Validated(CountryDto.CreateValidation.class) @RequestBody final CountryDto dto)
-					throws TechnicalException {
+	public @ResponseBody Integer save(@Validated(CountryDto.CreateValidation.class) @RequestBody final CountryDto dto) throws TechnicalException {
 		return countryService.save(dto);
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CountryDto> dtos)
-			throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CountryDto> dtos) throws TechnicalException {
 		ValidatorUtils.validateGroups(dtos, CountryDto.CreateValidation.class);
 		return countryService.save(dtos);
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			update(@Validated(CountryDto.UpdateValidation.class) @RequestBody final CountryDto dto)
-					throws FunctionalException, TechnicalException {
+	public @ResponseBody Integer update(@Validated(CountryDto.UpdateValidation.class) @RequestBody final CountryDto dto) throws FunctionalException, TechnicalException {
 		return countryService.update(dto);
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CountryDto> dtos)
-			throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CountryDto> dtos) throws FunctionalException, TechnicalException {
 		ValidatorUtils.validateGroups(dtos, CountryDto.UpdateValidation.class);
 		return countryService.update(dtos);
 	}

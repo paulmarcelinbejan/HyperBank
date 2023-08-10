@@ -20,25 +20,26 @@ import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
+import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class LocationServiceImpl implements LocationService {
 
 	public LocationServiceImpl(LocationMapper locationMapper, LocationRepository locationRepository) {
-		readService = new ReadServiceImpl<>(locationMapper, locationRepository, Location.class);
-		createService = new CreateServiceImpl<>(locationMapper, locationRepository, Location.class);
+		createService = new CreateServiceImpl<>(locationMapper, locationRepository, Location::getId);
+		readService = new ReadServiceImpl<>(locationMapper, locationRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Location.class));
 		updateService = new UpdateServiceImpl<>(
 				locationMapper,
 				locationRepository,
 				readService,
-				Location.class,
-				LocationDto.class);
+				Location::getId,
+				LocationDto::getId);
 		deleteService = new DeleteServiceImpl<>(locationRepository, readService);
 	}
 
-	private final ReadService<Long, Location, LocationDto> readService;
 	private final CreateService<Long, LocationDto> createService;
+	private final ReadService<Long, Location, LocationDto> readService;
 	private final UpdateService<Long, LocationDto> updateService;
 	private final DeleteService<Long> deleteService;
 
@@ -56,14 +57,26 @@ public class LocationServiceImpl implements LocationService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Location> findManyById(Collection<Long> ids) {
+	public Collection<Location> findManyById(Collection<Long> ids) throws FunctionalException {
 		return readService.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<LocationDto> findManyByIdToDto(Collection<Long> ids) {
+	public Collection<Location> findManyByIdIfPresent(Collection<Long> ids) {
+		return readService.findManyByIdIfPresent(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<LocationDto> findManyByIdToDto(Collection<Long> ids) throws FunctionalException {
 		return readService.findManyByIdToDto(ids);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Collection<LocationDto> findManyByIdToDtoIfPresent(Collection<Long> ids) {
+		return readService.findManyByIdToDtoIfPresent(ids);
 	}
 
 	@Override
@@ -94,30 +107,38 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
+	public LocationDto updateAndReturn(LocationDto dto) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dto);
+	}
+	
+	@Override
 	public Collection<Long> update(Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
 		return updateService.update(dtos);
+	}
+	
+	@Override
+	public Collection<LocationDto> updateAndReturn(Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
+		return updateService.updateAndReturn(dtos);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
 		deleteService.delete(id);
 	}
+	
+	@Override
+	public void deleteIfPresent(Long id) throws FunctionalException {
+		deleteService.deleteIfPresent(id);
+	}
 
-	/**
-	 * If an Entity is not found in the persistence store, a FunctionalException
-	 * will be thrown.
-	 */
 	@Override
 	public void delete(Collection<Long> ids) throws FunctionalException {
 		deleteService.delete(ids);
 	}
 
-	/**
-	 * Entities that aren't found in the persistence store are silently ignored.
-	 */
 	@Override
 	public void deleteIfPresent(Collection<Long> ids) {
 		deleteService.deleteIfPresent(ids);
 	}
-
+	
 }

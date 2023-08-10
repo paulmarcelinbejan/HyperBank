@@ -41,29 +41,23 @@ public class LocationRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long
-			save(@Validated(LocationDto.CreateValidation.class) @RequestBody final LocationDto dto)
-					throws TechnicalException {
+	public @ResponseBody Long save(@Validated(LocationDto.CreateValidation.class) @RequestBody final LocationDto dto) throws TechnicalException {
 		return locationService.save(dto);
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationDto> dtos)
-			throws TechnicalException {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationDto> dtos) throws TechnicalException {
 		ValidatorUtils.validateGroups(dtos, LocationDto.CreateValidation.class);
 		return locationService.save(dtos);
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long
-			update(@Validated(LocationDto.UpdateValidation.class) @RequestBody final LocationDto dto)
-					throws FunctionalException, TechnicalException {
+	public @ResponseBody Long update(@Validated(LocationDto.UpdateValidation.class) @RequestBody final LocationDto dto) throws FunctionalException, TechnicalException {
 		return locationService.update(dto);
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> update(@RequestBody final Collection<LocationDto> dtos)
-			throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Long> update(@RequestBody final Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
 		ValidatorUtils.validateGroups(dtos, LocationDto.UpdateValidation.class);
 		return locationService.update(dtos);
 	}

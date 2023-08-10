@@ -41,29 +41,23 @@ public class CityRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			save(@Validated(CityDto.CreateValidation.class) @RequestBody final CityDto dto)
-					throws TechnicalException {
+	public @ResponseBody Integer save(@Validated(CityDto.CreateValidation.class) @RequestBody final CityDto dto) throws TechnicalException {
 		return cityService.save(dto);
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CityDto> dtos)
-			throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CityDto> dtos) throws TechnicalException {
 		ValidatorUtils.validateGroups(dtos, CityDto.CreateValidation.class);
 		return cityService.save(dtos);
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer
-			update(@Validated(CityDto.UpdateValidation.class) @RequestBody final CityDto dto)
-					throws FunctionalException, TechnicalException {
+	public @ResponseBody Integer update(@Validated(CityDto.UpdateValidation.class) @RequestBody final CityDto dto) throws FunctionalException, TechnicalException {
 		return cityService.update(dto);
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CityDto> dtos)
-			throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
 		ValidatorUtils.validateGroups(dtos, CityDto.UpdateValidation.class);
 		return cityService.update(dtos);
 	}
