@@ -23,7 +23,7 @@ public class InterestRateVariableHistory {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_interest_rate_variable", nullable = false)
-	private InterestRateVariable fkInterestRateVariable;
+	private InterestRateVariable interestRateVariable;
 
 	@NotNull
 	@Column(name = "percentage", nullable = false, precision = 5, scale = 2)

@@ -22,10 +22,10 @@ public class InterestRate {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_interest_rate_fixed")
-	private InterestRateFixed fkInterestRateFixed;
+	private InterestRateFixed interestRateFixed;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_interest_rate_variable")
-	private InterestRateVariable fkInterestRateVariable;
+	private InterestRateVariable interestRateVariable;
 
 }

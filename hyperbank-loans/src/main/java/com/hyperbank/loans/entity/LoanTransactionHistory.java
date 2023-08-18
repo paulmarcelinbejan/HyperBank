@@ -22,12 +22,12 @@ public class LoanTransactionHistory {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_loan_history", nullable = false)
-	private LoanHistory fkLoanHistory;
+	private LoanHistory loanHistory;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_interest_rate", nullable = false)
-	private InterestRate fkInterestRate;
+	private InterestRate interestRate;
 
 	@NotNull
 	@Column(name = "fk_transaction", nullable = false)

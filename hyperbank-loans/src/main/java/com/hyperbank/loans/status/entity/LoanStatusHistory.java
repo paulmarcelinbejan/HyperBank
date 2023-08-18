@@ -29,7 +29,7 @@ public class LoanStatusHistory {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_loan_status", nullable = false)
-	private LoanStatus fkLoanStatus;
+	private LoanStatus loanStatus;
 
 	@NotNull
 	@Column(name = "start_date_time", nullable = false)
