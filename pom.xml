@@ -35,7 +35,7 @@
 		<!-- HyperBank -->
 		<hyperbank-accounts.version>1.0.0</hyperbank-accounts.version>
 		<hyperbank-banks.version>1.0.0</hyperbank-banks.version>
-		<hyperbank-entities.version>1.0.0</hyperbank-entities.version>
+		<hyperbank-commons.version>1.0.0</hyperbank-commons.version>
 		<hyperbank-loans.version>1.0.0</hyperbank-loans.version>
 		<hyperbank-maps.version>1.0.0</hyperbank-maps.version>
 		<hyperbank-staff.version>1.0.0</hyperbank-staff.version>
@@ -44,7 +44,7 @@
 	<modules>
 		<module>hyperbank-accounts</module>
 		<module>hyperbank-banks</module>
-		<module>hyperbank-entities</module>
+		<module>hyperbank-commons</module>
 		<module>hyperbank-loans</module>
 		<module>hyperbank-maps</module>
 		<module>hyperbank-staff</module>
@@ -85,8 +85,8 @@
 			</dependency>
 			<dependency>
 				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-entities</artifactId>
-				<version>${hyperbank-entities.version}</version>
+				<artifactId>hyperbank-commons</artifactId>
+				<version>${hyperbank-commons.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.hyperbank</groupId>

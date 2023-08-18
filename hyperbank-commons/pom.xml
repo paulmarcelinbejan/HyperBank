@@ -7,10 +7,10 @@
        <artifactId>hyperbank</artifactId>
        <version>1.0.0</version>
     </parent>
-	<artifactId>hyperbank-entities</artifactId>
+	<artifactId>hyperbank-commons</artifactId>
 	<version>1.0.0</version>
-	<name>HyperBank Entities</name>
-	<description>High Performance Bank Entities</description>
+	<name>HyperBank Commons</name>
+	<description>High Performance Bank Commons</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -24,5 +24,13 @@
 			<groupId>com.hyperbank.architecture</groupId>
 			<artifactId>hyperbank-architecture-database-sql</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.hyperbank.architecture</groupId>
+			<artifactId>hyperbank-architecture-web</artifactId>
+		</dependency>
+		<dependency>
+        	<groupId>com.paulmarcelinbejan.toolbox</groupId>
+       		<artifactId>toolbox-jackson</artifactId>
+        </dependency>
 	</dependencies>
 </project>

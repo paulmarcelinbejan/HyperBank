@@ -1,4 +1,4 @@
-package com.hyperbank.commonentities.entity.base;
+package com.hyperbank.commons.entity.base;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @MappedSuperclass
-public abstract class TypeEntity extends CategorizationEntity {
+public abstract class StatusEntity extends CategorizationEntity {
 
 }
