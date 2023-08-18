@@ -10,8 +10,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -21,15 +25,15 @@ public class Customer {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_customer_type")
+	@JoinColumn(name = "fk_customer_type", nullable = false)
 	private CustomerType customerType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_customer_individual")
-	private CustomerIndividual fkCustomerIndividual;
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@MapsId
+	private CustomerIndividual customerIndividual;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_customer_legal_entity")
-	private CustomerLegalEntity fkCustomerLegalEntity;
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@MapsId
+	private CustomerLegalEntity customerLegalEntity;
 
 }

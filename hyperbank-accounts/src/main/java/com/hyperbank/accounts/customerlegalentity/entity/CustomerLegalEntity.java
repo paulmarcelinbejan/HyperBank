@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "customer_legal_entity")
 public class CustomerLegalEntity {

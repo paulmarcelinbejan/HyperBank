@@ -2,51 +2,51 @@ package com.hyperbank.accounts.accountinternal.entity;
 
 import java.time.LocalDate;
 
-import com.hyperbank.accounts.accounttype.entity.AccountType;
+import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
 import com.hyperbank.accounts.customer.entity.Customer;
-import com.hyperbank.commonentities.entity.Currency;
+import com.hyperbank.commons.currency.entity.Currency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "account_internal")
 public class AccountInternal {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_account_seq")
+	@SequenceGenerator(name = "id_account_seq", sequenceName = "id_account_seq", allocationSize = 1)
 	@Column(name = "id_account_internal", nullable = false)
 	private Long id;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_customer", nullable = false)
-	private Customer fkCustomer;
+	private Customer customer;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "fk_account_type", nullable = false)
-	private AccountType fkAccountType;
+	@JoinColumn(name = "fk_account_internal_type", nullable = false)
+	private AccountInternalType accountInternalType;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_currency", nullable = false)
-	private Currency fkCurrency;
+	private Currency currency;
 
-	@NotNull
-	@Column(name = "iban", nullable = false, length = Integer.MAX_VALUE)
+	@Column(name = "iban", unique = true, nullable = false)
 	private String iban;
 
-	@NotNull
 	@Column(name = "start_date", nullable = false)
 	private LocalDate startDate;
 
-	@NotNull
 	@Column(name = "end_date", nullable = false)
 	private LocalDate endDate;
 

@@ -10,8 +10,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "account")
 public class Account {
@@ -21,15 +25,15 @@ public class Account {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_account_type")
+	@JoinColumn(name = "fk_account_type", nullable = false)
 	private AccountType accountType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_account_internal")
-	private AccountInternal fkAccountInternal;
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@MapsId
+	private AccountInternal accountInternal;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_account_external")
-	private AccountExternal fkAccountExternal;
+	@OneToOne(fetch = FetchType.LAZY, optional = true)
+	@MapsId
+	private AccountExternal accountExternal;
 
 }

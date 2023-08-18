@@ -30,7 +30,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.hyperbank</groupId>
-			<artifactId>hyperbank-entities</artifactId>
+			<artifactId>hyperbank-commons</artifactId>
 		</dependency>
 	</dependencies>
 </project>
