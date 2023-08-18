@@ -1,9 +1,9 @@
-package com.hyperbank.management.transactions.entity;
+package com.hyperbank.transactions.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.hyperbank.commonentities.entity.Currency;
+import com.hyperbank.commons.currency.entity.Currency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +33,7 @@ public class Transaction {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_currency", nullable = false)
-	private Currency fkCurrency;
+	private Currency currency;
 
 	@NotNull
 	@Column(name = "value", nullable = false, precision = 12, scale = 2)
