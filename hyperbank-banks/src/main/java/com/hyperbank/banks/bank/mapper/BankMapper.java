@@ -1,6 +1,7 @@
 package com.hyperbank.banks.bank.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
@@ -12,6 +13,7 @@ import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
 public interface BankMapper extends BaseMapperToEntityAndToDTO<Bank, BankDto> {
 
 	@Override
-	void updateEntityFromDto(@MappingTarget Bank entity, BankDto dto);
+	@Mapping(target = "id", ignore = true)
+	void updateEntity(@MappingTarget Bank toUpdate, Bank newValue);
 
 }

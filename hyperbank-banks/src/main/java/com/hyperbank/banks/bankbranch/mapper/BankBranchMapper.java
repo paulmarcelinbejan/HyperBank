@@ -33,9 +33,9 @@ public abstract class BankBranchMapper implements BaseMapperToEntityAndToDTO<Ban
 	public abstract Collection<BankBranch> toEntities(Collection<BankBranchDto> dtoList);
 
 	@Override
-	@Mapping(source = "bankId", target = "bank", qualifiedByName = "getBankById")
-	public abstract void updateEntityFromDto(@MappingTarget BankBranch entity, BankBranchDto dto);
-
+	@Mapping(target = "id", ignore = true)
+	public abstract void updateEntity(@MappingTarget BankBranch toUpdate, BankBranch newValue);
+	
 	@Override
 	@Named("toDto")
 	@Mapping(source = "bank.id", target = "bankId")

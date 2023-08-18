@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.banks.bankbranch.dto.BankBranchDto;
+import com.hyperbank.banks.bankbranch.mapper.BankBranchMapper;
 import com.hyperbank.banks.bankbranch.service.BankBranchService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
@@ -29,37 +29,39 @@ import lombok.RequiredArgsConstructor;
 public class BankBranchRestController {
 
 	private final BankBranchService bankBranchService;
+	
+	private final BankBranchMapper bankBranchMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody BankBranchDto findById(@PathVariable Integer id) throws FunctionalException {
-		return bankBranchService.findByIdToDto(id);
+		return bankBranchMapper.toDto(bankBranchService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<BankBranchDto> findAll() {
-		return bankBranchService.findAllToDto();
+		return bankBranchMapper.toDtos(bankBranchService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Validated(BankBranchDto.CreateValidation.class) @RequestBody final BankBranchDto dto) throws TechnicalException {
-		return bankBranchService.save(dto);
+	public @ResponseBody Integer save(@Validated(BankBranchDto.CreateValidation.class) @RequestBody final BankBranchDto dto) {
+		return bankBranchService.save(bankBranchMapper.toEntity(dto));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchDto> dtos) throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchDto> dtos) {
 		ValidatorUtils.validateGroups(dtos, BankBranchDto.CreateValidation.class);
-		return bankBranchService.save(dtos);
+		return bankBranchService.save(bankBranchMapper.toEntities(dtos));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer update(@Validated(BankBranchDto.UpdateValidation.class) @RequestBody final BankBranchDto dto) throws FunctionalException, TechnicalException {
-		return bankBranchService.update(dto);
+	public @ResponseBody Integer update(@Validated(BankBranchDto.UpdateValidation.class) @RequestBody final BankBranchDto dto) throws FunctionalException {
+		return bankBranchService.update(bankBranchMapper.toEntity(dto));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchDto> dtos) throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchDto> dtos) throws FunctionalException {
 		ValidatorUtils.validateGroups(dtos, BankBranchDto.UpdateValidation.class);
-		return bankBranchService.update(dtos);
+		return bankBranchService.update(bankBranchMapper.toEntities(dtos));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +72,7 @@ public class BankBranchRestController {
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
-		bankBranchService.delete(ids);
+		bankBranchService.deleteMany(ids);
 		return new OkResponse();
 	}
 
