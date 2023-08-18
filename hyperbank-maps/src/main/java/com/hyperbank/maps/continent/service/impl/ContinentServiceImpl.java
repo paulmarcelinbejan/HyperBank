@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hyperbank.maps.continent.dto.ContinentDto;
 import com.hyperbank.maps.continent.entity.Continent;
 import com.hyperbank.maps.continent.mapper.ContinentMapper;
 import com.hyperbank.maps.continent.repository.ContinentRepository;
@@ -27,32 +26,31 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 public class ContinentServiceImpl implements ContinentService {
 
 	public ContinentServiceImpl(ContinentMapper continentMapper, ContinentRepository continentRepository) {
-		createService = new CreateServiceImpl<>(continentMapper, continentRepository, Continent::getId);
-		readService = new ReadServiceImpl<>(continentMapper, continentRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Continent.class));
+		createService = new CreateServiceImpl<>(continentRepository, Continent::getId);
+		readService = new ReadServiceImpl<>(continentRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Continent.class));
 		updateService = new UpdateServiceImpl<>(
-				continentMapper,
 				continentRepository,
+				continentMapper,
 				readService,
-				Continent::getId,
-				ContinentDto::getId);
+				Continent::getId);
 		deleteService = new DeleteServiceImpl<>(continentRepository, readService);
 	}
 
-	private final CreateService<Integer, ContinentDto> createService;
-	private final ReadService<Integer, Continent, ContinentDto> readService;
-	private final UpdateService<Integer, ContinentDto> updateService;
+	private final CreateService<Integer, Continent> createService;
+	private final ReadService<Integer, Continent> readService;
+	private final UpdateService<Integer, Continent> updateService;
 	private final DeleteService<Integer> deleteService;
 
 	@Override
 	@Transactional(readOnly = true)
-	public Continent findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+	public Continent getReferenceById(Integer id) {
+		return readService.getReferenceById(id);
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
-	public ContinentDto findByIdToDto(Integer id) throws FunctionalException {
-		return readService.findByIdToDto(id);
+	public Continent findById(Integer id) throws FunctionalException {
+		return readService.findById(id);
 	}
 
 	@Override
@@ -66,18 +64,6 @@ public class ContinentServiceImpl implements ContinentService {
 	public Collection<Continent> findManyByIdIfPresent(Collection<Integer> ids) {
 		return readService.findManyByIdIfPresent(ids);
 	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<ContinentDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyByIdToDto(ids);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<ContinentDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdToDtoIfPresent(ids);
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -86,39 +72,43 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Collection<ContinentDto> findAllToDto() {
-		return readService.findAllToDto();
-	}
-
-	@Override
-	public Integer save(ContinentDto dto) throws TechnicalException {
-		return createService.save(dto);
-	}
-
-	@Override
-	public Collection<Integer> save(Collection<ContinentDto> dtos) throws TechnicalException {
-		return createService.save(dtos);
-	}
-
-	@Override
-	public Integer update(ContinentDto dto) throws FunctionalException, TechnicalException {
-		return updateService.update(dto);
-	}
-
-	@Override
-	public ContinentDto updateAndReturn(ContinentDto dto) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dto);
+	public Integer save(Continent entity) {
+		return createService.save(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.update(dtos);
+	public Continent saveAndReturn(Continent entity) {
+		return createService.saveAndReturn(entity);
+	}
+
+	@Override
+	public Collection<Integer> save(Collection<Continent> entities) {
+		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<ContinentDto> updateAndReturn(Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dtos);
+	public Collection<Continent> saveAndReturn(Collection<Continent> entities) {
+		return createService.saveAndReturn(entities);
+	}
+
+	@Override
+	public Integer update(Continent entity) throws FunctionalException {
+		return updateService.update(entity);
+	}
+
+	@Override
+	public Continent updateAndReturn(Continent entity) throws FunctionalException {
+		return updateService.updateAndReturn(entity);
+	}
+	
+	@Override
+	public Collection<Integer> update(Collection<Continent> entities) throws FunctionalException {
+		return updateService.update(entities);
+	}
+	
+	@Override
+	public Collection<Continent> updateAndReturn(Collection<Continent> entities) throws FunctionalException {
+		return updateService.updateAndReturn(entities);
 	}
 
 	@Override
@@ -127,18 +117,18 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 	
 	@Override
-	public void deleteIfPresent(Integer id) throws FunctionalException {
+	public void deleteIfPresent(Integer id) {
 		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
-	public void delete(Collection<Integer> ids) throws FunctionalException {
-		deleteService.delete(ids);
+	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
+		deleteService.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteIfPresent(Collection<Integer> ids) {
-		deleteService.deleteIfPresent(ids);
+	public void deleteManyIfPresent(Collection<Integer> ids) {
+		deleteService.deleteManyIfPresent(ids);
 	}
 	
 }

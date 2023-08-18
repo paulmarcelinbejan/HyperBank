@@ -33,9 +33,9 @@ public abstract class CountryMapper implements BaseMapperToEntityAndToDTO<Countr
 	public abstract Collection<Country> toEntities(Collection<CountryDto> dtoList);
 
 	@Override
-	@Mapping(source = "continentId", target = "continent", qualifiedByName = "getContinentById")
-	public abstract void updateEntityFromDto(@MappingTarget Country entity, CountryDto dto);
-
+	@Mapping(target = "id", ignore = true)
+	public abstract void updateEntity(@MappingTarget Country toUpdate, Country newValue);
+	
 	@Override
 	@Named("toDto")
 	@Mapping(source = "continent.id", target = "continentId")

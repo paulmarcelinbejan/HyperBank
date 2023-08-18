@@ -33,18 +33,18 @@ public abstract class CityMapper implements BaseMapperToEntityAndToDTO<City, Cit
 	public abstract Collection<City> toEntities(Collection<CityDto> dtoList);
 
 	@Override
+	@Named("toDto")
+	@Mapping(source = "country.id", target = "countryId")
+	public abstract CityDto toDto(City entity);
+	
+	@Override
 	@IterableMapping(qualifiedByName = "toDto")
 	public abstract Collection<CityDto> toDtos(Collection<City> entities);
 
 	@Override
-	@Mapping(source = "countryId", target = "country", qualifiedByName = "getCountryById")
-	public abstract void updateEntityFromDto(@MappingTarget City entity, CityDto dto);
-
-	@Override
-	@Named("toDto")
-	@Mapping(source = "country.id", target = "countryId")
-	public abstract CityDto toDto(City entity);
-
+	@Mapping(target = "id", ignore = true)
+	public abstract void updateEntity(@MappingTarget City toUpdate, City newValue);
+	
 	@Named("getCountryById")
 	protected Country getCountryById(Integer id) throws FunctionalException {
 		return countryService.findById(id);

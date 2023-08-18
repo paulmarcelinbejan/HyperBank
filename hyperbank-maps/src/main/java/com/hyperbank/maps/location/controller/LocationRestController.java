@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.maps.location.dto.LocationDto;
+import com.hyperbank.maps.location.mapper.LocationMapper;
 import com.hyperbank.maps.location.service.LocationService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
@@ -29,37 +29,39 @@ import lombok.RequiredArgsConstructor;
 public class LocationRestController {
 
 	private final LocationService locationService;
+	
+	private final LocationMapper locationMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody LocationDto findById(@PathVariable Long id) throws FunctionalException {
-		return locationService.findByIdToDto(id);
+		return locationMapper.toDto(locationService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<LocationDto> findAll() {
-		return locationService.findAllToDto();
+		return locationMapper.toDtos(locationService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Validated(LocationDto.CreateValidation.class) @RequestBody final LocationDto dto) throws TechnicalException {
-		return locationService.save(dto);
+	public @ResponseBody Long save(@Validated(LocationDto.CreateValidation.class) @RequestBody final LocationDto dto) {
+		return locationService.save(locationMapper.toEntity(dto));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationDto> dtos) throws TechnicalException {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationDto> dtos) {
 		ValidatorUtils.validateGroups(dtos, LocationDto.CreateValidation.class);
-		return locationService.save(dtos);
+		return locationService.save(locationMapper.toEntities(dtos));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long update(@Validated(LocationDto.UpdateValidation.class) @RequestBody final LocationDto dto) throws FunctionalException, TechnicalException {
-		return locationService.update(dto);
+	public @ResponseBody Long update(@Validated(LocationDto.UpdateValidation.class) @RequestBody final LocationDto dto) throws FunctionalException {
+		return locationService.update(locationMapper.toEntity(dto));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> update(@RequestBody final Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Long> update(@RequestBody final Collection<LocationDto> dtos) throws FunctionalException {
 		ValidatorUtils.validateGroups(dtos, LocationDto.UpdateValidation.class);
-		return locationService.update(dtos);
+		return locationService.update(locationMapper.toEntities(dtos));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +72,7 @@ public class LocationRestController {
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
-		locationService.delete(ids);
+		locationService.deleteMany(ids);
 		return new OkResponse();
 	}
 

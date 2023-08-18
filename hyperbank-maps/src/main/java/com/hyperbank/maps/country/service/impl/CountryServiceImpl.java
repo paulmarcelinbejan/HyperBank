@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hyperbank.maps.country.dto.CountryDto;
 import com.hyperbank.maps.country.entity.Country;
 import com.hyperbank.maps.country.mapper.CountryMapper;
 import com.hyperbank.maps.country.repository.CountryRepository;
@@ -27,32 +26,31 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 public class CountryServiceImpl implements CountryService {
 
 	public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository) {
-		createService = new CreateServiceImpl<>(countryMapper, countryRepository, Country::getId);
-		readService = new ReadServiceImpl<>(countryMapper, countryRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Country.class));
+		createService = new CreateServiceImpl<>(countryRepository, Country::getId);
+		readService = new ReadServiceImpl<>(countryRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Country.class));
 		updateService = new UpdateServiceImpl<>(
-				countryMapper,
 				countryRepository,
+				countryMapper,
 				readService,
-				Country::getId,
-				CountryDto::getId);
+				Country::getId);
 		deleteService = new DeleteServiceImpl<>(countryRepository, readService);
 	}
 
-	private final CreateService<Integer, CountryDto> createService;
-	private final ReadService<Integer, Country, CountryDto> readService;
-	private final UpdateService<Integer, CountryDto> updateService;
+	private final CreateService<Integer, Country> createService;
+	private final ReadService<Integer, Country> readService;
+	private final UpdateService<Integer, Country> updateService;
 	private final DeleteService<Integer> deleteService;
 
 	@Override
 	@Transactional(readOnly = true)
-	public Country findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+	public Country getReferenceById(Integer id) {
+		return readService.getReferenceById(id);
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
-	public CountryDto findByIdToDto(Integer id) throws FunctionalException {
-		return readService.findByIdToDto(id);
+	public Country findById(Integer id) throws FunctionalException {
+		return readService.findById(id);
 	}
 
 	@Override
@@ -66,18 +64,6 @@ public class CountryServiceImpl implements CountryService {
 	public Collection<Country> findManyByIdIfPresent(Collection<Integer> ids) {
 		return readService.findManyByIdIfPresent(ids);
 	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<CountryDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyByIdToDto(ids);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<CountryDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdToDtoIfPresent(ids);
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -86,39 +72,43 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Collection<CountryDto> findAllToDto() {
-		return readService.findAllToDto();
-	}
-
-	@Override
-	public Integer save(CountryDto dto) throws TechnicalException {
-		return createService.save(dto);
-	}
-
-	@Override
-	public Collection<Integer> save(Collection<CountryDto> dtos) throws TechnicalException {
-		return createService.save(dtos);
-	}
-
-	@Override
-	public Integer update(CountryDto dto) throws FunctionalException, TechnicalException {
-		return updateService.update(dto);
-	}
-
-	@Override
-	public CountryDto updateAndReturn(CountryDto dto) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dto);
+	public Integer save(Country entity) {
+		return createService.save(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<CountryDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.update(dtos);
+	public Country saveAndReturn(Country entity) {
+		return createService.saveAndReturn(entity);
+	}
+
+	@Override
+	public Collection<Integer> save(Collection<Country> entities) {
+		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<CountryDto> updateAndReturn(Collection<CountryDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dtos);
+	public Collection<Country> saveAndReturn(Collection<Country> entities) {
+		return createService.saveAndReturn(entities);
+	}
+
+	@Override
+	public Integer update(Country entity) throws FunctionalException {
+		return updateService.update(entity);
+	}
+
+	@Override
+	public Country updateAndReturn(Country entity) throws FunctionalException {
+		return updateService.updateAndReturn(entity);
+	}
+	
+	@Override
+	public Collection<Integer> update(Collection<Country> entities) throws FunctionalException {
+		return updateService.update(entities);
+	}
+	
+	@Override
+	public Collection<Country> updateAndReturn(Collection<Country> entities) throws FunctionalException {
+		return updateService.updateAndReturn(entities);
 	}
 
 	@Override
@@ -127,18 +117,18 @@ public class CountryServiceImpl implements CountryService {
 	}
 	
 	@Override
-	public void deleteIfPresent(Integer id) throws FunctionalException {
+	public void deleteIfPresent(Integer id) {
 		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
-	public void delete(Collection<Integer> ids) throws FunctionalException {
-		deleteService.delete(ids);
+	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
+		deleteService.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteIfPresent(Collection<Integer> ids) {
-		deleteService.deleteIfPresent(ids);
+	public void deleteManyIfPresent(Collection<Integer> ids) {
+		deleteService.deleteManyIfPresent(ids);
 	}
 	
 }

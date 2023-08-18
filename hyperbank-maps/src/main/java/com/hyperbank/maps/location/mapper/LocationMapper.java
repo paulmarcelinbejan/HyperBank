@@ -33,9 +33,9 @@ public abstract class LocationMapper implements BaseMapperToEntityAndToDTO<Locat
 	public abstract Collection<Location> toEntities(Collection<LocationDto> dtoList);
 
 	@Override
-	@Mapping(source = "cityId", target = "city", qualifiedByName = "getCityById")
-	public abstract void updateEntityFromDto(@MappingTarget Location entity, LocationDto dto);
-
+	@Mapping(target = "id", ignore = true)
+	public abstract void updateEntity(@MappingTarget Location toUpdate, Location newValue);
+	
 	@Override
 	@Named("toDto")
 	@Mapping(source = "city.id", target = "cityId")

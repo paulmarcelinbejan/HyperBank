@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.maps.city.dto.CityDto;
+import com.hyperbank.maps.city.mapper.CityMapper;
 import com.hyperbank.maps.city.service.CityService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
@@ -27,39 +27,41 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/city")
 public class CityRestController {
-
+	
 	private final CityService cityService;
+	
+	private final CityMapper cityMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody CityDto findById(@PathVariable Integer id) throws FunctionalException {
-		return cityService.findByIdToDto(id);
+		return cityMapper.toDto(cityService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<CityDto> findAll() {
-		return cityService.findAllToDto();
+		return cityMapper.toDtos(cityService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Validated(CityDto.CreateValidation.class) @RequestBody final CityDto dto) throws TechnicalException {
-		return cityService.save(dto);
+	public @ResponseBody Integer save(@Validated(CityDto.CreateValidation.class) @RequestBody final CityDto dto) {
+		return cityService.save(cityMapper.toEntity(dto));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CityDto> dtos) throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CityDto> dtos) {
 		ValidatorUtils.validateGroups(dtos, CityDto.CreateValidation.class);
-		return cityService.save(dtos);
+		return cityService.save(cityMapper.toEntities(dtos));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer update(@Validated(CityDto.UpdateValidation.class) @RequestBody final CityDto dto) throws FunctionalException, TechnicalException {
-		return cityService.update(dto);
+	public @ResponseBody Integer update(@Validated(CityDto.UpdateValidation.class) @RequestBody final CityDto dto) throws FunctionalException {
+		return cityService.update(cityMapper.toEntity(dto));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CityDto> dtos) throws FunctionalException {
 		ValidatorUtils.validateGroups(dtos, CityDto.UpdateValidation.class);
-		return cityService.update(dtos);
+		return cityService.update(cityMapper.toEntities(dtos));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +72,7 @@ public class CityRestController {
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
-		cityService.delete(ids);
+		cityService.deleteMany(ids);
 		return new OkResponse();
 	}
 

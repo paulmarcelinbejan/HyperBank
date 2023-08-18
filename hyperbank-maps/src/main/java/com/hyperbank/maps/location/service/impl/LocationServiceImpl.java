@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hyperbank.maps.location.dto.LocationDto;
 import com.hyperbank.maps.location.entity.Location;
 import com.hyperbank.maps.location.mapper.LocationMapper;
 import com.hyperbank.maps.location.repository.LocationRepository;
@@ -27,32 +26,31 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 public class LocationServiceImpl implements LocationService {
 
 	public LocationServiceImpl(LocationMapper locationMapper, LocationRepository locationRepository) {
-		createService = new CreateServiceImpl<>(locationMapper, locationRepository, Location::getId);
-		readService = new ReadServiceImpl<>(locationMapper, locationRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(Location.class));
+		createService = new CreateServiceImpl<>(locationRepository, Location::getId);
+		readService = new ReadServiceImpl<>(locationRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Location.class));
 		updateService = new UpdateServiceImpl<>(
-				locationMapper,
 				locationRepository,
+				locationMapper,
 				readService,
-				Location::getId,
-				LocationDto::getId);
+				Location::getId);
 		deleteService = new DeleteServiceImpl<>(locationRepository, readService);
 	}
 
-	private final CreateService<Long, LocationDto> createService;
-	private final ReadService<Long, Location, LocationDto> readService;
-	private final UpdateService<Long, LocationDto> updateService;
+	private final CreateService<Long, Location> createService;
+	private final ReadService<Long, Location> readService;
+	private final UpdateService<Long, Location> updateService;
 	private final DeleteService<Long> deleteService;
 
 	@Override
 	@Transactional(readOnly = true)
-	public Location findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+	public Location getReferenceById(Long id) {
+		return readService.getReferenceById(id);
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
-	public LocationDto findByIdToDto(Long id) throws FunctionalException {
-		return readService.findByIdToDto(id);
+	public Location findById(Long id) throws FunctionalException {
+		return readService.findById(id);
 	}
 
 	@Override
@@ -66,18 +64,6 @@ public class LocationServiceImpl implements LocationService {
 	public Collection<Location> findManyByIdIfPresent(Collection<Long> ids) {
 		return readService.findManyByIdIfPresent(ids);
 	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<LocationDto> findManyByIdToDto(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyByIdToDto(ids);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<LocationDto> findManyByIdToDtoIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdToDtoIfPresent(ids);
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -86,39 +72,43 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Collection<LocationDto> findAllToDto() {
-		return readService.findAllToDto();
-	}
-
-	@Override
-	public Long save(LocationDto dto) throws TechnicalException {
-		return createService.save(dto);
-	}
-
-	@Override
-	public Collection<Long> save(Collection<LocationDto> dtos) throws TechnicalException {
-		return createService.save(dtos);
-	}
-
-	@Override
-	public Long update(LocationDto dto) throws FunctionalException, TechnicalException {
-		return updateService.update(dto);
-	}
-
-	@Override
-	public LocationDto updateAndReturn(LocationDto dto) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dto);
+	public Long save(Location entity) {
+		return createService.save(entity);
 	}
 	
 	@Override
-	public Collection<Long> update(Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.update(dtos);
+	public Location saveAndReturn(Location entity) {
+		return createService.saveAndReturn(entity);
+	}
+
+	@Override
+	public Collection<Long> save(Collection<Location> entities) {
+		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<LocationDto> updateAndReturn(Collection<LocationDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dtos);
+	public Collection<Location> saveAndReturn(Collection<Location> entities) {
+		return createService.saveAndReturn(entities);
+	}
+
+	@Override
+	public Long update(Location entity) throws FunctionalException {
+		return updateService.update(entity);
+	}
+
+	@Override
+	public Location updateAndReturn(Location entity) throws FunctionalException {
+		return updateService.updateAndReturn(entity);
+	}
+	
+	@Override
+	public Collection<Long> update(Collection<Location> entities) throws FunctionalException {
+		return updateService.update(entities);
+	}
+	
+	@Override
+	public Collection<Location> updateAndReturn(Collection<Location> entities) throws FunctionalException {
+		return updateService.updateAndReturn(entities);
 	}
 
 	@Override
@@ -127,18 +117,18 @@ public class LocationServiceImpl implements LocationService {
 	}
 	
 	@Override
-	public void deleteIfPresent(Long id) throws FunctionalException {
+	public void deleteIfPresent(Long id) {
 		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
-	public void delete(Collection<Long> ids) throws FunctionalException {
-		deleteService.delete(ids);
+	public void deleteMany(Collection<Long> ids) throws FunctionalException {
+		deleteService.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteIfPresent(Collection<Long> ids) {
-		deleteService.deleteIfPresent(ids);
+	public void deleteManyIfPresent(Collection<Long> ids) {
+		deleteService.deleteManyIfPresent(ids);
 	}
 	
 }

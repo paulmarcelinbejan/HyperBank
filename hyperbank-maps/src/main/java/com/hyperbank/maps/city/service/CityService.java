@@ -1,9 +1,8 @@
 package com.hyperbank.maps.city.service;
 
-import com.hyperbank.maps.city.dto.CityDto;
 import com.hyperbank.maps.city.entity.City;
-import com.paulmarcelinbejan.toolbox.web.service.CrudService;
+import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
 
-public interface CityService extends CrudService<Integer, City, CityDto> {
+public interface CityService extends CrudService<Integer, City> {
 
 }

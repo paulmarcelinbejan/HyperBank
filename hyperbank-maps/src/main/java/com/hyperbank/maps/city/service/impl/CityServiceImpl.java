@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hyperbank.maps.city.dto.CityDto;
 import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.city.mapper.CityMapper;
 import com.hyperbank.maps.city.repository.CityRepository;
@@ -27,32 +26,31 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 public class CityServiceImpl implements CityService {
 
 	public CityServiceImpl(CityMapper cityMapper, CityRepository cityRepository) {
-		createService = new CreateServiceImpl<>(cityMapper, cityRepository, City::getId);
-		readService = new ReadServiceImpl<>(cityMapper, cityRepository, ServiceUtils.buildErrorMessageIfEntityNotFound(City.class));
+		createService = new CreateServiceImpl<>(cityRepository, City::getId);
+		readService = new ReadServiceImpl<>(cityRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(City.class));
 		updateService = new UpdateServiceImpl<>(
-				cityMapper,
 				cityRepository,
+				cityMapper,
 				readService,
-				City::getId,
-				CityDto::getId);
+				City::getId);
 		deleteService = new DeleteServiceImpl<>(cityRepository, readService);
 	}
 
-	private final CreateService<Integer, CityDto> createService;
-	private final ReadService<Integer, City, CityDto> readService;
-	private final UpdateService<Integer, CityDto> updateService;
+	private final CreateService<Integer, City> createService;
+	private final ReadService<Integer, City> readService;
+	private final UpdateService<Integer, City> updateService;
 	private final DeleteService<Integer> deleteService;
 
 	@Override
 	@Transactional(readOnly = true)
-	public City findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+	public City getReferenceById(Integer id) {
+		return readService.getReferenceById(id);
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
-	public CityDto findByIdToDto(Integer id) throws FunctionalException {
-		return readService.findByIdToDto(id);
+	public City findById(Integer id) throws FunctionalException {
+		return readService.findById(id);
 	}
 
 	@Override
@@ -66,18 +64,6 @@ public class CityServiceImpl implements CityService {
 	public Collection<City> findManyByIdIfPresent(Collection<Integer> ids) {
 		return readService.findManyByIdIfPresent(ids);
 	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<CityDto> findManyByIdToDto(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyByIdToDto(ids);
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Collection<CityDto> findManyByIdToDtoIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdToDtoIfPresent(ids);
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -86,39 +72,43 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Collection<CityDto> findAllToDto() {
-		return readService.findAllToDto();
-	}
-
-	@Override
-	public Integer save(CityDto dto) throws TechnicalException {
-		return createService.save(dto);
-	}
-
-	@Override
-	public Collection<Integer> save(Collection<CityDto> dtos) throws TechnicalException {
-		return createService.save(dtos);
-	}
-
-	@Override
-	public Integer update(CityDto dto) throws FunctionalException, TechnicalException {
-		return updateService.update(dto);
-	}
-
-	@Override
-	public CityDto updateAndReturn(CityDto dto) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dto);
+	public Integer save(City entity) {
+		return createService.save(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.update(dtos);
+	public City saveAndReturn(City entity) {
+		return createService.saveAndReturn(entity);
+	}
+
+	@Override
+	public Collection<Integer> save(Collection<City> entities) {
+		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<CityDto> updateAndReturn(Collection<CityDto> dtos) throws FunctionalException, TechnicalException {
-		return updateService.updateAndReturn(dtos);
+	public Collection<City> saveAndReturn(Collection<City> entities) {
+		return createService.saveAndReturn(entities);
+	}
+
+	@Override
+	public Integer update(City entity) throws FunctionalException {
+		return updateService.update(entity);
+	}
+
+	@Override
+	public City updateAndReturn(City entity) throws FunctionalException {
+		return updateService.updateAndReturn(entity);
+	}
+	
+	@Override
+	public Collection<Integer> update(Collection<City> entities) throws FunctionalException {
+		return updateService.update(entities);
+	}
+	
+	@Override
+	public Collection<City> updateAndReturn(Collection<City> entities) throws FunctionalException {
+		return updateService.updateAndReturn(entities);
 	}
 
 	@Override
@@ -127,18 +117,18 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	@Override
-	public void deleteIfPresent(Integer id) throws FunctionalException {
+	public void deleteIfPresent(Integer id) {
 		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
-	public void delete(Collection<Integer> ids) throws FunctionalException {
-		deleteService.delete(ids);
+	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
+		deleteService.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteIfPresent(Collection<Integer> ids) {
-		deleteService.deleteIfPresent(ids);
+	public void deleteManyIfPresent(Collection<Integer> ids) {
+		deleteService.deleteManyIfPresent(ids);
 	}
 	
 }

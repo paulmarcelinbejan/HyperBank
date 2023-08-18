@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.maps.continent.dto.ContinentDto;
+import com.hyperbank.maps.continent.mapper.ContinentMapper;
 import com.hyperbank.maps.continent.service.ContinentService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
@@ -29,37 +29,39 @@ import lombok.RequiredArgsConstructor;
 public class ContinentRestController {
 
 	private final ContinentService continentService;
+	
+	private final ContinentMapper continentMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ContinentDto findById(@PathVariable Integer id) throws FunctionalException {
-		return continentService.findByIdToDto(id);
+		return continentMapper.toDto(continentService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<ContinentDto> findAll() {
-		return continentService.findAllToDto();
+		return continentMapper.toDtos(continentService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Validated(ContinentDto.CreateValidation.class) @RequestBody final ContinentDto dto) throws TechnicalException {
-		return continentService.save(dto);
+	public @ResponseBody Integer save(@Validated(ContinentDto.CreateValidation.class) @RequestBody final ContinentDto dto) {
+		return continentService.save(continentMapper.toEntity(dto));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentDto> dtos) throws TechnicalException {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentDto> dtos) {
 		ValidatorUtils.validateGroups(dtos, ContinentDto.CreateValidation.class);
-		return continentService.save(dtos);
+		return continentService.save(continentMapper.toEntities(dtos));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer update(@Validated(ContinentDto.UpdateValidation.class) @RequestBody final ContinentDto dto) throws FunctionalException, TechnicalException {
-		return continentService.update(dto);
+	public @ResponseBody Integer update(@Validated(ContinentDto.UpdateValidation.class) @RequestBody final ContinentDto dto) throws FunctionalException {
+		return continentService.update(continentMapper.toEntity(dto));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<ContinentDto> dtos) throws FunctionalException, TechnicalException {
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<ContinentDto> dtos) throws FunctionalException {
 		ValidatorUtils.validateGroups(dtos, ContinentDto.UpdateValidation.class);
-		return continentService.update(dtos);
+		return continentService.update(continentMapper.toEntities(dtos));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,8 +72,9 @@ public class ContinentRestController {
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
-		continentService.delete(ids);
+		continentService.deleteMany(ids);
 		return new OkResponse();
 	}
 
 }
+
