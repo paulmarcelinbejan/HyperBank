@@ -1,4 +1,4 @@
-package com.hyperbank.management.staff.entity.repository;
+package com.hyperbank.staff.entity.repository;
 
 import org.springframework.stereotype.Repository;
 

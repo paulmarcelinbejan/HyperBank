@@ -1,4 +1,4 @@
-package com.hyperbank.management.staff.entity.controller;
+package com.hyperbank.staff.entity.controller;
 
 import org.springframework.stereotype.Controller;
 

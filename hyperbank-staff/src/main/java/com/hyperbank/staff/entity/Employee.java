@@ -1,8 +1,8 @@
-package com.hyperbank.management.staff.entity;
+package com.hyperbank.staff.entity;
 
 import java.time.LocalDate;
 
-import com.hyperbank.commonentities.entity.SexType;
+import com.hyperbank.commons.sextype.entity.SexType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.hyperbank.management.staff.entity.service;
+package com.hyperbank.staff.entity.service;
 
 import org.springframework.stereotype.Service;
 

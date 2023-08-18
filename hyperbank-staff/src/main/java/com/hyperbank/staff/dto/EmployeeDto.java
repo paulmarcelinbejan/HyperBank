@@ -1,4 +1,4 @@
-package com.hyperbank.management.staff.dto;
+package com.hyperbank.staff.dto;
 
 import java.time.LocalDate;
 
