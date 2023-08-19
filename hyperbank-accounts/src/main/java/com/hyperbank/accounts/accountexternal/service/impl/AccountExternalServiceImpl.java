@@ -2,10 +2,12 @@ package com.hyperbank.accounts.accountexternal.service.impl;
 
 import java.text.MessageFormat;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.account.service.AccountService;
 import com.hyperbank.accounts.accountexternal.entity.AccountExternal;
 import com.hyperbank.accounts.accountexternal.repository.AccountExternalRepository;
 import com.hyperbank.accounts.accountexternal.service.AccountExternalService;
@@ -23,11 +25,12 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class AccountExternalServiceImpl implements AccountExternalService {
 
-	public AccountExternalServiceImpl(AccountExternalRepository accountExternalRepository) {
+	public AccountExternalServiceImpl(AccountExternalRepository accountExternalRepository, AccountService accountService) {
 		createService = new CreateServiceImpl<>(accountExternalRepository, AccountExternal::getId);
 		readService = new ReadServiceImpl<>(accountExternalRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountExternal.class));
 		deleteService = new DeleteServiceImpl<>(accountExternalRepository, readService);
 		this.accountExternalRepository = accountExternalRepository;
+		this.accountService = accountService;
 	}
 
 	private final CreateService<Long, AccountExternal> createService;
@@ -35,6 +38,7 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	private final DeleteService<Long> deleteService;
 	
 	private final AccountExternalRepository accountExternalRepository;
+	private final AccountService accountService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -75,42 +79,51 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 
 	@Override
 	public Long save(AccountExternal entity) {
-		return createService.save(entity);
+		return saveAndReturn(entity).getId();
 	}
 	
 	@Override
 	public AccountExternal saveAndReturn(AccountExternal entity) {
-		return createService.saveAndReturn(entity);
+		entity = createService.saveAndReturn(entity);
+		accountService.saveForAccountExternal(entity);
+		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<AccountExternal> entities) {
-		return createService.save(entities);
+		entities = saveAndReturn(entities);
+		return entities.stream().map(AccountExternal::getId).collect(Collectors.toList());
 	}
 	
 	@Override
 	public Collection<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) {
-		return createService.saveAndReturn(entities);
+		entities = createService.saveAndReturn(entities);
+		accountService.saveManyForAccountExternal(entities);
+		return entities;
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
 		deleteService.delete(id);
+		accountService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
 		deleteService.deleteIfPresent(id);
+		accountService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
 		deleteService.deleteMany(ids);
+		accountService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
 		deleteService.deleteManyIfPresent(ids);
+		accountService.deleteManyIfPresent(ids);
 	}
 	
 }
