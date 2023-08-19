@@ -1,10 +1,12 @@
 package com.hyperbank.accounts.customerlegalentity.service.impl;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
 import com.hyperbank.accounts.customerlegalentity.mapper.CustomerLegalEntityMapper;
 import com.hyperbank.accounts.customerlegalentity.repository.CustomerLegalEntityRepository;
@@ -25,7 +27,7 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityService {
 
-	public CustomerLegalEntityServiceImpl(CustomerLegalEntityMapper customerLegalEntityMapper, CustomerLegalEntityRepository customerLegalEntityRepository) {
+	public CustomerLegalEntityServiceImpl(CustomerLegalEntityMapper customerLegalEntityMapper, CustomerLegalEntityRepository customerLegalEntityRepository, CustomerService customerService) {
 		createService = new CreateServiceImpl<>(customerLegalEntityRepository, CustomerLegalEntity::getId);
 		readService = new ReadServiceImpl<>(customerLegalEntityRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(CustomerLegalEntity.class));
 		updateService = new UpdateServiceImpl<>(
@@ -34,12 +36,16 @@ public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityServic
 				readService,
 				CustomerLegalEntity::getId);
 		deleteService = new DeleteServiceImpl<>(customerLegalEntityRepository, readService);
+		
+		this.customerService = customerService;
 	}
 
 	private final CreateService<Long, CustomerLegalEntity> createService;
 	private final ReadService<Long, CustomerLegalEntity> readService;
 	private final UpdateService<Long, CustomerLegalEntity> updateService;
 	private final DeleteService<Long> deleteService;
+	
+	private final CustomerService customerService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -70,25 +76,30 @@ public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityServic
 	public Collection<CustomerLegalEntity> findAll() {
 		return readService.findAll();
 	}
-
+	
 	@Override
 	public Long save(CustomerLegalEntity entity) {
-		return createService.save(entity);
+		return saveAndReturn(entity).getId();
 	}
-
+	
 	@Override
 	public CustomerLegalEntity saveAndReturn(CustomerLegalEntity entity) {
-		return createService.saveAndReturn(entity);
+		entity = createService.saveAndReturn(entity);
+		customerService.saveForCustomerLegalEntity(entity);
+		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<CustomerLegalEntity> entities) {
-		return createService.save(entities);
+		entities = saveAndReturn(entities);
+		return entities.stream().map(CustomerLegalEntity::getId).collect(Collectors.toList());
 	}
-
+	
 	@Override
 	public Collection<CustomerLegalEntity> saveAndReturn(Collection<CustomerLegalEntity> entities) {
-		return createService.saveAndReturn(entities);
+		entities = createService.saveAndReturn(entities);
+		customerService.saveManyForCustomerLegalEntity(entities);
+		return entities;
 	}
 
 	@Override
@@ -110,25 +121,29 @@ public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityServic
 	public Collection<CustomerLegalEntity> updateAndReturn(Collection<CustomerLegalEntity> entities) throws FunctionalException {
 		return updateService.updateAndReturn(entities);
 	}
-
+	
 	@Override
 	public void delete(Long id) throws FunctionalException {
 		deleteService.delete(id);
+		customerService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
 		deleteService.deleteIfPresent(id);
+		customerService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
 		deleteService.deleteMany(ids);
+		customerService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
 		deleteService.deleteManyIfPresent(ids);
+		customerService.deleteManyIfPresent(ids);
 	}
 	
 }

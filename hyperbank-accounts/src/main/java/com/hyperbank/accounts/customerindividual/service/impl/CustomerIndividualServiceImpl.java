@@ -1,10 +1,12 @@
 package com.hyperbank.accounts.customerindividual.service.impl;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
 import com.hyperbank.accounts.customerindividual.mapper.CustomerIndividualMapper;
 import com.hyperbank.accounts.customerindividual.repository.CustomerIndividualRepository;
@@ -25,7 +27,7 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CustomerIndividualServiceImpl implements CustomerIndividualService {
 
-	public CustomerIndividualServiceImpl(CustomerIndividualMapper customerIndividualMapper, CustomerIndividualRepository customerIndividualRepository) {
+	public CustomerIndividualServiceImpl(CustomerIndividualMapper customerIndividualMapper, CustomerIndividualRepository customerIndividualRepository, CustomerService customerService) {
 		createService = new CreateServiceImpl<>(customerIndividualRepository, CustomerIndividual::getId);
 		readService = new ReadServiceImpl<>(customerIndividualRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(CustomerIndividual.class));
 		updateService = new UpdateServiceImpl<>(
@@ -34,12 +36,15 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 				readService,
 				CustomerIndividual::getId);
 		deleteService = new DeleteServiceImpl<>(customerIndividualRepository, readService);
+		this.customerService = customerService;
 	}
 
 	private final CreateService<Long, CustomerIndividual> createService;
 	private final ReadService<Long, CustomerIndividual> readService;
 	private final UpdateService<Long, CustomerIndividual> updateService;
 	private final DeleteService<Long> deleteService;
+	
+	private final CustomerService customerService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -73,22 +78,27 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 
 	@Override
 	public Long save(CustomerIndividual entity) {
-		return createService.save(entity);
+		return saveAndReturn(entity).getId();
 	}
-
+	
 	@Override
 	public CustomerIndividual saveAndReturn(CustomerIndividual entity) {
-		return createService.saveAndReturn(entity);
+		entity = createService.saveAndReturn(entity);
+		customerService.saveForCustomerIndividual(entity);
+		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<CustomerIndividual> entities) {
-		return createService.save(entities);
+		entities = saveAndReturn(entities);
+		return entities.stream().map(CustomerIndividual::getId).collect(Collectors.toList());
 	}
-
+	
 	@Override
 	public Collection<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) {
-		return createService.saveAndReturn(entities);
+		entities = createService.saveAndReturn(entities);
+		customerService.saveManyForCustomerIndividual(entities);
+		return entities;
 	}
 
 	@Override
@@ -114,21 +124,25 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	@Override
 	public void delete(Long id) throws FunctionalException {
 		deleteService.delete(id);
+		customerService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
 		deleteService.deleteIfPresent(id);
+		customerService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
 		deleteService.deleteMany(ids);
+		customerService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
 		deleteService.deleteManyIfPresent(ids);
+		customerService.deleteManyIfPresent(ids);
 	}
 	
 }
