@@ -12,6 +12,7 @@ import com.hyperbank.accounts.accountinternal.dto.AccountInternalDto.UpdateValid
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.NonOverlappingLocalDate;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.Data;
@@ -38,7 +39,7 @@ public class AccountInternalDto implements HistoricalLocalDateAware {
 	private Integer currencyId;
 
 	@JsonProperty
-	@NotNull(groups = { CreateValidation.class, UpdateValidation.class }, message = "iban must not be null")
+	@NotBlank(groups = { CreateValidation.class, UpdateValidation.class }, message = "iban must not be blank")
 	private String iban;
 
 	@JsonProperty
@@ -50,6 +51,7 @@ public class AccountInternalDto implements HistoricalLocalDateAware {
 	@JsonProperty
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@NotNull(groups = { CreateValidation.class }, message = "endDate must not be null")
 	private LocalDate endDate;
 
 	@Override
