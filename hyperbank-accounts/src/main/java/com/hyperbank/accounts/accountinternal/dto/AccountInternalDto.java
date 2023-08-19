@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.hyperbank.accounts.accountinternal.dto.AccountInternalDto.CreateValidation;
 import com.hyperbank.accounts.accountinternal.dto.AccountInternalDto.UpdateValidation;
+import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateTimeDeserializer;
+import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.NonOverlappingLocalDate;
 
