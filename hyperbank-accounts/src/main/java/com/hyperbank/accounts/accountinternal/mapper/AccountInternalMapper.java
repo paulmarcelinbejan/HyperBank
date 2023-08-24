@@ -10,6 +10,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hyperbank.accounts.account.entity.Account;
+import com.hyperbank.accounts.account.service.AccountService;
 import com.hyperbank.accounts.accountinternal.dto.AccountInternalDto;
 import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
@@ -28,6 +30,9 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToDT
 	private AccountInternalTypeService accountInternalTypeService;
 	
 	@Autowired
+	private AccountService accountService;
+	
+	@Autowired
 	private CurrencyService currencyService;
 	
 	@Autowired
@@ -35,6 +40,7 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToDT
 	
 	@Override
 	@Named("toEntity")
+	@Mapping(source = "id", target = "account", qualifiedByName = "getAccountReferenceById")
 	@Mapping(source = "accountInternalTypeId", target = "accountInternalType", qualifiedByName = "getAccountInternalTypeById")
 	@Mapping(source = "currencyId", target = "currency", qualifiedByName = "getCurrencyById")
 	@Mapping(source = "customerId", target = "customer", qualifiedByName = "getCustomerById")
@@ -59,6 +65,11 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToDT
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget AccountInternal toUpdate, AccountInternal newValue);
 
+	@Named("getAccountReferenceById")
+	protected Account getAccountReferenceById(Long id) {
+		return accountService.getReferenceById(id);
+	}
+	
 	@Named("getAccountInternalTypeById")
 	protected AccountInternalType getAccountInternalTypeById(Integer id) throws FunctionalException {
 		return accountInternalTypeService.findById(id);

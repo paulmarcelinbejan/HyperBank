@@ -27,12 +27,12 @@ public class AccountInternalDto implements HistoricalLocalDateAware {
 	private Long id;
 
 	@JsonProperty
-	@NotNull(groups = { CreateValidation.class, UpdateValidation.class }, message = "customerId must not be null")
-	private Long customerId;
-
-	@JsonProperty
 	@NotNull(groups = { CreateValidation.class, UpdateValidation.class }, message = "accountInternalTypeId must not be null")
 	private Integer accountInternalTypeId;
+	
+	@JsonProperty
+	@NotNull(groups = { CreateValidation.class, UpdateValidation.class }, message = "customerId must not be null")
+	private Long customerId;
 
 	@JsonProperty
 	@NotNull(groups = { CreateValidation.class, UpdateValidation.class }, message = "currencyId must not be null")

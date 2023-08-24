@@ -1,7 +1,6 @@
 package com.hyperbank.accounts.account.service.impl;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,29 +69,17 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Long saveForAccountInternal(AccountInternal accountInternal) {
+	public Account save(AccountInternal accountInternal) {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(1));
-		account.setAccountInternal(accountInternal);
-		return createService.save(account);
+		return createService.saveAndReturn(account);
 	}
 	
 	@Override
-	public Collection<Long> saveManyForAccountInternal(Collection<AccountInternal> accountInternal) {	
-		return accountInternal.stream().map(this::saveForAccountInternal).collect(Collectors.toList());
-	}
-	
-	@Override
-	public Long saveForAccountExternal(AccountExternal accountExternal) {
+	public Account save(AccountExternal accountExternal) {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(2));
-		account.setAccountExternal(accountExternal);
-		return createService.save(account);
-	}
-
-	@Override
-	public Collection<Long> saveManyForAccountExternal(Collection<AccountExternal> accountExternal) {
-		return accountExternal.stream().map(this::saveForAccountExternal).collect(Collectors.toList());
+		return createService.saveAndReturn(account);
 	}
 
 	@Override

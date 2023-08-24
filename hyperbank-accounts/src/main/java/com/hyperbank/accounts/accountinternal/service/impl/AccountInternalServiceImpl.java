@@ -2,11 +2,11 @@ package com.hyperbank.accounts.accountinternal.service.impl;
 
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.account.service.AccountService;
 import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
 import com.hyperbank.accounts.accountinternal.mapper.AccountInternalMapper;
@@ -93,22 +93,25 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	
 	@Override
 	public AccountInternal saveAndReturn(AccountInternal entity) {
+		Account account = accountService.save(entity);
+		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
-		accountService.saveForAccountInternal(entity);
 		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<AccountInternal> entities) {
 		entities = saveAndReturn(entities);
-		return entities.stream().map(AccountInternal::getId).collect(Collectors.toList());
+		return entities.stream()
+				       .map(AccountInternal::getId)
+				       .toList();
 	}
 	
 	@Override
 	public Collection<AccountInternal> saveAndReturn(Collection<AccountInternal> entities) {
-		entities = createService.saveAndReturn(entities);
-		accountService.saveManyForAccountInternal(entities);
-		return entities;
+		return entities.stream()
+					   .map(this::saveAndReturn)
+					   .toList();
 	}
 
 	@Override

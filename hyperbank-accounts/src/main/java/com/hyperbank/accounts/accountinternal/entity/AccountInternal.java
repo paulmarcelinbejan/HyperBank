@@ -2,6 +2,7 @@ package com.hyperbank.accounts.accountinternal.entity;
 
 import java.time.LocalDate;
 
+import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
 import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.commons.currency.entity.Currency;
@@ -9,12 +10,11 @@ import com.hyperbank.commons.currency.entity.Currency;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -24,9 +24,7 @@ import lombok.Data;
 public class AccountInternal {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_account_seq")
-	@SequenceGenerator(name = "id_account_seq", sequenceName = "id_account_seq", allocationSize = 1)
-	@Column(name = "id_account_internal", nullable = false)
+	@Column(name = "id_account", nullable = false)
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -49,5 +47,10 @@ public class AccountInternal {
 
 	@Column(name = "end_date", nullable = false)
 	private LocalDate endDate;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_account")
+    @MapsId
+	private Account account;
 
 }

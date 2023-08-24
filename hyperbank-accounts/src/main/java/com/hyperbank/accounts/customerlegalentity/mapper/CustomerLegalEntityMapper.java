@@ -8,7 +8,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.hyperbank.accounts.customer.entity.Customer;
+import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntityDto;
 import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
 import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
@@ -16,8 +19,12 @@ import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class CustomerLegalEntityMapper implements BaseMapperToEntityAndToDTO<CustomerLegalEntity, CustomerLegalEntityDto> {
 
+	@Autowired
+	private CustomerService customerService;
+	
 	@Override
 	@Named("toEntity")
+	@Mapping(source = "id", target = "customer", qualifiedByName = "getCustomerReferenceById")
 	public abstract CustomerLegalEntity toEntity(CustomerLegalEntityDto dto);
 
 	@Override
@@ -36,4 +43,9 @@ public abstract class CustomerLegalEntityMapper implements BaseMapperToEntityAnd
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget CustomerLegalEntity toUpdate, CustomerLegalEntity newValue);
 
+	@Named("getCustomerReferenceById")
+	protected Customer getCustomerReferenceById(Long id) {
+		return customerService.getReferenceById(id);
+	}
+	
 }

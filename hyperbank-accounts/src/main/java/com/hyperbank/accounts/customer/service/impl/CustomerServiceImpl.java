@@ -1,7 +1,6 @@
 package com.hyperbank.accounts.customer.service.impl;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,29 +69,17 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Long saveForCustomerIndividual(CustomerIndividual customerIndividual) {
+	public Customer save(CustomerIndividual customerIndividual) {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(1));
-		customer.setCustomerIndividual(customerIndividual);
-		return createService.save(customer);
-	}
-	
-	@Override
-	public Collection<Long> saveManyForCustomerIndividual(Collection<CustomerIndividual> customerIndividual) {	
-		return customerIndividual.stream().map(this::saveForCustomerIndividual).collect(Collectors.toList());
+		return createService.saveAndReturn(customer);
 	}
 
 	@Override
-	public Long saveForCustomerLegalEntity(CustomerLegalEntity customerLegalEntity) {
+	public Customer save(CustomerLegalEntity customerLegalEntity) {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(2));
-		customer.setCustomerLegalEntity(customerLegalEntity);
-		return createService.save(customer);
-	}
-	
-	@Override
-	public Collection<Long> saveManyForCustomerLegalEntity(Collection<CustomerLegalEntity> customerLegalEntity) {	
-		return customerLegalEntity.stream().map(this::saveForCustomerLegalEntity).collect(Collectors.toList());
+		return createService.saveAndReturn(customer);
 	}
 
 	@Override

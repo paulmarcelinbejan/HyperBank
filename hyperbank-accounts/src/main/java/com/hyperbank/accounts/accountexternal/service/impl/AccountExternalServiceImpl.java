@@ -2,11 +2,11 @@ package com.hyperbank.accounts.accountexternal.service.impl;
 
 import java.text.MessageFormat;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.account.service.AccountService;
 import com.hyperbank.accounts.accountexternal.entity.AccountExternal;
 import com.hyperbank.accounts.accountexternal.repository.AccountExternalRepository;
@@ -76,7 +76,7 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 				.findByIban(iban)
 				.orElseThrow(() -> new FunctionalException(MessageFormat.format(ServiceUtils.buildErrorMessageIfEntityNotFoundByParameter(AccountExternal.class, "iban"), iban)));
 	}
-
+	
 	@Override
 	public Long save(AccountExternal entity) {
 		return saveAndReturn(entity).getId();
@@ -84,22 +84,25 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	
 	@Override
 	public AccountExternal saveAndReturn(AccountExternal entity) {
+		Account account = accountService.save(entity);
+		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
-		accountService.saveForAccountExternal(entity);
 		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<AccountExternal> entities) {
 		entities = saveAndReturn(entities);
-		return entities.stream().map(AccountExternal::getId).collect(Collectors.toList());
+		return entities.stream()
+				       .map(AccountExternal::getId)
+				       .toList();
 	}
 	
 	@Override
 	public Collection<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) {
-		entities = createService.saveAndReturn(entities);
-		accountService.saveManyForAccountExternal(entities);
-		return entities;
+		return entities.stream()
+					   .map(this::saveAndReturn)
+					   .toList();
 	}
 
 	@Override

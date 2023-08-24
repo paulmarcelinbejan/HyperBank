@@ -1,11 +1,11 @@
 package com.hyperbank.accounts.customerlegalentity.service.impl;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
 import com.hyperbank.accounts.customerlegalentity.mapper.CustomerLegalEntityMapper;
@@ -84,22 +84,25 @@ public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityServic
 	
 	@Override
 	public CustomerLegalEntity saveAndReturn(CustomerLegalEntity entity) {
+		Customer customer = customerService.save(entity);
+		entity.setCustomer(customer);
 		entity = createService.saveAndReturn(entity);
-		customerService.saveForCustomerLegalEntity(entity);
 		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<CustomerLegalEntity> entities) {
 		entities = saveAndReturn(entities);
-		return entities.stream().map(CustomerLegalEntity::getId).collect(Collectors.toList());
+		return entities.stream()
+				       .map(CustomerLegalEntity::getId)
+				       .toList();
 	}
 	
 	@Override
 	public Collection<CustomerLegalEntity> saveAndReturn(Collection<CustomerLegalEntity> entities) {
-		entities = createService.saveAndReturn(entities);
-		customerService.saveManyForCustomerLegalEntity(entities);
-		return entities;
+		return entities.stream()
+					   .map(this::saveAndReturn)
+					   .toList();
 	}
 
 	@Override

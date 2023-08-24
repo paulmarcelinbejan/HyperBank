@@ -1,11 +1,11 @@
 package com.hyperbank.accounts.customerindividual.service.impl;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
 import com.hyperbank.accounts.customerindividual.mapper.CustomerIndividualMapper;
@@ -83,22 +83,25 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	
 	@Override
 	public CustomerIndividual saveAndReturn(CustomerIndividual entity) {
+		Customer customer = customerService.save(entity);
+		entity.setCustomer(customer);
 		entity = createService.saveAndReturn(entity);
-		customerService.saveForCustomerIndividual(entity);
 		return entity;
 	}
 
 	@Override
 	public Collection<Long> save(Collection<CustomerIndividual> entities) {
 		entities = saveAndReturn(entities);
-		return entities.stream().map(CustomerIndividual::getId).collect(Collectors.toList());
+		return entities.stream()
+				       .map(CustomerIndividual::getId)
+				       .toList();
 	}
 	
 	@Override
 	public Collection<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) {
-		entities = createService.saveAndReturn(entities);
-		customerService.saveManyForCustomerIndividual(entities);
-		return entities;
+		return entities.stream()
+					   .map(this::saveAndReturn)
+					   .toList();
 	}
 
 	@Override
