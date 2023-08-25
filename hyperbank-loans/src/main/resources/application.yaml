@@ -1,8 +1,9 @@
 spring:
   application:
     name: hyperbankloans
+    version: 1.0.0
   banner:
-    location: classpath:/src/main/resources/banner.txt
+    location: classpath:banner.txt
   datasource:
     url: jdbc:postgresql://localhost:5432/HyperBankDB
     driverClassName: org.postgresql.Driver
