@@ -12,38 +12,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hyperbank.maps.continent.entity.Continent;
 import com.hyperbank.maps.continent.service.ContinentService;
-import com.hyperbank.maps.country.dto.CountryDto;
+import com.hyperbank.maps.country.dto.CountryResponse;
+import com.hyperbank.maps.country.dto.CountrySaveRequest;
+import com.hyperbank.maps.country.dto.CountryUpdateRequest;
 import com.hyperbank.maps.country.entity.Country;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CountryMapper implements BaseMapperToEntityAndToDTO<Country, CountryDto> {
+public abstract class CountryMapper implements BaseMapperToEntityAndToResponse<Country, CountrySaveRequest, CountryUpdateRequest, CountryResponse> {
 
 	@Autowired
 	private ContinentService continentService;
 
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
 	@Mapping(source = "continentId", target = "continent", qualifiedByName = "getContinentById")
-	public abstract Country toEntity(CountryDto dto);
+	public abstract Country fromSaveRequestToEntity(CountrySaveRequest saveRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<Country> toEntities(Collection<CountryDto> dtoList);
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<Country> fromSaveRequestsToEntities(Collection<CountrySaveRequest> saveRequests);
 
+	@Override
+	@Named("fromUpdateRequestToEntity")
+	@Mapping(source = "continentId", target = "continent", qualifiedByName = "getContinentById")
+	public abstract Country fromUpdateRequestToEntity(CountryUpdateRequest updateRequest);
+
+	@Override
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<Country> fromUpdateRequestsToEntities(Collection<CountryUpdateRequest> updateRequests);
+	
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget Country toUpdate, Country newValue);
 	
 	@Override
-	@Named("toDto")
+	@Named("toResponse")
 	@Mapping(source = "continent.id", target = "continentId")
-	public abstract CountryDto toDto(Country entity);
+	public abstract CountryResponse toResponse(Country entity);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<CountryDto> toDtos(Collection<Country> entities);
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<CountryResponse> toResponses(Collection<Country> entities);
 
 	@Named("getContinentById")
 	protected Continent getContinentById(Integer id) throws FunctionalException {

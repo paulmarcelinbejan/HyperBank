@@ -9,31 +9,42 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
-import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeDto;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeResponse;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeSaveRequest;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeUpdateRequest;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class AccountInternalTypeMapper implements BaseMapperToEntityAndToDTO<AccountInternalType, AccountInternalTypeDto> {
+public abstract class AccountInternalTypeMapper implements BaseMapperToEntityAndToResponse<AccountInternalType, AccountInternalTypeSaveRequest, AccountInternalTypeUpdateRequest, AccountInternalTypeResponse> {
 
 	@Override
-	@Named("toEntity")
-	public abstract AccountInternalType toEntity(AccountInternalTypeDto dto);
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
+	public abstract AccountInternalType fromSaveRequestToEntity(AccountInternalTypeSaveRequest saveRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<AccountInternalType> toEntities(Collection<AccountInternalTypeDto> dtos);
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<AccountInternalType> fromSaveRequestsToEntities(Collection<AccountInternalTypeSaveRequest> saveRequests);
 
 	@Override
-	@Named("toDto")
-	public abstract AccountInternalTypeDto toDto(AccountInternalType entity);
+	@Named("fromUpdateRequestToEntity")
+	public abstract AccountInternalType fromUpdateRequestToEntity(AccountInternalTypeUpdateRequest updateRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<AccountInternalTypeDto> toDtos(Collection<AccountInternalType> entities);
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<AccountInternalType> fromUpdateRequestsToEntities(Collection<AccountInternalTypeUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget AccountInternalType toUpdate, AccountInternalType newValue);
 
+	@Override
+	@Named("toResponse")
+	public abstract AccountInternalTypeResponse toResponse(AccountInternalType entity);
+
+	@Override
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<AccountInternalTypeResponse> toResponses(Collection<AccountInternalType> entities);
+	
 }

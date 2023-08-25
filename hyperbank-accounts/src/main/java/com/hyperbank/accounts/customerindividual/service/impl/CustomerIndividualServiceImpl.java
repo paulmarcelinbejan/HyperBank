@@ -83,7 +83,7 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	
 	@Override
 	public CustomerIndividual saveAndReturn(CustomerIndividual entity) {
-		Customer customer = customerService.save(entity);
+		Customer customer = customerService.saveWithCustomerIndividualType();
 		entity.setCustomer(customer);
 		entity = createService.saveAndReturn(entity);
 		return entity;

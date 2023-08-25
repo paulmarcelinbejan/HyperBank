@@ -84,7 +84,7 @@ public class CustomerLegalEntityServiceImpl implements CustomerLegalEntityServic
 	
 	@Override
 	public CustomerLegalEntity saveAndReturn(CustomerLegalEntity entity) {
-		Customer customer = customerService.save(entity);
+		Customer customer = customerService.saveWithCustomerLegalEntityType();
 		entity.setCustomer(customer);
 		entity = createService.saveAndReturn(entity);
 		return entity;

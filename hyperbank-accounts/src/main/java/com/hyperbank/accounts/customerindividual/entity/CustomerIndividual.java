@@ -50,7 +50,7 @@ public class CustomerIndividual {
 	@Column(name = "phone_number", nullable = false)
 	private String phoneNumber;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "id_customer")
     @MapsId
 	private Customer customer;

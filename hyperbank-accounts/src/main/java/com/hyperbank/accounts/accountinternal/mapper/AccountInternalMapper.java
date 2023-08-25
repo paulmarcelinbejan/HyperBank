@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.account.service.AccountService;
-import com.hyperbank.accounts.accountinternal.dto.AccountInternalDto;
+import com.hyperbank.accounts.accountinternal.dto.AccountInternalResponse;
+import com.hyperbank.accounts.accountinternal.dto.AccountInternalSaveRequest;
+import com.hyperbank.accounts.accountinternal.dto.AccountInternalUpdateRequest;
 import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
 import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeService;
@@ -21,10 +23,10 @@ import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.commons.currency.entity.Currency;
 import com.hyperbank.commons.currency.service.CurrencyService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class AccountInternalMapper implements BaseMapperToEntityAndToDTO<AccountInternal, AccountInternalDto> {
+public abstract class AccountInternalMapper implements BaseMapperToEntityAndToResponse<AccountInternal, AccountInternalSaveRequest, AccountInternalUpdateRequest, AccountInternalResponse> {
 	
 	@Autowired
 	private AccountInternalTypeService accountInternalTypeService;
@@ -39,32 +41,45 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToDT
 	private CustomerService customerService;
 	
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "account", ignore = true)
+	@Mapping(source = "accountInternalTypeId", target = "accountInternalType", qualifiedByName = "getAccountInternalTypeById")
+	@Mapping(source = "currencyId", target = "currency", qualifiedByName = "getCurrencyById")
+	@Mapping(source = "customerId", target = "customer", qualifiedByName = "getCustomerById")
+	public abstract AccountInternal fromSaveRequestToEntity(AccountInternalSaveRequest saveRequest);
+
+	@Override
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<AccountInternal> fromSaveRequestsToEntities(Collection<AccountInternalSaveRequest> saveRequests);
+
+	@Override
+	@Named("fromUpdateRequestToEntity")
 	@Mapping(source = "id", target = "account", qualifiedByName = "getAccountReferenceById")
 	@Mapping(source = "accountInternalTypeId", target = "accountInternalType", qualifiedByName = "getAccountInternalTypeById")
 	@Mapping(source = "currencyId", target = "currency", qualifiedByName = "getCurrencyById")
 	@Mapping(source = "customerId", target = "customer", qualifiedByName = "getCustomerById")
-	public abstract AccountInternal toEntity(AccountInternalDto dto);
-
-	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<AccountInternal> toEntities(Collection<AccountInternalDto> dtoList);
-
-	@Override
-	@Named("toDto")
-	@Mapping(source = "accountInternalType.id", target = "accountInternalTypeId")
-	@Mapping(source = "currency.id", target = "currencyId")
-	@Mapping(source = "customer.id", target = "customerId")
-	public abstract AccountInternalDto toDto(AccountInternal entity);
+	public abstract AccountInternal fromUpdateRequestToEntity(AccountInternalUpdateRequest updateRequest);
 	
 	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<AccountInternalDto> toDtos(Collection<AccountInternal> entities);
-
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<AccountInternal> fromUpdateRequestsToEntities(Collection<AccountInternalUpdateRequest> updateRequests);
+	
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget AccountInternal toUpdate, AccountInternal newValue);
 
+	@Override
+	@Named("toResponse")
+	@Mapping(source = "accountInternalType.id", target = "accountInternalTypeId")
+	@Mapping(source = "currency.id", target = "currencyId")
+	@Mapping(source = "customer.id", target = "customerId")
+	public abstract AccountInternalResponse toResponse(AccountInternal entity);
+	
+	@Override
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<AccountInternalResponse> toResponses(Collection<AccountInternal> entities);
+	
 	@Named("getAccountReferenceById")
 	protected Account getAccountReferenceById(Long id) {
 		return accountService.getReferenceById(id);

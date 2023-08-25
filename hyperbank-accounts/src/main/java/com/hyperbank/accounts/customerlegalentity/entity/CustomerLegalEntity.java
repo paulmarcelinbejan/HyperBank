@@ -30,7 +30,7 @@ public class CustomerLegalEntity {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "id_customer")
     @MapsId
 	private Customer customer;

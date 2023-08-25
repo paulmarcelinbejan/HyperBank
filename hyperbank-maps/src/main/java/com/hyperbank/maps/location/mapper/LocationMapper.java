@@ -12,38 +12,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.city.service.CityService;
-import com.hyperbank.maps.location.dto.LocationDto;
+import com.hyperbank.maps.location.dto.LocationResponse;
+import com.hyperbank.maps.location.dto.LocationSaveRequest;
+import com.hyperbank.maps.location.dto.LocationUpdateRequest;
 import com.hyperbank.maps.location.entity.Location;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class LocationMapper implements BaseMapperToEntityAndToDTO<Location, LocationDto> {
+public abstract class LocationMapper implements BaseMapperToEntityAndToResponse<Location, LocationSaveRequest, LocationUpdateRequest, LocationResponse> {
 
 	@Autowired
 	private CityService cityService;
 
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
 	@Mapping(source = "cityId", target = "city", qualifiedByName = "getCityById")
-	public abstract Location toEntity(LocationDto dto);
+	public abstract Location fromSaveRequestToEntity(LocationSaveRequest saveRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<Location> toEntities(Collection<LocationDto> dtoList);
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<Location> fromSaveRequestsToEntities(Collection<LocationSaveRequest> saveRequests);
+	
+	@Override
+	@Named("fromUpdateRequestToEntity")
+	@Mapping(source = "cityId", target = "city", qualifiedByName = "getCityById")
+	public abstract Location fromUpdateRequestToEntity(LocationUpdateRequest updateRequest);
+
+	@Override
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<Location> fromUpdateRequestsToEntities(Collection<LocationUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget Location toUpdate, Location newValue);
 	
 	@Override
-	@Named("toDto")
+	@Named("toResponse")
 	@Mapping(source = "city.id", target = "cityId")
-	public abstract LocationDto toDto(Location entity);
+	public abstract LocationResponse toResponse(Location entity);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<LocationDto> toDtos(Collection<Location> entities);
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<LocationResponse> toResponses(Collection<Location> entities);
 
 	@Named("getCityById")
 	protected City getCityById(Integer id) throws FunctionalException {

@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.repository.CustomerRepository;
 import com.hyperbank.accounts.customer.service.CustomerService;
-import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
-import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
 import com.hyperbank.accounts.customertype.service.CustomerTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
@@ -69,14 +67,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer save(CustomerIndividual customerIndividual) {
+	public Customer saveWithCustomerIndividualType() {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(1));
 		return createService.saveAndReturn(customer);
 	}
 
 	@Override
-	public Customer save(CustomerLegalEntity customerLegalEntity) {
+	public Customer saveWithCustomerLegalEntityType() {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(2));
 		return createService.saveAndReturn(customer);

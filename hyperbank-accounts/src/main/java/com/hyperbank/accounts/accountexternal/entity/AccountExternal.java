@@ -34,7 +34,7 @@ public class AccountExternal {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "id_account")
     @MapsId
 	private Account account;

@@ -48,7 +48,7 @@ public class AccountInternal {
 	@Column(name = "end_date", nullable = false)
 	private LocalDate endDate;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
 	@JoinColumn(name = "id_account")
     @MapsId
 	private Account account;

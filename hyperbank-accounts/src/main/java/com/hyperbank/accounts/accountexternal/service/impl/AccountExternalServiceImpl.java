@@ -84,7 +84,7 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	
 	@Override
 	public AccountExternal saveAndReturn(AccountExternal entity) {
-		Account account = accountService.save(entity);
+		Account account = accountService.saveWithAccountExternalType();
 		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
 		return entity;

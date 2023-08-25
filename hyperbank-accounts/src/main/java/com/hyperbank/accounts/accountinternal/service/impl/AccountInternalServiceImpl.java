@@ -93,7 +93,7 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	
 	@Override
 	public AccountInternal saveAndReturn(AccountInternal entity) {
-		Account account = accountService.save(entity);
+		Account account = accountService.saveWithAccountInternalType();
 		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
 		return entity;

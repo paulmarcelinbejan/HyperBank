@@ -3,7 +3,6 @@ package com.hyperbank.accounts.accountinternaltype.controller;
 import java.util.Collection;
 
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeDto;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeResponse;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeSaveRequest;
+import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeUpdateRequest;
 import com.hyperbank.accounts.accountinternaltype.mapper.AccountInternalTypeMapper;
 import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,35 +35,35 @@ public class AccountInternalTypeRestController {
 	private final AccountInternalTypeMapper accountInternalTypeMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody AccountInternalTypeDto findById(@PathVariable Integer id) throws FunctionalException {
-		return accountInternalTypeMapper.toDto(accountInternalTypeService.findById(id));
+	public @ResponseBody AccountInternalTypeResponse findById(@PathVariable Integer id) throws FunctionalException {
+		return accountInternalTypeMapper.toResponse(accountInternalTypeService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<AccountInternalTypeDto> findAll() {
-		return accountInternalTypeMapper.toDtos(accountInternalTypeService.findAll());
+	public @ResponseBody Collection<AccountInternalTypeResponse> findAll() {
+		return accountInternalTypeMapper.toResponses(accountInternalTypeService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Validated(AccountInternalTypeDto.CreateValidation.class) @RequestBody final AccountInternalTypeDto dto) {
-		return accountInternalTypeService.save(accountInternalTypeMapper.toEntity(dto));
+	public @ResponseBody Integer save(@Valid @RequestBody final AccountInternalTypeSaveRequest saveRequest) {
+		return accountInternalTypeService.save(accountInternalTypeMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<AccountInternalTypeDto> dtos) {
-		ValidatorUtils.validateGroups(dtos, AccountInternalTypeDto.CreateValidation.class);
-		return accountInternalTypeService.save(accountInternalTypeMapper.toEntities(dtos));
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<AccountInternalTypeSaveRequest> saveRequests) {
+		ValidatorUtils.validate(saveRequests);
+		return accountInternalTypeService.save(accountInternalTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer update(@Validated(AccountInternalTypeDto.UpdateValidation.class) @RequestBody final AccountInternalTypeDto dto) throws FunctionalException {
-		return accountInternalTypeService.update(accountInternalTypeMapper.toEntity(dto));
+	public @ResponseBody Integer update(@Valid @RequestBody final AccountInternalTypeUpdateRequest updateRequest) throws FunctionalException {
+		return accountInternalTypeService.update(accountInternalTypeMapper.fromUpdateRequestToEntity(updateRequest));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<AccountInternalTypeDto> dtos) throws FunctionalException {
-		ValidatorUtils.validateGroups(dtos, AccountInternalTypeDto.UpdateValidation.class);
-		return accountInternalTypeService.update(accountInternalTypeMapper.toEntities(dtos));
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<AccountInternalTypeUpdateRequest> updateRequests) throws FunctionalException {
+		ValidatorUtils.validate(updateRequests);
+		return accountInternalTypeService.update(accountInternalTypeMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

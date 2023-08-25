@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.account.repository.AccountRepository;
 import com.hyperbank.accounts.account.service.AccountService;
-import com.hyperbank.accounts.accountexternal.entity.AccountExternal;
-import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
 import com.hyperbank.accounts.accounttype.service.AccountTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
@@ -69,14 +67,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account save(AccountInternal accountInternal) {
+	public Account saveWithAccountInternalType() {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(1));
 		return createService.saveAndReturn(account);
 	}
 	
 	@Override
-	public Account save(AccountExternal accountExternal) {
+	public Account saveWithAccountExternalType() {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(2));
 		return createService.saveAndReturn(account);

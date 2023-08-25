@@ -12,38 +12,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hyperbank.banks.bank.entity.Bank;
 import com.hyperbank.banks.bank.service.BankService;
-import com.hyperbank.banks.bankbranch.dto.BankBranchDto;
+import com.hyperbank.banks.bankbranch.dto.BankBranchResponse;
+import com.hyperbank.banks.bankbranch.dto.BankBranchSaveRequest;
+import com.hyperbank.banks.bankbranch.dto.BankBranchUpdateRequest;
 import com.hyperbank.banks.bankbranch.entity.BankBranch;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class BankBranchMapper implements BaseMapperToEntityAndToDTO<BankBranch, BankBranchDto> {
+public abstract class BankBranchMapper implements BaseMapperToEntityAndToResponse<BankBranch, BankBranchSaveRequest, BankBranchUpdateRequest, BankBranchResponse> {
 
 	@Autowired
 	private BankService bankService;
 
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
 	@Mapping(source = "bankId", target = "bank", qualifiedByName = "getBankById")
-	public abstract BankBranch toEntity(BankBranchDto dto);
+	public abstract BankBranch fromSaveRequestToEntity(BankBranchSaveRequest saveRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<BankBranch> toEntities(Collection<BankBranchDto> dtoList);
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<BankBranch> fromSaveRequestsToEntities(Collection<BankBranchSaveRequest> saveRequests);
+	
+	@Override
+	@Named("fromUpdateRequestToEntity")
+	@Mapping(source = "bankId", target = "bank", qualifiedByName = "getBankById")
+	public abstract BankBranch fromUpdateRequestToEntity(BankBranchUpdateRequest updateRequest);
+	
+	@Override
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<BankBranch> fromUpdateRequestsToEntities(Collection<BankBranchUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget BankBranch toUpdate, BankBranch newValue);
 	
 	@Override
-	@Named("toDto")
+	@Named("toResponse")
 	@Mapping(source = "bank.id", target = "bankId")
-	public abstract BankBranchDto toDto(BankBranch entity);
+	public abstract BankBranchResponse toResponse(BankBranch entity);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<BankBranchDto> toDtos(Collection<BankBranch> entities);
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<BankBranchResponse> toResponses(Collection<BankBranch> entities);
 
 	@Named("getBankById")
 	protected Bank getBankById(Integer id) throws FunctionalException {

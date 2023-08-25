@@ -12,37 +12,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.service.CustomerService;
-import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualDto;
+import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualResponse;
+import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualSaveRequest;
+import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualUpdateRequest;
 import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CustomerIndividualMapper implements BaseMapperToEntityAndToDTO<CustomerIndividual, CustomerIndividualDto> {
+public abstract class CustomerIndividualMapper implements BaseMapperToEntityAndToResponse<CustomerIndividual, CustomerIndividualSaveRequest, CustomerIndividualUpdateRequest, CustomerIndividualResponse> {
 
 	@Autowired
 	private CustomerService customerService;
 	
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "customer", ignore = true)
+	public abstract CustomerIndividual fromSaveRequestToEntity(CustomerIndividualSaveRequest saveRequest);
+	
+	@Override
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<CustomerIndividual> fromSaveRequestsToEntities(Collection<CustomerIndividualSaveRequest> saveRequests);
+
+	@Override
+	@Named("fromUpdateRequestToEntity")
 	@Mapping(source = "id", target = "customer", qualifiedByName = "getCustomerReferenceById")
-	public abstract CustomerIndividual toEntity(CustomerIndividualDto dto);
-
+	public abstract CustomerIndividual fromUpdateRequestToEntity(CustomerIndividualUpdateRequest updateRequest);
+	
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<CustomerIndividual> toEntities(Collection<CustomerIndividualDto> dtos);
-
-	@Override
-	@Named("toDto")
-	public abstract CustomerIndividualDto toDto(CustomerIndividual entity);
-
-	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<CustomerIndividualDto> toDtos(Collection<CustomerIndividual> entities);
-
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<CustomerIndividual> fromUpdateRequestsToEntities(Collection<CustomerIndividualUpdateRequest> updateRequests);
+	
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget CustomerIndividual toUpdate, CustomerIndividual newValue);
 
+	@Override
+	@Named("toResponse")
+	public abstract CustomerIndividualResponse toResponse(CustomerIndividual entity);
+
+	@Override
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<CustomerIndividualResponse> toResponses(Collection<CustomerIndividual> entities);
+	
 	@Named("getCustomerReferenceById")
 	protected Customer getCustomerReferenceById(Long id) {
 		return customerService.getReferenceById(id);

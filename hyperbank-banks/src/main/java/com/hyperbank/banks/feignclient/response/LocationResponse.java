@@ -3,7 +3,7 @@ package com.hyperbank.banks.feignclient.response;
 import lombok.Data;
 
 @Data
-public class LocationDto {
+public class LocationResponse {
 
 	private Long id;
 

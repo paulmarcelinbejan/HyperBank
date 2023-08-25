@@ -10,40 +10,52 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hyperbank.maps.city.dto.CityDto;
+import com.hyperbank.maps.city.dto.CityResponse;
+import com.hyperbank.maps.city.dto.CitySaveRequest;
+import com.hyperbank.maps.city.dto.CityUpdateRequest;
 import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.country.entity.Country;
 import com.hyperbank.maps.country.service.CountryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.mapstruct.BaseMapperToEntityAndToDTO;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CityMapper implements BaseMapperToEntityAndToDTO<City, CityDto> {
+public abstract class CityMapper implements BaseMapperToEntityAndToResponse<City, CitySaveRequest, CityUpdateRequest, CityResponse> {
 
 	@Autowired
 	private CountryService countryService;
 
 	@Override
-	@Named("toEntity")
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
 	@Mapping(source = "countryId", target = "country", qualifiedByName = "getCountryById")
-	public abstract City toEntity(CityDto dto);
+	public abstract City fromSaveRequestToEntity(CitySaveRequest saveRequest);
 
 	@Override
-	@IterableMapping(qualifiedByName = "toEntity")
-	public abstract Collection<City> toEntities(Collection<CityDto> dtoList);
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<City> fromSaveRequestsToEntities(Collection<CitySaveRequest> saveRequests);
 
 	@Override
-	@Named("toDto")
-	@Mapping(source = "country.id", target = "countryId")
-	public abstract CityDto toDto(City entity);
+	@Named("fromUpdateRequestToEntity")
+	@Mapping(source = "countryId", target = "country", qualifiedByName = "getCountryById")
+	public abstract City fromUpdateRequestToEntity(CityUpdateRequest updateRequest);
+
+	@Override
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
+	public abstract Collection<City> fromUpdateRequestsToEntities(Collection<CityUpdateRequest> updateRequests);
 	
-	@Override
-	@IterableMapping(qualifiedByName = "toDto")
-	public abstract Collection<CityDto> toDtos(Collection<City> entities);
-
 	@Override
 	@Mapping(target = "id", ignore = true)
 	public abstract void updateEntity(@MappingTarget City toUpdate, City newValue);
+	
+	@Override
+	@Named("toResponse")
+	@Mapping(source = "country.id", target = "countryId")
+	public abstract CityResponse toResponse(City entity);
+	
+	@Override
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<CityResponse> toResponses(Collection<City> entities);
 	
 	@Named("getCountryById")
 	protected Country getCountryById(Integer id) throws FunctionalException {

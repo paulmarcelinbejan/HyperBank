@@ -3,7 +3,6 @@ package com.hyperbank.banks.bankbranch.controller;
 import java.util.Collection;
 
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hyperbank.banks.bankbranch.dto.BankBranchDto;
+import com.hyperbank.banks.bankbranch.dto.BankBranchResponse;
+import com.hyperbank.banks.bankbranch.dto.BankBranchSaveRequest;
+import com.hyperbank.banks.bankbranch.dto.BankBranchUpdateRequest;
 import com.hyperbank.banks.bankbranch.mapper.BankBranchMapper;
 import com.hyperbank.banks.bankbranch.service.BankBranchService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -33,35 +35,35 @@ public class BankBranchRestController {
 	private final BankBranchMapper bankBranchMapper;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody BankBranchDto findById(@PathVariable Integer id) throws FunctionalException {
-		return bankBranchMapper.toDto(bankBranchService.findById(id));
+	public @ResponseBody BankBranchResponse findById(@PathVariable Integer id) throws FunctionalException {
+		return bankBranchMapper.toResponse(bankBranchService.findById(id));
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<BankBranchDto> findAll() {
-		return bankBranchMapper.toDtos(bankBranchService.findAll());
+	public @ResponseBody Collection<BankBranchResponse> findAll() {
+		return bankBranchMapper.toResponses(bankBranchService.findAll());
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Validated(BankBranchDto.CreateValidation.class) @RequestBody final BankBranchDto dto) {
-		return bankBranchService.save(bankBranchMapper.toEntity(dto));
+	public @ResponseBody Integer save(@Valid @RequestBody final BankBranchSaveRequest saveRequest) {
+		return bankBranchService.save(bankBranchMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchDto> dtos) {
-		ValidatorUtils.validateGroups(dtos, BankBranchDto.CreateValidation.class);
-		return bankBranchService.save(bankBranchMapper.toEntities(dtos));
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchSaveRequest> saveRequests) {
+		ValidatorUtils.validate(saveRequests);
+		return bankBranchService.save(bankBranchMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer update(@Validated(BankBranchDto.UpdateValidation.class) @RequestBody final BankBranchDto dto) throws FunctionalException {
-		return bankBranchService.update(bankBranchMapper.toEntity(dto));
+	public @ResponseBody Integer update(@Valid @RequestBody final BankBranchUpdateRequest updateRequest) throws FunctionalException {
+		return bankBranchService.update(bankBranchMapper.fromUpdateRequestToEntity(updateRequest));
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchDto> dtos) throws FunctionalException {
-		ValidatorUtils.validateGroups(dtos, BankBranchDto.UpdateValidation.class);
-		return bankBranchService.update(bankBranchMapper.toEntities(dtos));
+	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchUpdateRequest> updateRequests) throws FunctionalException {
+		ValidatorUtils.validate(updateRequests);
+		return bankBranchService.update(bankBranchMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
