@@ -9,7 +9,7 @@
     </parent>
 	<artifactId>hyperbank-types</artifactId>
 	<version>1.0.0</version>
-	<name>HyperBank Commons</name>
+	<name>HyperBank Types</name>
 	<description>High Performance Bank Types</description>
 	<dependencies>
 		<dependency>
