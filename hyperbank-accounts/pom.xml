@@ -22,15 +22,15 @@
 		</dependency>
 		<dependency>
 			<groupId>com.hyperbank.architecture</groupId>
+			<artifactId>hyperbank-architecture-base-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hyperbank.architecture</groupId>
 			<artifactId>hyperbank-architecture-database-sql</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>com.hyperbank.architecture</groupId>
 			<artifactId>hyperbank-architecture-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.hyperbank</groupId>
-			<artifactId>hyperbank-commons</artifactId>
 		</dependency>
 	</dependencies>
 </project>

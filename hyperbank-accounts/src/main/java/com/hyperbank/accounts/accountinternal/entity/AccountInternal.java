@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import com.hyperbank.accounts.account.entity.Account;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
 import com.hyperbank.accounts.customer.entity.Customer;
-import com.hyperbank.commons.currency.entity.Currency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,9 +34,8 @@ public class AccountInternal {
 	@JoinColumn(name = "fk_account_internal_type", nullable = false)
 	private AccountInternalType accountInternalType;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "fk_currency", nullable = false)
-	private Currency currency;
+	@Column(name = "fk_currency", nullable = false)
+	private Integer currencyId;
 
 	@Column(name = "iban", unique = true, nullable = false)
 	private String iban;

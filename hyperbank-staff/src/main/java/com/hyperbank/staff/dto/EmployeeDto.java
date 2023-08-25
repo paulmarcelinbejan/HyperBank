@@ -12,16 +12,16 @@ public class EmployeeDto {
 	private Long id;
 
 	@NotNull
-	private Integer fkNationality;
+	private Integer fkNationalityId;
 
 	@NotNull
-	private Long fkResidence;
+	private Long fkResidenceId;
 
 	@NotNull
-	private Integer sexType;
+	private Integer sexTypeId;
 
 	@NotNull
-	private Integer fkBankBranch;
+	private Integer fkBankBranchId;
 
 	@NotNull
 	private LocalDate birthDate;

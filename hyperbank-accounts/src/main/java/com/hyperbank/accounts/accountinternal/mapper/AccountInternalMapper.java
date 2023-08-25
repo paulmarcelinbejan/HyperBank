@@ -20,8 +20,6 @@ import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
 import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeService;
 import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.service.CustomerService;
-import com.hyperbank.commons.currency.entity.Currency;
-import com.hyperbank.commons.currency.service.CurrencyService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
 
@@ -35,9 +33,6 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToRe
 	private AccountService accountService;
 	
 	@Autowired
-	private CurrencyService currencyService;
-	
-	@Autowired
 	private CustomerService customerService;
 	
 	@Override
@@ -45,7 +40,6 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToRe
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "account", ignore = true)
 	@Mapping(source = "accountInternalTypeId", target = "accountInternalType", qualifiedByName = "getAccountInternalTypeById")
-	@Mapping(source = "currencyId", target = "currency", qualifiedByName = "getCurrencyById")
 	@Mapping(source = "customerId", target = "customer", qualifiedByName = "getCustomerById")
 	public abstract AccountInternal fromSaveRequestToEntity(AccountInternalSaveRequest saveRequest);
 
@@ -57,7 +51,6 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToRe
 	@Named("fromUpdateRequestToEntity")
 	@Mapping(source = "id", target = "account", qualifiedByName = "getAccountReferenceById")
 	@Mapping(source = "accountInternalTypeId", target = "accountInternalType", qualifiedByName = "getAccountInternalTypeById")
-	@Mapping(source = "currencyId", target = "currency", qualifiedByName = "getCurrencyById")
 	@Mapping(source = "customerId", target = "customer", qualifiedByName = "getCustomerById")
 	public abstract AccountInternal fromUpdateRequestToEntity(AccountInternalUpdateRequest updateRequest);
 	
@@ -72,7 +65,6 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToRe
 	@Override
 	@Named("toResponse")
 	@Mapping(source = "accountInternalType.id", target = "accountInternalTypeId")
-	@Mapping(source = "currency.id", target = "currencyId")
 	@Mapping(source = "customer.id", target = "customerId")
 	public abstract AccountInternalResponse toResponse(AccountInternal entity);
 	
@@ -88,11 +80,6 @@ public abstract class AccountInternalMapper implements BaseMapperToEntityAndToRe
 	@Named("getAccountInternalTypeById")
 	protected AccountInternalType getAccountInternalTypeById(Integer id) throws FunctionalException {
 		return accountInternalTypeService.findById(id);
-	}
-	
-	@Named("getCurrencyById")
-	protected Currency getCurrencyById(Integer id) throws FunctionalException {
-		return currencyService.findById(id);
 	}
 	
 	@Named("getCustomerById")

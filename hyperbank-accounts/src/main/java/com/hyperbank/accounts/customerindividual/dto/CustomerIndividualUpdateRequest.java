@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.hyperbank.commons.sextype.dto.SexTypeResponse;
 import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
 
@@ -29,8 +28,8 @@ public class CustomerIndividualUpdateRequest {
 	private Long fkResidence;
 
 	@JsonProperty
-	@NotNull(message = "sexType must not be null")
-	private SexTypeResponse sexType;
+	@NotNull(message = "sexTypeId must not be null")
+	private Integer sexTypeId;
 
 	@JsonProperty
 	@JsonSerialize(using = LocalDateSerializer.class)

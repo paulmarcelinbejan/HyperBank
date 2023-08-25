@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -26,12 +25,10 @@ public class BankBranch {
 	@Column(name = "id_bank_branch", nullable = false)
 	private Integer id;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_bank", nullable = false)
 	private Bank bank;
 
-	@NotNull
 	@Column(name = "fk_location", nullable = false)
 	private Long locationId;
 

@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.accounttype.entity;
 
-import com.hyperbank.commons.entity.base.TypeEntity;
+import com.hyperbank.architecture.base.data.entity.TypeEntity;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;

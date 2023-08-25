@@ -1,4 +1,4 @@
-package com.hyperbank.accounts.accountinternaltype.entity;
+package com.hyperbank.types.currency.entity;
 
 import com.hyperbank.architecture.base.data.entity.TypeEntity;
 
@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "id_account_internal_type", nullable = false))
-@Table(name = "account_internal_type")
-public class AccountInternalType extends TypeEntity {
+@Table(name = "currency")
+@AttributeOverride(name = "id", column = @Column(name = "id_currency", nullable = false))
+public class Currency extends TypeEntity {
 
 }

@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.accountinternaltype.dto;
 
-import com.hyperbank.commons.dto.base.TypeSaveRequest;
+import com.hyperbank.architecture.base.data.dto.TypeSaveRequest;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

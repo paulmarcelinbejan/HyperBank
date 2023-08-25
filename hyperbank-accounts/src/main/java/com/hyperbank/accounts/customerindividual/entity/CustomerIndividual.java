@@ -3,14 +3,12 @@ package com.hyperbank.accounts.customerindividual.entity;
 import java.time.LocalDate;
 
 import com.hyperbank.accounts.customer.entity.Customer;
-import com.hyperbank.commons.sextype.entity.SexType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -31,9 +29,8 @@ public class CustomerIndividual {
 	@Column(name = "fk_residence", nullable = false)
 	private Long fkResidence;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "fk_sex_type", nullable = false)
-	private SexType sexType;
+	@Column(name = "fk_sex_type", nullable = false)
+	private Integer sexTypeId;
 
 	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;

@@ -35,20 +35,20 @@
 		<!-- HyperBank -->
 		<hyperbank-accounts.version>1.0.0</hyperbank-accounts.version>
 		<hyperbank-banks.version>1.0.0</hyperbank-banks.version>
-		<hyperbank-commons.version>1.0.0</hyperbank-commons.version>
 		<hyperbank-loans.version>1.0.0</hyperbank-loans.version>
 		<hyperbank-maps.version>1.0.0</hyperbank-maps.version>
 		<hyperbank-staff.version>1.0.0</hyperbank-staff.version>
 		<hyperbank-transactions.version>1.0.0</hyperbank-transactions.version>
+		<hyperbank-types.version>1.0.0</hyperbank-types.version>
 	</properties>
 	<modules>
 		<module>hyperbank-accounts</module>
 		<module>hyperbank-banks</module>
-		<module>hyperbank-commons</module>
 		<module>hyperbank-loans</module>
 		<module>hyperbank-maps</module>
 		<module>hyperbank-staff</module>
 		<module>hyperbank-transactions</module>
+		<module>hyperbank-types</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -85,11 +85,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-commons</artifactId>
-				<version>${hyperbank-commons.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
 				<artifactId>hyperbank-loans</artifactId>
 				<version>${hyperbank-loans.version}</version>
 			</dependency>
@@ -107,6 +102,11 @@
 				<groupId>com.hyperbank</groupId>
 				<artifactId>hyperbank-transactions</artifactId>
 				<version>${hyperbank-transactions.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hyperbank</groupId>
+				<artifactId>hyperbank-types</artifactId>
+				<version>${hyperbank-types.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
