@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: hyperbankloans
+  banner:
+    location: classpath:/src/main/resources/banner.txt
+  datasource:
+    url: jdbc:postgresql://localhost:5432/HyperBankDB
+    driverClassName: org.postgresql.Driver
+    username: "paulmarcelinbejan"
+    password: "#PaulMarcelinBejanDB!"
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: org.postgresql.Driver
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+server:
+  port: '9666'
+springdoc:
+  pathsToMatch: /**
+  swagger-ui:
+    path: /swagger-ui.html
