@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.accountinternal.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,9 +26,9 @@ public class AccountInternalResponse implements HistoricalLocalDateAware {
 
 	@JsonProperty
 	private Integer currencyId;
-
+	
 	@JsonProperty
-	private String iban;
+	private BigDecimal balance;
 
 	@JsonProperty
 	@JsonSerialize(using = LocalDateTimeSerializer.class)

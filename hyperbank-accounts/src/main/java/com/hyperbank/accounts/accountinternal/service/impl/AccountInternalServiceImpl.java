@@ -1,6 +1,5 @@
 package com.hyperbank.accounts.accountinternal.service.impl;
 
-import java.text.MessageFormat;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +36,6 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 				readService,
 				AccountInternal::getId);
 		deleteService = new DeleteServiceImpl<>(accountInternalRepository, readService);
-		this.accountInternalRepository = accountInternalRepository;
 		this.accountService = accountService;
 	}
 
@@ -46,7 +44,6 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	private final UpdateService<Long, AccountInternal> updateService;
 	private final DeleteService<Long> deleteService;
 	
-	private final AccountInternalRepository accountInternalRepository;
 	private final AccountService accountService;
 
 	@Override
@@ -77,13 +74,6 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	@Transactional(readOnly = true)
 	public Collection<AccountInternal> findAll() {
 		return readService.findAll();
-	}
-	
-	@Override
-	public AccountInternal findByIBAN(String iban) throws FunctionalException {
-		return accountInternalRepository
-				.findByIban(iban)
-				.orElseThrow(() -> new FunctionalException(MessageFormat.format(ServiceUtils.buildErrorMessageIfEntityNotFoundByParameter(AccountInternal.class, "iban"), iban)));
 	}
 	
 	@Override

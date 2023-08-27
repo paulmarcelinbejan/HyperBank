@@ -1,6 +1,5 @@
 package com.hyperbank.accounts.accountexternal.service.impl;
 
-import java.text.MessageFormat;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -29,7 +28,6 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 		createService = new CreateServiceImpl<>(accountExternalRepository, AccountExternal::getId);
 		readService = new ReadServiceImpl<>(accountExternalRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountExternal.class));
 		deleteService = new DeleteServiceImpl<>(accountExternalRepository, readService);
-		this.accountExternalRepository = accountExternalRepository;
 		this.accountService = accountService;
 	}
 
@@ -37,7 +35,6 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	private final ReadService<Long, AccountExternal> readService;
 	private final DeleteService<Long> deleteService;
 	
-	private final AccountExternalRepository accountExternalRepository;
 	private final AccountService accountService;
 
 	@Override
@@ -68,13 +65,6 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	@Transactional(readOnly = true)
 	public Collection<AccountExternal> findAll() {
 		return readService.findAll();
-	}
-	
-	@Override
-	public AccountExternal findByIBAN(String iban) throws FunctionalException {
-		return accountExternalRepository
-				.findByIban(iban)
-				.orElseThrow(() -> new FunctionalException(MessageFormat.format(ServiceUtils.buildErrorMessageIfEntityNotFoundByParameter(AccountExternal.class, "iban"), iban)));
 	}
 	
 	@Override

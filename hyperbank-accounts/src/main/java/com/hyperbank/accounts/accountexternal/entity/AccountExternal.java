@@ -10,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -22,15 +21,9 @@ public class AccountExternal {
 	@Column(name = "id_account", nullable = false)
 	private Long id;
 
-	@NotNull
 	@Column(name = "fk_bank", nullable = false)
 	private Integer fkBank;
 
-	@NotNull
-	@Column(name = "iban", unique = true, nullable = false)
-	private String iban;
-
-	@NotNull
 	@Column(name = "name", nullable = false)
 	private String name;
 

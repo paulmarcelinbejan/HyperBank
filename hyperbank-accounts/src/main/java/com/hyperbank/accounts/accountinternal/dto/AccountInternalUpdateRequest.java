@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.accountinternal.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +11,6 @@ import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.NonOverlappingLocalDate;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -35,9 +35,9 @@ public class AccountInternalUpdateRequest implements HistoricalLocalDateAware {
 	private Integer currencyId;
 
 	@JsonProperty
-	@NotBlank(message = "iban must not be blank")
-	private String iban;
-
+	@NotNull(message = "balance must not be null")
+	private BigDecimal balance;
+	
 	@JsonProperty
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)

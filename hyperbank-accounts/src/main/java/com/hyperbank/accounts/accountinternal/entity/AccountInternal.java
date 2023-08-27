@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.accountinternal.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.hyperbank.accounts.account.entity.Account;
@@ -33,12 +34,12 @@ public class AccountInternal {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_account_internal_type", nullable = false)
 	private AccountInternalType accountInternalType;
-
+	
 	@Column(name = "fk_currency", nullable = false)
 	private Integer currencyId;
-
-	@Column(name = "iban", unique = true, nullable = false)
-	private String iban;
+	
+	@Column(name = "balance", nullable = false, precision = 12, scale = 2)
+	private BigDecimal balance;
 
 	@Column(name = "start_date", nullable = false)
 	private LocalDate startDate;
