@@ -51,7 +51,7 @@ public class AccountInternalRestController {
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Long> save(@RequestBody final Collection<AccountInternalSaveRequest> saveRequests) {
-		ValidatorUtils.validate(saveRequests);
+		ValidatorUtils.validateAll(saveRequests);
 		return accountInternalService.save(accountInternalMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
@@ -62,7 +62,7 @@ public class AccountInternalRestController {
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Long> update(@RequestBody final Collection<AccountInternalUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validate(updateRequests);
+		ValidatorUtils.validateAll(updateRequests);
 		return accountInternalService.update(accountInternalMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 

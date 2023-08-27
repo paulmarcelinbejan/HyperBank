@@ -51,7 +51,7 @@ public class CurrencyRestController {
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CurrencySaveRequest> saveRequests) {
-		ValidatorUtils.validate(saveRequests);
+		ValidatorUtils.validateAll(saveRequests);
 		return currencyService.save(currencyMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
@@ -62,7 +62,7 @@ public class CurrencyRestController {
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CurrencyUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validate(updateRequests);
+		ValidatorUtils.validateAll(updateRequests);
 		return currencyService.update(currencyMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 

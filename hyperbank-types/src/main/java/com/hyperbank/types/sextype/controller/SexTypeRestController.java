@@ -51,7 +51,7 @@ public class SexTypeRestController {
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<SexTypeSaveRequest> saveRequests) {
-		ValidatorUtils.validate(saveRequests);
+		ValidatorUtils.validateAll(saveRequests);
 		return sexTypeService.save(sexTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
@@ -62,7 +62,7 @@ public class SexTypeRestController {
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<SexTypeUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validate(updateRequests);
+		ValidatorUtils.validateAll(updateRequests);
 		return sexTypeService.update(sexTypeMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 

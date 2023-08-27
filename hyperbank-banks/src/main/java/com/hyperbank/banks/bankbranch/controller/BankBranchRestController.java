@@ -51,7 +51,7 @@ public class BankBranchRestController {
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchSaveRequest> saveRequests) {
-		ValidatorUtils.validate(saveRequests);
+		ValidatorUtils.validateAll(saveRequests);
 		return bankBranchService.save(bankBranchMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
@@ -62,7 +62,7 @@ public class BankBranchRestController {
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validate(updateRequests);
+		ValidatorUtils.validateAll(updateRequests);
 		return bankBranchService.update(bankBranchMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 

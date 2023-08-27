@@ -51,7 +51,7 @@ public class CustomerLegalEntityRestController {
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerLegalEntitySaveRequest> saveRequests) {
-		ValidatorUtils.validate(saveRequests);
+		ValidatorUtils.validateAll(saveRequests);
 		return customerLegalEntityService.save(customerLegalEntityMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 
@@ -62,7 +62,7 @@ public class CustomerLegalEntityRestController {
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Long> update(@RequestBody final Collection<CustomerLegalEntityUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validate(updateRequests);
+		ValidatorUtils.validateAll(updateRequests);
 		return customerLegalEntityService.update(customerLegalEntityMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
 
