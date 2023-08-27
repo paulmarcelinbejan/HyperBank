@@ -14,12 +14,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     database-platform: org.postgresql.Driver
-    show-sql: 'true'
+    show-sql: "true"
     hibernate:
       ddl-auto: update
 server:
-  port: '9444'
+  port: "9444"
 springdoc:
   pathsToMatch: /**
   swagger-ui:
     path: /swagger-ui.html
+logging:
+  pattern:
+    console: "%-5level %d{dd/MM/yyyy HH:mm:ss.SSSZ} {%X} [%t] %c{1} - %msg%n"
