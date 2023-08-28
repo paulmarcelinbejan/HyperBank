@@ -13,10 +13,10 @@ import com.hyperbank.types.currency.dto.CurrencyResponse;
 import com.hyperbank.types.currency.dto.CurrencySaveRequest;
 import com.hyperbank.types.currency.dto.CurrencyUpdateRequest;
 import com.hyperbank.types.currency.entity.Currency;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CurrencyMapper implements BaseMapperToEntityAndToResponse<Currency, CurrencySaveRequest, CurrencyUpdateRequest, CurrencyResponse> {
+public abstract class CurrencyMapper implements BaseFullMapper<Currency, CurrencySaveRequest, CurrencyUpdateRequest, CurrencyResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")

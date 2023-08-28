@@ -17,10 +17,10 @@ import com.hyperbank.banks.bankbranch.dto.BankBranchSaveRequest;
 import com.hyperbank.banks.bankbranch.dto.BankBranchUpdateRequest;
 import com.hyperbank.banks.bankbranch.entity.BankBranch;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class BankBranchMapper implements BaseMapperToEntityAndToResponse<BankBranch, BankBranchSaveRequest, BankBranchUpdateRequest, BankBranchResponse> {
+public abstract class BankBranchMapper implements BaseFullMapper<BankBranch, BankBranchSaveRequest, BankBranchUpdateRequest, BankBranchResponse> {
 
 	@Autowired
 	private BankService bankService;

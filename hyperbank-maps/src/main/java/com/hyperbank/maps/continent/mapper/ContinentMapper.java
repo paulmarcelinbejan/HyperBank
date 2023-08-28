@@ -13,10 +13,10 @@ import com.hyperbank.maps.continent.dto.ContinentResponse;
 import com.hyperbank.maps.continent.dto.ContinentSaveRequest;
 import com.hyperbank.maps.continent.dto.ContinentUpdateRequest;
 import com.hyperbank.maps.continent.entity.Continent;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface ContinentMapper extends BaseMapperToEntityAndToResponse<Continent, ContinentSaveRequest, ContinentUpdateRequest, ContinentResponse> {
+public interface ContinentMapper extends BaseFullMapper<Continent, ContinentSaveRequest, ContinentUpdateRequest, ContinentResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")

@@ -13,10 +13,10 @@ import com.hyperbank.types.sextype.dto.SexTypeResponse;
 import com.hyperbank.types.sextype.dto.SexTypeSaveRequest;
 import com.hyperbank.types.sextype.dto.SexTypeUpdateRequest;
 import com.hyperbank.types.sextype.entity.SexType;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseMapperToEntityAndToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class SexTypeMapper implements BaseMapperToEntityAndToResponse<SexType, SexTypeSaveRequest, SexTypeUpdateRequest, SexTypeResponse> {
+public abstract class SexTypeMapper implements BaseFullMapper<SexType, SexTypeSaveRequest, SexTypeUpdateRequest, SexTypeResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")
