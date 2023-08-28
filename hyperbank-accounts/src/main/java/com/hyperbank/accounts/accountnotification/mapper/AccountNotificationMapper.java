@@ -1,0 +1,36 @@
+package com.hyperbank.accounts.accountnotification.mapper;
+
+import java.util.Collection;
+
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.Named;
+
+import com.hyperbank.accounts.accountnotification.dto.AccountNotificationResponse;
+import com.hyperbank.accounts.accountnotification.dto.AccountNotificationSaveRequest;
+import com.hyperbank.accounts.accountnotification.entity.AccountNotification;
+import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFromSaveToResponseMapper;
+
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public abstract class AccountNotificationMapper implements BaseFromSaveToResponseMapper<AccountNotification, AccountNotificationSaveRequest, AccountNotificationResponse> {
+
+	@Override
+	@Named("fromSaveRequestToEntity")
+	@Mapping(target = "id", ignore = true)
+	public abstract AccountNotification fromSaveRequestToEntity(AccountNotificationSaveRequest saveRequest);
+
+	@Override
+	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
+	public abstract Collection<AccountNotification> fromSaveRequestsToEntities(Collection<AccountNotificationSaveRequest> saveRequests);
+
+	@Override
+	@Named("toResponse")
+	public abstract AccountNotificationResponse toResponse(AccountNotification entity);
+
+	@Override
+	@IterableMapping(qualifiedByName = "toResponse")
+	public abstract Collection<AccountNotificationResponse> toResponses(Collection<AccountNotification> entities);
+
+}
