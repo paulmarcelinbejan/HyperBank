@@ -11,8 +11,11 @@ import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
 import com.hyperbank.accounts.accountinternal.mapper.AccountInternalMapper;
 import com.hyperbank.accounts.accountinternal.repository.AccountInternalRepository;
 import com.hyperbank.accounts.accountinternal.service.AccountInternalService;
+import com.hyperbank.accounts.accountinternaltype.enums.AccountInternalTypeCode;
+import com.hyperbank.accounts.depositaccountdetails.service.DepositAccountDetailsService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
+import com.paulmarcelinbejan.toolbox.utils.text.TextUtils;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
 import com.paulmarcelinbejan.toolbox.web.service.ReadService;
@@ -27,7 +30,7 @@ import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class AccountInternalServiceImpl implements AccountInternalService {
 
-	public AccountInternalServiceImpl(AccountInternalMapper accountInternalMapper, AccountInternalRepository accountInternalRepository, AccountService accountService) {
+	public AccountInternalServiceImpl(AccountInternalMapper accountInternalMapper, AccountInternalRepository accountInternalRepository, AccountService accountService, final DepositAccountDetailsService depositAccountDetailsService) {
 		createService = new CreateServiceImpl<>(accountInternalRepository, AccountInternal::getId);
 		readService = new ReadServiceImpl<>(accountInternalRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountInternal.class));
 		updateService = new UpdateServiceImpl<>(
@@ -37,6 +40,7 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 				AccountInternal::getId);
 		deleteService = new DeleteServiceImpl<>(accountInternalRepository, readService);
 		this.accountService = accountService;
+		this.depositAccountDetailsService = depositAccountDetailsService;
 	}
 
 	private final CreateService<Long, AccountInternal> createService;
@@ -45,7 +49,8 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	private final DeleteService<Long> deleteService;
 	
 	private final AccountService accountService;
-
+	private final DepositAccountDetailsService depositAccountDetailsService;
+	
 	@Override
 	@Transactional(readOnly = true)
 	public AccountInternal getReferenceById(Long id) {
@@ -126,26 +131,36 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
+		AccountInternal accountInternal = readService.findById(id);
+		
+		// A Cascade delete will be applied starting from DepositAccountDetails.
+		if(TextUtils.isEqualTo(AccountInternalTypeCode.DEPOSIT.name(), accountInternal.getAccountInternalType().getCode())) {
+			depositAccountDetailsService.delete(id);
+			return;
+		}
+		
 		deleteService.delete(id);
-		accountService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
-		accountService.deleteIfPresent(id);
+		try {
+			delete(id);
+		} catch (FunctionalException e) { }
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
-		accountService.deleteMany(ids);
+		for(Long id : ids) {
+			delete(id);
+		}
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
-		accountService.deleteManyIfPresent(ids);
+		for(Long id : ids) {
+			deleteIfPresent(id);
+		}
 	}
 	
 }

@@ -8,12 +8,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateTimeDeserializer;
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
-import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 
 import lombok.Data;
 
 @Data
-public class AccountInternalResponse implements HistoricalLocalDateAware {
+public class AccountInternalResponse {
 
 	@JsonProperty
 	private Long id;
@@ -39,15 +38,5 @@ public class AccountInternalResponse implements HistoricalLocalDateAware {
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	private LocalDate endDate;
-
-	@Override
-	public LocalDate startLocalDate() {
-		return startDate;
-	}
-
-	@Override
-	public LocalDate endLocalDate() {
-		return endDate;
-	}
 	
 }
