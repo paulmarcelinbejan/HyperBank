@@ -1,9 +1,9 @@
-package com.hyperbank.interest.interestratevariablehistory.entity;
+package com.hyperbank.interests.interestratevariablehistory.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.hyperbank.interest.interestratevariable.entity.InterestRateVariable;
+import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

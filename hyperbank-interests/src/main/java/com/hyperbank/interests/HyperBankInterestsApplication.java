@@ -1,4 +1,4 @@
-package com.hyperbank.interest;
+package com.hyperbank.interests;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({ "com.hyperbank*", "com.paulmarcelinbejan*" })
 @EntityScan("com.hyperbank*")
 @EnableJpaRepositories("com.hyperbank*")
-public class HyperBankInterestApplication {
+public class HyperBankInterestsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HyperBankInterestApplication.class, args);
+		SpringApplication.run(HyperBankInterestsApplication.class, args);
 	}
 
 }

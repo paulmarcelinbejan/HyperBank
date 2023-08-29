@@ -1,8 +1,8 @@
-package com.hyperbank.interest.interestratefixed.entity;
+package com.hyperbank.interests.interestratefixed.entity;
 
 import java.math.BigDecimal;
 
-import com.hyperbank.interest.interestrate.entity.InterestRate;
+import com.hyperbank.interests.interestrate.entity.InterestRate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

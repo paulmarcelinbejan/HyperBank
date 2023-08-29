@@ -1,6 +1,6 @@
-package com.hyperbank.interest.interestrate.entity;
+package com.hyperbank.interests.interestrate.entity;
 
-import com.hyperbank.interest.interestratetype.entity.InterestRateType;
+import com.hyperbank.interests.interestratetype.entity.InterestRateType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

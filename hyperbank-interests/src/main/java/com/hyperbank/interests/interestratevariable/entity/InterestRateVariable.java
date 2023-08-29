@@ -1,10 +1,10 @@
-package com.hyperbank.interest.interestratevariable.entity;
+package com.hyperbank.interests.interestratevariable.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hyperbank.interest.interestrate.entity.InterestRate;
-import com.hyperbank.interest.interestratevariablehistory.entity.InterestRateVariableHistory;
+import com.hyperbank.interests.interestrate.entity.InterestRate;
+import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
 import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 
 import jakarta.persistence.CascadeType;

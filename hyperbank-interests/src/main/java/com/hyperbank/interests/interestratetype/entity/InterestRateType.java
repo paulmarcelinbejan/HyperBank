@@ -1,4 +1,4 @@
-package com.hyperbank.interest.interestratetype.entity;
+package com.hyperbank.interests.interestratetype.entity;
 
 import com.hyperbank.architecture.base.data.entity.TypeEntity;
 
