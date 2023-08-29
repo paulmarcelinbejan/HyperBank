@@ -25,9 +25,8 @@ public class LoanHistory {
 	private Loan fkLoan;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "fk_interest_type", nullable = false)
-	private InterestType interestType;
+	@Column(name = "fk_interest_type", nullable = false)
+	private Integer interestRateTypeId;
 
 	@NotNull
 	@Column(name = "fk_bank_branch", nullable = false)

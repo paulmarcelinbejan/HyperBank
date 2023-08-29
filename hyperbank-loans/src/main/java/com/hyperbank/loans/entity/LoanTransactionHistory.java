@@ -24,10 +24,8 @@ public class LoanTransactionHistory {
 	@JoinColumn(name = "fk_loan_history", nullable = false)
 	private LoanHistory loanHistory;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "fk_interest_rate", nullable = false)
-	private InterestRate interestRate;
+	@Column(name = "fk_interest_rate", nullable = false)
+	private Long interestRateId;
 
 	@NotNull
 	@Column(name = "fk_transaction", nullable = false)
