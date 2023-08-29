@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@AttributeOverride(name = "id", column = @Column(name = "id_account_type", nullable = false))
 @Table(name = "account_type")
+@AttributeOverride(name = "id", column = @Column(name = "id_account_type", nullable = false))
 public class AccountType extends TypeEntity {
 
 }
