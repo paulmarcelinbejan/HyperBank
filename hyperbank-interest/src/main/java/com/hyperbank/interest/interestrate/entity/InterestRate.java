@@ -1,4 +1,6 @@
-package com.hyperbank.loans.entity;
+package com.hyperbank.interest.interestrate.entity;
+
+import com.hyperbank.interest.interestratetype.entity.InterestRateType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,8 +25,8 @@ public class InterestRate {
 	@Column(name = "id_interest_rate", nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_interest_type")
-	private InterestType interestType;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_interest_rate_type")
+	private InterestRateType interestRateType;
 
 }

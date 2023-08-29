@@ -44,6 +44,7 @@
 	<modules>
 		<module>hyperbank-accounts</module>
 		<module>hyperbank-banks</module>
+		<module>hyperbank-interest</module>
 		<module>hyperbank-loans</module>
 		<module>hyperbank-maps</module>
 		<module>hyperbank-staff</module>
@@ -72,41 +73,6 @@
 				<version>${hyperbank-architecture.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-accounts</artifactId>
-				<version>${hyperbank-accounts.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-banks</artifactId>
-				<version>${hyperbank-banks.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-loans</artifactId>
-				<version>${hyperbank-loans.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-maps</artifactId>
-				<version>${hyperbank-maps.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-staff</artifactId>
-				<version>${hyperbank-staff.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-transactions</artifactId>
-				<version>${hyperbank-transactions.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.hyperbank</groupId>
-				<artifactId>hyperbank-types</artifactId>
-				<version>${hyperbank-types.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -1,6 +1,8 @@
-package com.hyperbank.loans.entity;
+package com.hyperbank.interest.interestratefixed.entity;
 
 import java.math.BigDecimal;
+
+import com.hyperbank.interest.interestrate.entity.InterestRate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +12,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "interest_rate_fixed")
 public class InterestRateFixed {
@@ -19,8 +22,7 @@ public class InterestRateFixed {
 	@Id
 	@Column(name = "id_interest_rate", nullable = false)
 	private Integer id;
-
-	@NotNull
+	
 	@Column(name = "percentage", nullable = false, precision = 5, scale = 2)
 	private BigDecimal percentage;
 	
