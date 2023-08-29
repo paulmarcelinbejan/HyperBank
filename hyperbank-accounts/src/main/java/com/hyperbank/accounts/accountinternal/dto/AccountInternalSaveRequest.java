@@ -10,7 +10,7 @@ import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateTimeDeseriali
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
-import com.paulmarcelinbejan.toolbox.utils.validation.annotation.NonOverlappingLocalDate;
+import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.NonOverlappingLocalDate;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
