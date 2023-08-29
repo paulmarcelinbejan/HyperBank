@@ -25,7 +25,7 @@ public class Account {
 	@Column(name = "id_account", nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_account_type", nullable = false)
 	private AccountType accountType;
 

@@ -25,7 +25,7 @@ public class Customer {
 	@Column(name = "id_customer", nullable = false)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_customer_type", nullable = false)
 	private CustomerType customerType;
 
