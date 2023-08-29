@@ -32,19 +32,11 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 		<!-- HyperBank Architecture -->
 		<hyperbank-architecture.version>1.0.0</hyperbank-architecture.version>
-		<!-- HyperBank -->
-		<hyperbank-accounts.version>1.0.0</hyperbank-accounts.version>
-		<hyperbank-banks.version>1.0.0</hyperbank-banks.version>
-		<hyperbank-loans.version>1.0.0</hyperbank-loans.version>
-		<hyperbank-maps.version>1.0.0</hyperbank-maps.version>
-		<hyperbank-staff.version>1.0.0</hyperbank-staff.version>
-		<hyperbank-transactions.version>1.0.0</hyperbank-transactions.version>
-		<hyperbank-types.version>1.0.0</hyperbank-types.version>
 	</properties>
 	<modules>
 		<module>hyperbank-accounts</module>
 		<module>hyperbank-banks</module>
-		<module>hyperbank-interest</module>
+		<module>hyperbank-interests</module>
 		<module>hyperbank-loans</module>
 		<module>hyperbank-maps</module>
 		<module>hyperbank-staff</module>

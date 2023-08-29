@@ -7,10 +7,10 @@
 		<artifactId>hyperbank</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>hyperbank-interest</artifactId>
+	<artifactId>hyperbank-interests</artifactId>
 	<version>1.0.0</version>
-	<name>HyperBank Interest</name>
-	<description>High Performance Bank Interest</description>
+	<name>HyperBank Interests</name>
+	<description>High Performance Bank Interests</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
