@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateTimeDeserializer;
-import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
+import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
+import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
 
 import lombok.Data;
 
@@ -30,13 +30,13 @@ public class AccountInternalResponse {
 	private BigDecimal balance;
 
 	@JsonProperty
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate startDate;
 
 	@JsonProperty
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	private LocalDate endDate;
 	
 }
