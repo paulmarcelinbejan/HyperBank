@@ -10,8 +10,8 @@ import lombok.Data;
 public class CustomerLegalEntitySaveRequest {
 
 	@JsonProperty
-	@NotNull(message = "fkHeadquarters must not be null")
-	private Long fkHeadquarters;
+	@NotNull(message = "headquartersId must not be null")
+	private Long headquartersId;
 
 	@JsonProperty
 	@NotBlank(message = "name must not be blank")

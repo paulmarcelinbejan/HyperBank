@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateTimeDeserializer;
-import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateTimeSerializer;
+import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
+import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.NonOverlappingLocalDate;
@@ -36,15 +36,15 @@ public class AccountInternalSaveRequest implements HistoricalLocalDateAware {
 	private BigDecimal balance;
 	
 	@JsonProperty
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@NotNull(message = "startDate must not be null")
 	private LocalDate startDate;
 
 	@JsonProperty
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDate endDate = DateUtils.buildLocalDate(9999, 12, 31); //TODO check if this will be the default value
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	private LocalDate endDate = DateUtils.MAX_END_DATE;
 
 	@Override
 	public LocalDate startLocalDate() {

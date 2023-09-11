@@ -11,7 +11,7 @@ public class CustomerLegalEntityResponse {
 	private Long id;
 
 	@JsonProperty
-	private Long fkHeadquarters;
+	private Long headquartersId;
 
 	@JsonProperty
 	private String name;

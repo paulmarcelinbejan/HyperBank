@@ -20,12 +20,12 @@ public class CustomerIndividualUpdateRequest {
 	private Long id;
 
 	@JsonProperty
-	@NotNull(message = "fkNationality must not be null")
-	private Integer fkNationality;
+	@NotNull(message = "nationalityId must not be null")
+	private Integer nationalityId;
 
 	@JsonProperty
-	@NotNull(message = "fkResidence must not be null")
-	private Long fkResidence;
+	@NotNull(message = "residenceId must not be null")
+	private Long residenceId;
 
 	@JsonProperty
 	@NotNull(message = "sexTypeId must not be null")

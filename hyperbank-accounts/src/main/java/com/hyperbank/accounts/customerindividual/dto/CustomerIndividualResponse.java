@@ -17,10 +17,10 @@ public class CustomerIndividualResponse {
 	private Long id;
 
 	@JsonProperty
-	private Integer fkNationality;
+	private Integer nationalityId;
 
 	@JsonProperty
-	private Long fkResidence;
+	private Long residenceId;
 
 	@JsonProperty
 	private Integer sexTypeId;
