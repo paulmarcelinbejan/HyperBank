@@ -21,7 +21,7 @@ public class InterestRateFixed {
 
 	@Id
 	@Column(name = "id_interest_rate", nullable = false)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "percentage", nullable = false, precision = 5, scale = 2)
 	private BigDecimal percentage;

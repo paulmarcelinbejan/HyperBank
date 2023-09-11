@@ -24,7 +24,7 @@ public class CustomerLegalEntity {
 
 	@NotNull
 	@Column(name = "fk_headquarters", nullable = false)
-	private Long fkHeadquarters;
+	private Long headquartersId;
 
 	@NotNull
 	@Column(name = "name", nullable = false)

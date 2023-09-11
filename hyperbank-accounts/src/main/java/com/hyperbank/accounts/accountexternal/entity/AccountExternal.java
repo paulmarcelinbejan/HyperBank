@@ -22,7 +22,7 @@ public class AccountExternal {
 	private Long id;
 
 	@Column(name = "fk_bank", nullable = false)
-	private Integer fkBank;
+	private Integer bankId;
 
 	@Column(name = "name", nullable = false)
 	private String name;

@@ -17,10 +17,10 @@ public class Transaction {
 	private Long id;
 
 	@Column(name = "fk_account_sender", nullable = false)
-	private Long fkAccountSender;
+	private Long accountSenderId;
 
 	@Column(name = "fk_account_receiver", nullable = false)
-	private Long fkAccountReceiver;
+	private Long accountReceiverId;
 
 	@Column(name = "fk_currency", nullable = false)
 	private Integer currencyId;

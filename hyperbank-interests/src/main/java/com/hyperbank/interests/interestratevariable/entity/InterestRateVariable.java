@@ -26,7 +26,7 @@ public class InterestRateVariable {
 
 	@Id
 	@Column(name = "id_interest_rate", nullable = false)
-	private Integer id;
+	private Long id;
 
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;

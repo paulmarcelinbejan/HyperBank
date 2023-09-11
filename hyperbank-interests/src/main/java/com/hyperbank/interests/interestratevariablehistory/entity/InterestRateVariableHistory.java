@@ -20,7 +20,7 @@ public class InterestRateVariableHistory {
 
 	@Id
 	@Column(name = "id_interest_rate_variable_history", nullable = false)
-	private Integer id;
+	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private InterestRateVariable interestRateVariable;

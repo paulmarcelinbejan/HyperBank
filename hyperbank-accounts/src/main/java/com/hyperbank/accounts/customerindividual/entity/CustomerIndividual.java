@@ -24,10 +24,10 @@ public class CustomerIndividual {
 	private Long id;
 
 	@Column(name = "fk_nationality", nullable = false)
-	private Integer fkNationality;
+	private Integer nationalityId;
 
 	@Column(name = "fk_residence", nullable = false)
-	private Long fkResidence;
+	private Long residenceId;
 
 	@Column(name = "fk_sex_type", nullable = false)
 	private Integer sexTypeId;
