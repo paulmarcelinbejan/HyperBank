@@ -98,25 +98,21 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	@Override
 	public void delete(Long id) throws FunctionalException {
 		deleteService.delete(id);
-		accountService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
 		deleteService.deleteIfPresent(id);
-		accountService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
 		deleteService.deleteMany(ids);
-		accountService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
 		deleteService.deleteManyIfPresent(ids);
-		accountService.deleteManyIfPresent(ids);
 	}
 	
 }
