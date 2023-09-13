@@ -10,10 +10,10 @@ import org.mapstruct.Named;
 
 import com.hyperbank.accounts.depositaccountdetails.dto.DepositAccountResponse;
 import com.hyperbank.accounts.depositaccountdetails.entity.DepositAccountDetails;
-import com.paulmarcelinbejan.toolbox.utils.mapping.MapperToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromEntityToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class DepositAccountDetailsMapper implements MapperToResponse<DepositAccountDetails, DepositAccountResponse> {
+public abstract class DepositAccountDetailsMapper implements MapperFromEntityToResponse<DepositAccountDetails, DepositAccountResponse> {
 
 	@Override
 	@Named("toResponse")

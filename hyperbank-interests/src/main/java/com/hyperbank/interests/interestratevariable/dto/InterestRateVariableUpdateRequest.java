@@ -10,6 +10,7 @@ import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.FirstDayOfMonth;
+import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.LastDayOfMonth;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -35,6 +36,7 @@ public class InterestRateVariableUpdateRequest {
 	@JsonProperty
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@LastDayOfMonth(message = "endDate must be the last day of the month")
 	private LocalDate endDate = DateUtils.MAX_END_DATE;
 	
 }

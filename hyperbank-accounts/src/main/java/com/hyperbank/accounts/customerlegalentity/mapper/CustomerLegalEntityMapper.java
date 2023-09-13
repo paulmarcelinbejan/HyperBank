@@ -16,10 +16,10 @@ import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntityRespons
 import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntitySaveRequest;
 import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntityUpdateRequest;
 import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CustomerLegalEntityMapper implements BaseFullMapper<CustomerLegalEntity, CustomerLegalEntitySaveRequest, CustomerLegalEntityUpdateRequest, CustomerLegalEntityResponse> {
+public abstract class CustomerLegalEntityMapper implements FullMapper<CustomerLegalEntity, CustomerLegalEntitySaveRequest, CustomerLegalEntityUpdateRequest, CustomerLegalEntityResponse> {
 
 	@Autowired
 	private CustomerService customerService;

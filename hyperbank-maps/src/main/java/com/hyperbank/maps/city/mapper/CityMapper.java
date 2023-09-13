@@ -17,10 +17,10 @@ import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.country.entity.Country;
 import com.hyperbank.maps.country.service.CountryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CityMapper implements BaseFullMapper<City, CitySaveRequest, CityUpdateRequest, CityResponse> {
+public abstract class CityMapper implements FullMapper<City, CitySaveRequest, CityUpdateRequest, CityResponse> {
 
 	@Autowired
 	private CountryService countryService;

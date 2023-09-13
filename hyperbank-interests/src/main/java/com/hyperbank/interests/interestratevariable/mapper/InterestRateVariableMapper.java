@@ -15,10 +15,10 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableSave
 import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpdateRequest;
 import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class InterestRateVariableMapper implements BaseFullMapper<InterestRateVariable, InterestRateVariableSaveRequest, InterestRateVariableUpdateRequest, InterestRateVariableResponse> {
+public abstract class InterestRateVariableMapper implements FullMapper<InterestRateVariable, InterestRateVariableSaveRequest, InterestRateVariableUpdateRequest, InterestRateVariableResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")

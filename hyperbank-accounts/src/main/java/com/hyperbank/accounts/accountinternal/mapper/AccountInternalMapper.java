@@ -21,10 +21,10 @@ import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeSer
 import com.hyperbank.accounts.customer.entity.Customer;
 import com.hyperbank.accounts.customer.service.CustomerService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class AccountInternalMapper implements BaseFullMapper<AccountInternal, AccountInternalSaveRequest, AccountInternalUpdateRequest, AccountInternalResponse> {
+public abstract class AccountInternalMapper implements FullMapper<AccountInternal, AccountInternalSaveRequest, AccountInternalUpdateRequest, AccountInternalResponse> {
 	
 	@Autowired
 	private AccountInternalTypeService accountInternalTypeService;

@@ -17,10 +17,10 @@ import com.hyperbank.maps.country.dto.CountrySaveRequest;
 import com.hyperbank.maps.country.dto.CountryUpdateRequest;
 import com.hyperbank.maps.country.entity.Country;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.BaseFullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class CountryMapper implements BaseFullMapper<Country, CountrySaveRequest, CountryUpdateRequest, CountryResponse> {
+public abstract class CountryMapper implements FullMapper<Country, CountrySaveRequest, CountryUpdateRequest, CountryResponse> {
 
 	@Autowired
 	private ContinentService continentService;
