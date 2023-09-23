@@ -43,7 +43,7 @@ public class InterestRateVariable {
 	)
 	private List<InterestRateVariableHistory> interestRateVariableHistoryList = new ArrayList<>();
 	
-	public InterestRateVariable addinterestRateHistory(InterestRateVariableHistory interestRateVariableHistory) {
+	public InterestRateVariable addInterestRateHistory(InterestRateVariableHistory interestRateVariableHistory) {
 		if(!interestRateVariableHistoryList.isEmpty()) {
 			InterestRateVariableHistory lastValidInterestRate = interestRateVariableHistoryList.get(interestRateVariableHistoryList.size() - 1);
 			lastValidInterestRate.setEndDate(DateUtils.lastDayOfPreviousMonth(interestRateVariableHistory.getStartDate()));

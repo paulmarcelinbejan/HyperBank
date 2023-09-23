@@ -1,46 +1,40 @@
 package com.hyperbank.interests.interestratevariable.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hyperbank.interests.interestrate.entity.InterestRate;
+import com.hyperbank.interests.interestrate.service.InterestRateService;
 import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
-import com.hyperbank.interests.interestratevariable.mapper.InterestRateVariableMapper;
 import com.hyperbank.interests.interestratevariable.repository.InterestRateVariableRepository;
 import com.hyperbank.interests.interestratevariable.service.InterestRateVariableService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
 import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
 import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
 import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class InterestRateVariableServiceImpl implements InterestRateVariableService {
 
-	public InterestRateVariableServiceImpl(InterestRateVariableMapper interestRateVariableMapper, InterestRateVariableRepository interestRateVariableRepository) {
+	public InterestRateVariableServiceImpl(InterestRateVariableRepository interestRateVariableRepository, InterestRateService interestRateService) {
 		createService = new CreateServiceImpl<>(interestRateVariableRepository, InterestRateVariable::getId);
 		readService = new ReadServiceImpl<>(interestRateVariableRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(InterestRateVariable.class));
-		updateService = new UpdateServiceImpl<>(
-				interestRateVariableRepository,
-				interestRateVariableMapper,
-				readService,
-				InterestRateVariable::getId);
-		deleteService = new DeleteServiceImpl<>(interestRateVariableRepository, readService);
+		
+		this.interestRateService = interestRateService;
 	}
 
 	private final CreateService<Long, InterestRateVariable> createService;
 	private final ReadService<Long, InterestRateVariable> readService;
-	private final UpdateService<Long, InterestRateVariable> updateService;
-	private final DeleteService<Long> deleteService;
-
+	
+	private final InterestRateService interestRateService;
+	
 	@Override
 	@Transactional(readOnly = true)
 	public InterestRateVariable getReferenceById(Long id) {
@@ -73,62 +67,57 @@ public class InterestRateVariableServiceImpl implements InterestRateVariableServ
 
 	@Override
 	public Long save(InterestRateVariable entity) {
-		return createService.save(entity);
+		return saveAndReturn(entity).getId();
 	}
 
 	@Override
 	public InterestRateVariable saveAndReturn(InterestRateVariable entity) {
+		InterestRate interestRate = interestRateService.saveWithInterestRateVariableType();
+		entity.setInterestRate(interestRate);
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
 	public Collection<Long> save(Collection<InterestRateVariable> entities) {
-		return createService.save(entities);
+		entities = saveAndReturn(entities);
+		return entities.stream()
+				       .map(InterestRateVariable::getId)
+				       .toList();
 	}
 
 	@Override
 	public Collection<InterestRateVariable> saveAndReturn(Collection<InterestRateVariable> entities) {
-		return createService.saveAndReturn(entities);
+		return entities.stream()
+			   	   .map(this::saveAndReturn)
+			   	   .toList();
 	}
-
+	
 	@Override
 	public Long update(InterestRateVariable entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateAndReturn(entity).getId();
 	}
 
 	@Override
 	public InterestRateVariable updateAndReturn(InterestRateVariable entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return readService.findById(entity.getId());
 	}
 	
 	@Override
 	public Collection<Long> update(Collection<InterestRateVariable> entities) throws FunctionalException {
-		return updateService.update(entities);
+		entities = updateAndReturn(entities);
+		return entities.stream()
+				       .map(InterestRateVariable::getId)
+				       .toList();
 	}
 	
 	@Override
 	public Collection<InterestRateVariable> updateAndReturn(Collection<InterestRateVariable> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+		Collection<InterestRateVariable> updatedCollection = new ArrayList<>();
+		for(InterestRateVariable entity : entities) {
+			updatedCollection.add(updateAndReturn(entity));
+		}
+		return updatedCollection;
 	}
 
-	@Override
-	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
-	}
-	
-	@Override
-	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
-	}
-
-	@Override
-	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
-	}
-
-	@Override
-	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
-	}
 	
 }
