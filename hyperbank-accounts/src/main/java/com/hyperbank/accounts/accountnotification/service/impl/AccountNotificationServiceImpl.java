@@ -64,22 +64,22 @@ public class AccountNotificationServiceImpl implements AccountNotificationServic
 	}
 
 	@Override
-	public Long save(AccountNotification entity) {
+	public Long save(AccountNotification entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 
 	@Override
-	public AccountNotification saveAndReturn(AccountNotification entity) {
+	public AccountNotification saveAndReturn(AccountNotification entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountNotification> entities) {
+	public Collection<Long> save(Collection<AccountNotification> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 
 	@Override
-	public Collection<AccountNotification> saveAndReturn(Collection<AccountNotification> entities) {
+	public Collection<AccountNotification> saveAndReturn(Collection<AccountNotification> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

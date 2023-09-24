@@ -72,22 +72,22 @@ public class AccountInternalTypeServiceImpl implements AccountInternalTypeServic
 	}
 
 	@Override
-	public Integer save(AccountInternalType entity) {
+	public Integer save(AccountInternalType entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 
 	@Override
-	public AccountInternalType saveAndReturn(AccountInternalType entity) {
+	public AccountInternalType saveAndReturn(AccountInternalType entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<AccountInternalType> entities) {
+	public Collection<Integer> save(Collection<AccountInternalType> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 
 	@Override
-	public Collection<AccountInternalType> saveAndReturn(Collection<AccountInternalType> entities) {
+	public Collection<AccountInternalType> saveAndReturn(Collection<AccountInternalType> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

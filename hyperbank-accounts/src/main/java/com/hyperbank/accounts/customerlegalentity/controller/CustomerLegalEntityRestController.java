@@ -45,12 +45,12 @@ public class CustomerLegalEntityRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final CustomerLegalEntitySaveRequest saveRequest) {
+	public @ResponseBody Long save(@Valid @RequestBody final CustomerLegalEntitySaveRequest saveRequest) throws FunctionalException {
 		return customerLegalEntityService.save(customerLegalEntityMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerLegalEntitySaveRequest> saveRequests) {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerLegalEntitySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return customerLegalEntityService.save(customerLegalEntityMapper.fromSaveRequestsToEntities(saveRequests));
 	}

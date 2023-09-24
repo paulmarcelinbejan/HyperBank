@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.accountinternal.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -82,12 +83,12 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	}
 	
 	@Override
-	public Long save(AccountInternal entity) {
+	public Long save(AccountInternal entity) throws FunctionalException {
 		return saveAndReturn(entity).getId();
 	}
 	
 	@Override
-	public AccountInternal saveAndReturn(AccountInternal entity) {
+	public AccountInternal saveAndReturn(AccountInternal entity) throws FunctionalException {
 		Account account = accountService.saveWithAccountInternalType();
 		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
@@ -95,18 +96,21 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountInternal> entities) {
-		entities = saveAndReturn(entities);
-		return entities.stream()
-				       .map(AccountInternal::getId)
-				       .toList();
+	public Collection<Long> save(Collection<AccountInternal> entities) throws FunctionalException {
+		Collection<Long> savedEntities = new ArrayList<>();
+		for(AccountInternal entity : entities) {
+			savedEntities.add(save(entity));
+		}
+		return savedEntities;
 	}
 	
 	@Override
-	public Collection<AccountInternal> saveAndReturn(Collection<AccountInternal> entities) {
-		return entities.stream()
-					   .map(this::saveAndReturn)
-					   .toList();
+	public Collection<AccountInternal> saveAndReturn(Collection<AccountInternal> entities) throws FunctionalException {
+		Collection<AccountInternal> savedEntities = new ArrayList<>();
+		for(AccountInternal entity : entities) {
+			savedEntities.add(saveAndReturn(entity));
+		}
+		return savedEntities;
 	}
 
 	@Override

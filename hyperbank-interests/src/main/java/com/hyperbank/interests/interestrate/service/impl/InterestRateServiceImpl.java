@@ -67,14 +67,14 @@ public class InterestRateServiceImpl implements InterestRateService {
 	}
 
 	@Override
-	public InterestRate saveWithInterestRateFixedType() {
+	public InterestRate saveWithInterestRateFixedType() throws FunctionalException {
 		InterestRate interestRate = new InterestRate();
 		interestRate.setInterestRateType(interestRateTypeService.getReferenceById(1));
 		return createService.saveAndReturn(interestRate);
 	}
 	
 	@Override
-	public InterestRate saveWithInterestRateVariableType() {
+	public InterestRate saveWithInterestRateVariableType() throws FunctionalException {
 		InterestRate interestRate = new InterestRate();
 		interestRate.setInterestRateType(interestRateTypeService.getReferenceById(2));
 		return createService.saveAndReturn(interestRate);

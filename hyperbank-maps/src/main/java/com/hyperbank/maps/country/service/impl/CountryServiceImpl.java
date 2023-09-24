@@ -72,22 +72,22 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	public Integer save(Country entity) {
+	public Integer save(Country entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public Country saveAndReturn(Country entity) {
+	public Country saveAndReturn(Country entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<Country> entities) {
+	public Collection<Integer> save(Collection<Country> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<Country> saveAndReturn(Collection<Country> entities) {
+	public Collection<Country> saveAndReturn(Collection<Country> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

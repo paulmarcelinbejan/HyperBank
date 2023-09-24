@@ -72,22 +72,22 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public Integer save(Bank entity) {
+	public Integer save(Bank entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public Bank saveAndReturn(Bank entity) {
+	public Bank saveAndReturn(Bank entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<Bank> entities) {
+	public Collection<Integer> save(Collection<Bank> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<Bank> saveAndReturn(Collection<Bank> entities) {
+	public Collection<Bank> saveAndReturn(Collection<Bank> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

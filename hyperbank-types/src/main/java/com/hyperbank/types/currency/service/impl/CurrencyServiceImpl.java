@@ -72,22 +72,22 @@ public class CurrencyServiceImpl implements CurrencyService {
 	}
 
 	@Override
-	public Integer save(Currency entity) {
+	public Integer save(Currency entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 
 	@Override
-	public Currency saveAndReturn(Currency entity) {
+	public Currency saveAndReturn(Currency entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<Currency> entities) {
+	public Collection<Integer> save(Collection<Currency> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 
 	@Override
-	public Collection<Currency> saveAndReturn(Collection<Currency> entities) {
+	public Collection<Currency> saveAndReturn(Collection<Currency> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

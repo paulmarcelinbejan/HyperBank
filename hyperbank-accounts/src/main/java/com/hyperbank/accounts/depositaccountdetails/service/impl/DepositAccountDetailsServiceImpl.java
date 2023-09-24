@@ -69,24 +69,24 @@ public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsSe
 	}
 
 	@Override
-	public Long save(AccountInternal accountInternal) {
+	public Long save(AccountInternal accountInternal) throws FunctionalException {
 		return saveAndReturn(accountInternal).getId();
 	}
 
 	@Override
-	public DepositAccountDetails saveAndReturn(AccountInternal accountInternal) {
+	public DepositAccountDetails saveAndReturn(AccountInternal accountInternal) throws FunctionalException {
 		DepositAccountDetails depositAccountDetails = buildDepositAccountDetails(accountInternal);
 		return createService.saveAndReturn(depositAccountDetails);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountInternal> accountsInternal) {
+	public Collection<Long> save(Collection<AccountInternal> accountsInternal) throws FunctionalException {
 		Collection<DepositAccountDetails> details = accountsInternal.stream().map(this::buildDepositAccountDetails).toList();
 		return createService.save(details);
 	}
 
 	@Override
-	public Collection<DepositAccountDetails> saveAndReturn(Collection<AccountInternal> accountsInternal) {
+	public Collection<DepositAccountDetails> saveAndReturn(Collection<AccountInternal> accountsInternal) throws FunctionalException {
 		Collection<DepositAccountDetails> details = accountsInternal.stream().map(this::buildDepositAccountDetails).toList();
 		return createService.saveAndReturn(details);
 	}

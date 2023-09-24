@@ -45,12 +45,12 @@ public class ContinentRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final ContinentSaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final ContinentSaveRequest saveRequest) throws FunctionalException {
 		return continentService.save(continentMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return continentService.save(continentMapper.fromSaveRequestsToEntities(saveRequests));
 	}

@@ -45,12 +45,12 @@ public class SexTypeRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final SexTypeSaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final SexTypeSaveRequest saveRequest) throws FunctionalException {
 		return sexTypeService.save(sexTypeMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<SexTypeSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<SexTypeSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return sexTypeService.save(sexTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}

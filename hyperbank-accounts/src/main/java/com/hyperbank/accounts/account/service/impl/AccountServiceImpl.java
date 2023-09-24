@@ -67,14 +67,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account saveWithAccountInternalType() {
+	public Account saveWithAccountInternalType() throws FunctionalException {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(1));
 		return createService.saveAndReturn(account);
 	}
 	
 	@Override
-	public Account saveWithAccountExternalType() {
+	public Account saveWithAccountExternalType() throws FunctionalException {
 		Account account = new Account();
 		account.setAccountType(accountTypeService.getReferenceById(2));
 		return createService.saveAndReturn(account);

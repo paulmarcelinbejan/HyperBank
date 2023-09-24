@@ -67,14 +67,14 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer saveWithCustomerIndividualType() {
+	public Customer saveWithCustomerIndividualType() throws FunctionalException {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(1));
 		return createService.saveAndReturn(customer);
 	}
 
 	@Override
-	public Customer saveWithCustomerLegalEntityType() {
+	public Customer saveWithCustomerLegalEntityType() throws FunctionalException {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(2));
 		return createService.saveAndReturn(customer);

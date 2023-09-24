@@ -45,12 +45,12 @@ public class AccountInternalTypeRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final AccountInternalTypeSaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final AccountInternalTypeSaveRequest saveRequest) throws FunctionalException {
 		return accountInternalTypeService.save(accountInternalTypeMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<AccountInternalTypeSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<AccountInternalTypeSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return accountInternalTypeService.save(accountInternalTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}

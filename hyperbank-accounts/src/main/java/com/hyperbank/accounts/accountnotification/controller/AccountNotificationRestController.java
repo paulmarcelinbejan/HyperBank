@@ -43,12 +43,12 @@ public class AccountNotificationRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final AccountNotificationSaveRequest saveRequest) {
+	public @ResponseBody Long save(@Valid @RequestBody final AccountNotificationSaveRequest saveRequest) throws FunctionalException {
 		return accountNotificationService.save(accountNotificationMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<AccountNotificationSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<AccountNotificationSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return accountNotificationService.save(accountNotificationMapper.fromSaveRequestsToEntities(saveRequests));
 	}

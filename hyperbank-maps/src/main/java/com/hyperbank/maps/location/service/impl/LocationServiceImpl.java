@@ -72,22 +72,22 @@ public class LocationServiceImpl implements LocationService {
 	}
 
 	@Override
-	public Long save(Location entity) {
+	public Long save(Location entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public Location saveAndReturn(Location entity) {
+	public Location saveAndReturn(Location entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<Location> entities) {
+	public Collection<Long> save(Collection<Location> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<Location> saveAndReturn(Collection<Location> entities) {
+	public Collection<Location> saveAndReturn(Collection<Location> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

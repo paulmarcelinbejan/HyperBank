@@ -45,12 +45,12 @@ public class CurrencyRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final CurrencySaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final CurrencySaveRequest saveRequest) throws FunctionalException {
 		return currencyService.save(currencyMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CurrencySaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CurrencySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return currencyService.save(currencyMapper.fromSaveRequestsToEntities(saveRequests));
 	}

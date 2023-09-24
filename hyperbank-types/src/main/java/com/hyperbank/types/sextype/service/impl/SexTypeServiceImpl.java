@@ -72,22 +72,22 @@ public class SexTypeServiceImpl implements SexTypeService {
 	}
 
 	@Override
-	public Integer save(SexType entity) {
+	public Integer save(SexType entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 
 	@Override
-	public SexType saveAndReturn(SexType entity) {
+	public SexType saveAndReturn(SexType entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<SexType> entities) {
+	public Collection<Integer> save(Collection<SexType> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 
 	@Override
-	public Collection<SexType> saveAndReturn(Collection<SexType> entities) {
+	public Collection<SexType> saveAndReturn(Collection<SexType> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

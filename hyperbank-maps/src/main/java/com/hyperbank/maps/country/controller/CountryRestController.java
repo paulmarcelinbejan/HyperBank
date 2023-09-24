@@ -45,12 +45,12 @@ public class CountryRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final CountrySaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final CountrySaveRequest saveRequest) throws FunctionalException {
 		return countryService.save(countryMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CountrySaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CountrySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return countryService.save(countryMapper.fromSaveRequestsToEntities(saveRequests));
 	}

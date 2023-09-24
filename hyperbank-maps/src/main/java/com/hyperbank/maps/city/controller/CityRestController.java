@@ -45,12 +45,12 @@ public class CityRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final CitySaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final CitySaveRequest saveRequest) throws FunctionalException {
 		return cityService.save(cityMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CitySaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CitySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return cityService.save(cityMapper.fromSaveRequestsToEntities(saveRequests));
 	}

@@ -72,22 +72,22 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 
 	@Override
-	public Integer save(Continent entity) {
+	public Integer save(Continent entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public Continent saveAndReturn(Continent entity) {
+	public Continent saveAndReturn(Continent entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<Continent> entities) {
+	public Collection<Integer> save(Collection<Continent> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<Continent> saveAndReturn(Collection<Continent> entities) {
+	public Collection<Continent> saveAndReturn(Collection<Continent> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

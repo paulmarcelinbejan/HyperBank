@@ -45,12 +45,12 @@ public class CustomerIndividualRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final CustomerIndividualSaveRequest saveRequest) {
+	public @ResponseBody Long save(@Valid @RequestBody final CustomerIndividualSaveRequest saveRequest) throws FunctionalException {
 		return customerIndividualService.save(customerIndividualMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerIndividualSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerIndividualSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return customerIndividualService.save(customerIndividualMapper.fromSaveRequestsToEntities(saveRequests));
 	}

@@ -45,12 +45,12 @@ public class BankRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final BankSaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final BankSaveRequest saveRequest) throws FunctionalException {
 		return bankService.save(bankMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return bankService.save(bankMapper.fromSaveRequestsToEntities(saveRequests));
 	}

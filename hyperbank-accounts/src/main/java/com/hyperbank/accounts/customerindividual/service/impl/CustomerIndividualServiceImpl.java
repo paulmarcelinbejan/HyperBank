@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.customerindividual.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -77,12 +78,12 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	}
 
 	@Override
-	public Long save(CustomerIndividual entity) {
+	public Long save(CustomerIndividual entity) throws FunctionalException {
 		return saveAndReturn(entity).getId();
 	}
 	
 	@Override
-	public CustomerIndividual saveAndReturn(CustomerIndividual entity) {
+	public CustomerIndividual saveAndReturn(CustomerIndividual entity) throws FunctionalException {
 		Customer customer = customerService.saveWithCustomerIndividualType();
 		entity.setCustomer(customer);
 		entity = createService.saveAndReturn(entity);
@@ -90,18 +91,21 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	}
 
 	@Override
-	public Collection<Long> save(Collection<CustomerIndividual> entities) {
-		entities = saveAndReturn(entities);
-		return entities.stream()
-				       .map(CustomerIndividual::getId)
-				       .toList();
+	public Collection<Long> save(Collection<CustomerIndividual> entities) throws FunctionalException {
+		Collection<Long> savedEntities = new ArrayList<>();
+		for(CustomerIndividual entity : entities) {
+			savedEntities.add(save(entity));
+		}
+		return savedEntities;
 	}
 	
 	@Override
-	public Collection<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) {
-		return entities.stream()
-					   .map(this::saveAndReturn)
-					   .toList();
+	public Collection<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) throws FunctionalException {
+		Collection<CustomerIndividual> savedEntities = new ArrayList<>();
+		for(CustomerIndividual entity : entities) {
+			savedEntities.add(saveAndReturn(entity));
+		}
+		return savedEntities;
 	}
 
 	@Override

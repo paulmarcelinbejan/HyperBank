@@ -45,12 +45,12 @@ public class LocationRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final LocationSaveRequest saveRequest) {
+	public @ResponseBody Long save(@Valid @RequestBody final LocationSaveRequest saveRequest) throws FunctionalException {
 		return locationService.save(locationMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return locationService.save(locationMapper.fromSaveRequestsToEntities(saveRequests));
 	}

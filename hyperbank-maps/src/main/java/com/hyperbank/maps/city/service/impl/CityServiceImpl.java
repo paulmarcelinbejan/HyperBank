@@ -72,22 +72,22 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public Integer save(City entity) {
+	public Integer save(City entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public City saveAndReturn(City entity) {
+	public City saveAndReturn(City entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<City> entities) {
+	public Collection<Integer> save(Collection<City> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<City> saveAndReturn(Collection<City> entities) {
+	public Collection<City> saveAndReturn(Collection<City> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

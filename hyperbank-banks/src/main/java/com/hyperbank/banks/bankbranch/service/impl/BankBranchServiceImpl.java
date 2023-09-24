@@ -72,22 +72,22 @@ public class BankBranchServiceImpl implements BankBranchService {
 	}
 
 	@Override
-	public Integer save(BankBranch entity) {
+	public Integer save(BankBranch entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 	
 	@Override
-	public BankBranch saveAndReturn(BankBranch entity) {
+	public BankBranch saveAndReturn(BankBranch entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<BankBranch> entities) {
+	public Collection<Integer> save(Collection<BankBranch> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 	
 	@Override
-	public Collection<BankBranch> saveAndReturn(Collection<BankBranch> entities) {
+	public Collection<BankBranch> saveAndReturn(Collection<BankBranch> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

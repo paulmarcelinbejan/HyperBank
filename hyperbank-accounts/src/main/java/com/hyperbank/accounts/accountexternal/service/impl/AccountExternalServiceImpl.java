@@ -1,5 +1,6 @@
 package com.hyperbank.accounts.accountexternal.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -68,12 +69,12 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 	
 	@Override
-	public Long save(AccountExternal entity) {
+	public Long save(AccountExternal entity) throws FunctionalException {
 		return saveAndReturn(entity).getId();
 	}
 	
 	@Override
-	public AccountExternal saveAndReturn(AccountExternal entity) {
+	public AccountExternal saveAndReturn(AccountExternal entity) throws FunctionalException {
 		Account account = accountService.saveWithAccountExternalType();
 		entity.setAccount(account);
 		entity = createService.saveAndReturn(entity);
@@ -81,18 +82,21 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountExternal> entities) {
-		entities = saveAndReturn(entities);
-		return entities.stream()
-				       .map(AccountExternal::getId)
-				       .toList();
+	public Collection<Long> save(Collection<AccountExternal> entities) throws FunctionalException {
+		Collection<Long> savedEntities = new ArrayList<>();
+		for(AccountExternal entity : entities) {
+			savedEntities.add(save(entity));
+		}
+		return savedEntities;
 	}
 	
 	@Override
-	public Collection<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) {
-		return entities.stream()
-					   .map(this::saveAndReturn)
-					   .toList();
+	public Collection<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) throws FunctionalException {
+		Collection<AccountExternal> savedEntities = new ArrayList<>();
+		for(AccountExternal entity : entities) {
+			savedEntities.add(saveAndReturn(entity));
+		}
+		return savedEntities;
 	}
 
 	@Override
