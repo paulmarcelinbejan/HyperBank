@@ -6,17 +6,21 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hyperbank.interests.interestratevariablehistory.validator.NonOverlappingHistory;
 import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
 import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.FirstDayOfMonth;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.LastDayOfMonth;
+import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.NonOverlappingLocalDate;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
+@NonOverlappingLocalDate
+@NonOverlappingHistory
 public class InterestRateVariableUpdateRequest implements HistoricalLocalDateAware {
 
 	@JsonProperty

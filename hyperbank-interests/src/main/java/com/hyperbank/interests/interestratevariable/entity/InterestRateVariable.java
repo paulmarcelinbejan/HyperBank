@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.hyperbank.interests.interestrate.entity.InterestRate;
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
-import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -41,15 +41,12 @@ public class InterestRateVariable {
 	    cascade = CascadeType.ALL,
 	    orphanRemoval = true
 	)
-	private List<InterestRateVariableHistory> interestRateVariableHistoryList = new ArrayList<>();
+	@OrderBy("startDate")
+	private List<InterestRateVariableHistory> history = new ArrayList<>();
 	
-	public InterestRateVariable addInterestRateHistory(InterestRateVariableHistory interestRateVariableHistory) {
-		if(!interestRateVariableHistoryList.isEmpty()) {
-			InterestRateVariableHistory lastValidInterestRate = interestRateVariableHistoryList.get(interestRateVariableHistoryList.size() - 1);
-			lastValidInterestRate.setEndDate(DateUtils.lastDayOfPreviousMonth(interestRateVariableHistory.getStartDate()));
-		}
-		interestRateVariableHistoryList.add(interestRateVariableHistory);
+	public InterestRateVariable addHistory(InterestRateVariableHistory interestRateVariableHistory) {
 		interestRateVariableHistory.setInterestRateVariable(this);
+		history.add(interestRateVariableHistory);
         return this;
     }
     

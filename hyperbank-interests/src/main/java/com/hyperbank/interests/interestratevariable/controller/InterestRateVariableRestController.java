@@ -17,6 +17,7 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableSave
 import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpdateRequest;
 import com.hyperbank.interests.interestratevariable.mapper.InterestRateVariableMapper;
 import com.hyperbank.interests.interestratevariable.service.InterestRateVariableService;
+import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 
@@ -31,6 +32,8 @@ public class InterestRateVariableRestController {
 	private final InterestRateVariableService interestRateVariableService;
 	
 	private final InterestRateVariableMapper interestRateVariableMapper;
+	
+	private final InterestRateVariableHistoryService interestRateVariableHistoryService;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody InterestRateVariableResponse findById(@PathVariable Long id) throws FunctionalException {
@@ -43,25 +46,27 @@ public class InterestRateVariableRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final InterestRateVariableSaveRequest saveRequest) {
+	public @ResponseBody Long save(@Valid @RequestBody final InterestRateVariableSaveRequest saveRequest) throws FunctionalException {
 		return interestRateVariableService.save(interestRateVariableMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<InterestRateVariableSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Long> save(@RequestBody final Collection<InterestRateVariableSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return interestRateVariableService.save(interestRateVariableMapper.fromSaveRequestsToEntities(saveRequests));
 	}
 	
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Long update(@Valid @RequestBody final InterestRateVariableUpdateRequest updateRequest) throws FunctionalException {
-		return interestRateVariableService.update(interestRateVariableMapper.fromUpdateRequestToEntity(updateRequest));
+		interestRateVariableHistoryService.save(interestRateVariableMapper.fromUpdateRequestToHistoryEntity(updateRequest));
+		return updateRequest.getId();
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Collection<Long> update(@RequestBody final Collection<InterestRateVariableUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
-		return interestRateVariableService.update(interestRateVariableMapper.fromUpdateRequestsToEntities(updateRequests));
+		interestRateVariableHistoryService.save(interestRateVariableMapper.fromUpdateRequestsToHistoryEntities(updateRequests));
+		return updateRequests.stream().map(InterestRateVariableUpdateRequest::getId).toList();
 	}
 
 }

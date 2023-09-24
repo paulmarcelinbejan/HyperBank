@@ -45,12 +45,12 @@ public class InterestRateTypeRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Integer save(@Valid @RequestBody final InterestRateTypeSaveRequest saveRequest) {
+	public @ResponseBody Integer save(@Valid @RequestBody final InterestRateTypeSaveRequest saveRequest) throws FunctionalException {
 		return interestRateTypeService.save(interestRateTypeMapper.fromSaveRequestToEntity(saveRequest));
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<InterestRateTypeSaveRequest> saveRequests) {
+	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<InterestRateTypeSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return interestRateTypeService.save(interestRateTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}

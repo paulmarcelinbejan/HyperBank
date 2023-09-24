@@ -1,5 +1,6 @@
 package com.hyperbank.interests.interestratefixed.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Service;
@@ -64,30 +65,33 @@ public class InterestRateFixedServiceImpl implements InterestRateFixedService {
 	}
 
 	@Override
-	public Long save(InterestRateFixed entity) {
+	public Long save(InterestRateFixed entity) throws FunctionalException {
 		return saveAndReturn(entity).getId();
 	}
 
 	@Override
-	public InterestRateFixed saveAndReturn(InterestRateFixed entity) {
+	public InterestRateFixed saveAndReturn(InterestRateFixed entity) throws FunctionalException {
 		InterestRate interestRate = interestRateService.saveWithInterestRateFixedType();
 		entity.setInterestRate(interestRate);
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<InterestRateFixed> entities) {
-		entities = saveAndReturn(entities);
-		return entities.stream()
-				       .map(InterestRateFixed::getId)
-				       .toList();
+	public Collection<Long> save(Collection<InterestRateFixed> entities) throws FunctionalException {
+		Collection<Long> savedEntities = new ArrayList<>();
+		for(InterestRateFixed entity : entities) {
+			savedEntities.add(save(entity));
+		}
+		return savedEntities;
 	}
 
 	@Override
-	public Collection<InterestRateFixed> saveAndReturn(Collection<InterestRateFixed> entities) {
-		return entities.stream()
-				   	   .map(this::saveAndReturn)
-				   	   .toList();
+	public Collection<InterestRateFixed> saveAndReturn(Collection<InterestRateFixed> entities) throws FunctionalException {
+		Collection<InterestRateFixed> savedEntities = new ArrayList<>();
+		for(InterestRateFixed entity : entities) {
+			savedEntities.add(saveAndReturn(entity));
+		}
+		return savedEntities;
 	}
 	
 }

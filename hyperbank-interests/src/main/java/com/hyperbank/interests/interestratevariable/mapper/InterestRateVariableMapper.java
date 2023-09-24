@@ -6,7 +6,6 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,23 +15,20 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpda
 import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
 import com.hyperbank.interests.interestratevariable.service.InterestRateVariableService;
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
-import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromEntityToResponse;
+import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromSaveRequestToEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class InterestRateVariableMapper implements FullMapper<InterestRateVariable, InterestRateVariableSaveRequest, InterestRateVariableUpdateRequest, InterestRateVariableResponse> {
+public abstract class InterestRateVariableMapper implements MapperFromSaveRequestToEntity<InterestRateVariable, InterestRateVariableSaveRequest>, MapperFromEntityToResponse<InterestRateVariable, InterestRateVariableResponse> {
 	
 	@Autowired
 	private InterestRateVariableService interestRateVariableService;
 	
-	@Autowired
-	private InterestRateVariableHistoryService interestRateVariableHistoryService;
-	
 	@Override
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "interestRate", ignore = true)
-	@Mapping(target = "interestRateVariableHistoryList", ignore = true)
+	@Mapping(target = "history", ignore = true)
 	@Named("fromSaveRequestToEntity")
 	public abstract InterestRateVariable fromSaveRequestToEntity(InterestRateVariableSaveRequest saveRequest);
 
@@ -40,22 +36,14 @@ public abstract class InterestRateVariableMapper implements FullMapper<InterestR
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
 	public abstract Collection<InterestRateVariable> fromSaveRequestsToEntities(Collection<InterestRateVariableSaveRequest> saveRequests);
 
-	@Override
-	@Named("fromUpdateRequestToEntity")
-	public InterestRateVariable fromUpdateRequestToEntity(InterestRateVariableUpdateRequest updateRequest) throws FunctionalException {
+	@Named("fromUpdateRequestToHistoryEntity")
+	public InterestRateVariableHistory fromUpdateRequestToHistoryEntity(InterestRateVariableUpdateRequest updateRequest) throws FunctionalException {
 		InterestRateVariable toUpdate = interestRateVariableService.findById(updateRequest.getId());
-		InterestRateVariableHistory interestRateVariableHistory = interestRateVariableHistoryService.saveAndReturn(fromUpdateRequestToHistoryEntity(updateRequest, toUpdate));
-		toUpdate.addInterestRateHistory(interestRateVariableHistory);
-		return toUpdate;
+		return fromUpdateRequestToHistoryEntity(updateRequest, toUpdate);
 	}
 
-	@Override
-	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<InterestRateVariable> fromUpdateRequestsToEntities(Collection<InterestRateVariableUpdateRequest> updateRequests);
-
-	@Override
-	@Mapping(target = "id", ignore = true)
-	public abstract void updateEntity(@MappingTarget InterestRateVariable toUpdate, InterestRateVariable newValue);
+	@IterableMapping(qualifiedByName = "fromUpdateRequestToHistoryEntity")
+	public abstract Collection<InterestRateVariableHistory> fromUpdateRequestsToHistoryEntities(Collection<InterestRateVariableUpdateRequest> updateRequests);
 
 	@Override
 	@Named("toResponse")

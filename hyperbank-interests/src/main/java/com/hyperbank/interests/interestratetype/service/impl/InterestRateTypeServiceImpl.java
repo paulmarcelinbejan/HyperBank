@@ -72,22 +72,22 @@ public class InterestRateTypeServiceImpl implements InterestRateTypeService {
 	}
 
 	@Override
-	public Integer save(InterestRateType entity) {
+	public Integer save(InterestRateType entity) throws FunctionalException {
 		return createService.save(entity);
 	}
 
 	@Override
-	public InterestRateType saveAndReturn(InterestRateType entity) {
+	public InterestRateType saveAndReturn(InterestRateType entity) throws FunctionalException {
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<InterestRateType> entities) {
+	public Collection<Integer> save(Collection<InterestRateType> entities) throws FunctionalException {
 		return createService.save(entities);
 	}
 
 	@Override
-	public Collection<InterestRateType> saveAndReturn(Collection<InterestRateType> entities) {
+	public Collection<InterestRateType> saveAndReturn(Collection<InterestRateType> entities) throws FunctionalException {
 		return createService.saveAndReturn(entities);
 	}
 

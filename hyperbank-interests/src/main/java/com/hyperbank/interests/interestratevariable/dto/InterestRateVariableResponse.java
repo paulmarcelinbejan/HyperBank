@@ -17,6 +17,6 @@ public class InterestRateVariableResponse {
 	private String name;
 	
 	@JsonProperty
-	private List<InterestRateVariableHistoryResponse> interestRateVariableHistoryList;
+	private List<InterestRateVariableHistoryResponse> history;
     
 }

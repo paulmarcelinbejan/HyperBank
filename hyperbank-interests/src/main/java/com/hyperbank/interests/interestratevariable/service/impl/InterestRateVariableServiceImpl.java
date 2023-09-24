@@ -66,58 +66,33 @@ public class InterestRateVariableServiceImpl implements InterestRateVariableServ
 	}
 
 	@Override
-	public Long save(InterestRateVariable entity) {
+	public Long save(InterestRateVariable entity) throws FunctionalException {
 		return saveAndReturn(entity).getId();
 	}
 
 	@Override
-	public InterestRateVariable saveAndReturn(InterestRateVariable entity) {
+	public InterestRateVariable saveAndReturn(InterestRateVariable entity) throws FunctionalException {
 		InterestRate interestRate = interestRateService.saveWithInterestRateVariableType();
 		entity.setInterestRate(interestRate);
 		return createService.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<InterestRateVariable> entities) {
-		entities = saveAndReturn(entities);
-		return entities.stream()
-				       .map(InterestRateVariable::getId)
-				       .toList();
-	}
-
-	@Override
-	public Collection<InterestRateVariable> saveAndReturn(Collection<InterestRateVariable> entities) {
-		return entities.stream()
-			   	   .map(this::saveAndReturn)
-			   	   .toList();
-	}
-	
-	@Override
-	public Long update(InterestRateVariable entity) throws FunctionalException {
-		return updateAndReturn(entity).getId();
-	}
-
-	@Override
-	public InterestRateVariable updateAndReturn(InterestRateVariable entity) throws FunctionalException {
-		return readService.findById(entity.getId());
-	}
-	
-	@Override
-	public Collection<Long> update(Collection<InterestRateVariable> entities) throws FunctionalException {
-		entities = updateAndReturn(entities);
-		return entities.stream()
-				       .map(InterestRateVariable::getId)
-				       .toList();
-	}
-	
-	@Override
-	public Collection<InterestRateVariable> updateAndReturn(Collection<InterestRateVariable> entities) throws FunctionalException {
-		Collection<InterestRateVariable> updatedCollection = new ArrayList<>();
+	public Collection<Long> save(Collection<InterestRateVariable> entities) throws FunctionalException {
+		Collection<Long> savedEntities = new ArrayList<>();
 		for(InterestRateVariable entity : entities) {
-			updatedCollection.add(updateAndReturn(entity));
+			savedEntities.add(save(entity));
 		}
-		return updatedCollection;
+		return savedEntities;
 	}
 
+	@Override
+	public Collection<InterestRateVariable> saveAndReturn(Collection<InterestRateVariable> entities) throws FunctionalException {
+		Collection<InterestRateVariable> savedEntities = new ArrayList<>();
+		for(InterestRateVariable entity : entities) {
+			savedEntities.add(saveAndReturn(entity));
+		}
+		return savedEntities;
+	}
 	
 }
