@@ -13,7 +13,6 @@ import com.hyperbank.interests.interestratetype.dto.InterestRateTypeResponse;
 import com.hyperbank.interests.interestratetype.dto.InterestRateTypeSaveRequest;
 import com.hyperbank.interests.interestratetype.dto.InterestRateTypeUpdateRequest;
 import com.hyperbank.interests.interestratetype.entity.InterestRateType;
-
 import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
