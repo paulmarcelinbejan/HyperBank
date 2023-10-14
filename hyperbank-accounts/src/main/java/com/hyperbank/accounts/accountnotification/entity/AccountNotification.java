@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.accountnotification.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +32,6 @@ public class AccountNotification {
 	private String message;
 	
 	@Column(name = "date_time", nullable = false)
-	private LocalDateTime dateTime;
+	private Instant dateTime;
 
 }

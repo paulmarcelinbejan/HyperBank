@@ -1,6 +1,6 @@
 package com.hyperbank.loans.status.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import com.hyperbank.loans.entity.Loan;
 
@@ -33,10 +33,10 @@ public class LoanStatusHistory {
 
 	@NotNull
 	@Column(name = "start_date_time", nullable = false)
-	private LocalDateTime startDateTime;
+	private Instant startDateTime;
 
 	@NotNull
 	@Column(name = "end_date_time", nullable = false)
-	private LocalDateTime endDateTime;
+	private Instant endDateTime;
 
 }

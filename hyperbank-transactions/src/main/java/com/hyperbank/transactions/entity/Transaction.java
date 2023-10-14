@@ -1,7 +1,7 @@
 package com.hyperbank.transactions.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,6 +29,6 @@ public class Transaction {
 	private BigDecimal value;
 
 	@Column(name = "transaction_date_time", nullable = false)
-	private LocalDateTime transactionDateTime;
+	private Instant transactionDateTime;
 
 }
