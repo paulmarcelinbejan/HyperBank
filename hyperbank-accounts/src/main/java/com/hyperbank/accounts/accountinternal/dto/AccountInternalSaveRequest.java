@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.paulmarcelinbejan.toolbox.jackson.deserializer.LocalDateDeserializer;
 import com.paulmarcelinbejan.toolbox.jackson.serializer.LocalDateSerializer;
-import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
+import com.paulmarcelinbejan.toolbox.utils.time.LocalDateUtils;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.NonOverlappingLocalDate;
 
@@ -44,7 +44,7 @@ public class AccountInternalSaveRequest implements HistoricalLocalDateAware {
 	@JsonProperty
 	@JsonSerialize(using = LocalDateSerializer.class)
 	@JsonDeserialize(using = LocalDateDeserializer.class)
-	private LocalDate endDate = DateUtils.MAX_END_DATE;
+	private LocalDate endDate = LocalDateUtils.MAX_END_DATE;
 
 	@Override
 	public LocalDate startLocalDate() {

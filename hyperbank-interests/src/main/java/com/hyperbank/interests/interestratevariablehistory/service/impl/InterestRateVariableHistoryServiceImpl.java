@@ -15,7 +15,7 @@ import com.hyperbank.interests.interestratevariablehistory.repository.InterestRa
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
+import com.paulmarcelinbejan.toolbox.utils.time.LocalDateUtils;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.ReadService;
 import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
@@ -93,7 +93,7 @@ public class InterestRateVariableHistoryServiceImpl implements InterestRateVaria
 		
 		if(!history.isEmpty()) {
 			InterestRateVariableHistory lastValidInterestRate = history.get(history.size() - 1);
-			lastValidInterestRate.setEndDate(DateUtils.lastDayOfPreviousMonth(entity.getStartDate()));
+			lastValidInterestRate.setEndDate(LocalDateUtils.lastDayOfPreviousMonth(entity.getStartDate()));
 			update(lastValidInterestRate);
 		}
 		

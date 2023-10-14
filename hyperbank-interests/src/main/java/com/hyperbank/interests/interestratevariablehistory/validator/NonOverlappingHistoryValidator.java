@@ -8,7 +8,7 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpda
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.time.DateUtils;
+import com.paulmarcelinbejan.toolbox.utils.time.LocalDateUtils;
 import com.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 
 import jakarta.validation.ConstraintValidator;
@@ -40,7 +40,7 @@ public class NonOverlappingHistoryValidator implements ConstraintValidator<NonOv
 			return true;
 		}
 		
-		if(DateUtils.isAfterOrEquals(lastHistory.get().getStartDate(), value.getStartDate())) {
+		if(LocalDateUtils.isAfterOrEquals(lastHistory.get().getStartDate(), value.getStartDate())) {
 			return false;
 		}
 		
