@@ -22,11 +22,9 @@ public class CustomerLegalEntity {
 	@Column(name = "id_customer", nullable = false)
 	private Long id;
 
-	@NotNull
 	@Column(name = "fk_headquarters", nullable = false)
 	private Long headquartersId;
 
-	@NotNull
 	@Column(name = "name", nullable = false)
 	private String name;
 

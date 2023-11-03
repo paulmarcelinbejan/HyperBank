@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -24,13 +23,11 @@ public class Country {
 	@SequenceGenerator(name = "id_country_seq", sequenceName = "id_country_seq", allocationSize = 1)
 	@Column(name = "id_country", nullable = false)
 	private Integer id;
-
-	@NotNull
+	
 	@ManyToOne
 	@JoinColumn(name = "fk_continent", nullable = false)
 	private Continent continent;
-
-	@NotNull
+	
 	@Column(name = "country_name", nullable = false)
 	private String countryName;
 

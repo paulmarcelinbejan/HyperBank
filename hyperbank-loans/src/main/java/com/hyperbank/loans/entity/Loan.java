@@ -19,16 +19,13 @@ public class Loan {
 	@Column(name = "id_loan", nullable = false)
 	private Long id;
 
-	@NotNull
 	@Column(name = "fk_customer", nullable = false)
 	private Long fkCustomer;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_loan_type", nullable = false)
 	private LoanType fkLoanType;
 
-	@NotNull
 	@Column(name = "loan_principal", nullable = false, precision = 12, scale = 2)
 	private BigDecimal loanPrincipal;
 

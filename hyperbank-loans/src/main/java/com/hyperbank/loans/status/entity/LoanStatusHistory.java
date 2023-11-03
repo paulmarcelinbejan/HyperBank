@@ -21,21 +21,17 @@ public class LoanStatusHistory {
 	@Column(name = "id_loan_status_history", nullable = false)
 	private Long id;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_loan", nullable = false)
 	private Loan fkLoan;
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "fk_loan_status", nullable = false)
 	private LoanStatus loanStatus;
 
-	@NotNull
 	@Column(name = "start_date_time", nullable = false)
 	private Instant startDateTime;
 
-	@NotNull
 	@Column(name = "end_date_time", nullable = false)
 	private Instant endDateTime;
 

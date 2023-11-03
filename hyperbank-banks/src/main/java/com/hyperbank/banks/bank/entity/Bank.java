@@ -21,7 +21,6 @@ public class Bank {
 	@Column(name = "id_bank", nullable = false)
 	private Integer id;
 
-	@NotNull
 	@Column(name = "bank_name", nullable = false, length = Integer.MAX_VALUE)
 	private String bankName;
 

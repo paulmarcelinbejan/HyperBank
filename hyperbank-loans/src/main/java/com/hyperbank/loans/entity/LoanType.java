@@ -14,11 +14,9 @@ public class LoanType {
 	@Column(name = "id_loan_type", nullable = false)
 	private Integer id;
 
-	@NotNull
 	@Column(name = "code", nullable = false, length = Integer.MAX_VALUE)
 	private String code;
 
-	@NotNull
 	@Column(name = "description", nullable = false, length = Integer.MAX_VALUE)
 	private String description;
 

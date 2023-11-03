@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -20,8 +19,7 @@ public class Continent {
 	@SequenceGenerator(name = "id_continent_seq", sequenceName = "id_continent_seq", allocationSize = 1)
 	@Column(name = "id_continent", nullable = false)
 	private Integer id;
-
-	@NotNull
+	
 	@Column(name = "continent_name", nullable = false)
 	private String continentName;
 
