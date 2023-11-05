@@ -34,6 +34,7 @@
 		<hyperbank-architecture.version>1.0.0</hyperbank-architecture.version>
 	</properties>
 	<modules>
+		<module>hyperbank-config-provider</module>
 		<module>hyperbank-accounts</module>
 		<module>hyperbank-banks</module>
 		<module>hyperbank-interests</module>

@@ -1,0 +1,14 @@
+spring:
+   application:
+      name: config-provider
+   profiles:
+      active: native
+   cloud:
+      config:
+         server:
+            native:
+               search-locations: cloud_config
+            prefix: /config
+            bootstrap: true
+
+server.port: 8888

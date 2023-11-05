@@ -1,0 +1,26 @@
+spring:
+   application:
+      name: config-provider
+   profile:
+      active: aws-secretmanager, awss3
+   cloud:
+      config:
+         server:
+            prefix: /config
+            native.search-location: cloud_config
+            bootstrap: true
+            failOnCompositeError: true
+   aws-secretmanager:
+      region: eu-west-1
+      prefix: 
+      order: 1
+   awss3:
+      region: eu-west-1
+      bucket: 
+      order: 2
+
+server.port: 8888
+         
+
+      
+         

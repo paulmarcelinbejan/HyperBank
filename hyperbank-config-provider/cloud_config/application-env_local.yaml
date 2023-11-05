@@ -1,0 +1,37 @@
+env:
+   endpoints:
+      sql:
+         HyperBankDB:
+            host: localhost
+            port: 5432
+            name: HyperBankDB
+            username: paulmarcelinbejan
+            password: '#PaulMarcelinBejanDB!'
+#      nosql:
+#         DB_NAME:
+#            host: 
+#            port: 
+#            name: 
+#            username: 
+#            password: 
+#      cache:
+#         CACHE_NAME:
+#            host:
+#            port: 
+#            password: 
+#            ssl:
+#               enabled: false
+#               enablePeerVerification: false
+#      messagebroker:
+#         MB_NAME:
+#            host:
+#            port:
+   services-server-port:
+      accounts: 9001
+      banks: 9002
+      interests: 9003
+      loans: 9004
+      maps: 9005
+      staff: 9006
+      transactions: 9007
+      types: 9008

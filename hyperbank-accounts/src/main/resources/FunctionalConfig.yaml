@@ -1,5 +1,0 @@
-hyperbank:
-   constants:
-      deposit_account:
-         interestrate: 2
-   

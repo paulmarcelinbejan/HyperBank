@@ -1,0 +1,4 @@
+springdoc:
+   pathsToMatch: /**
+   swagger-ui:
+      path: /swagger-ui.html
