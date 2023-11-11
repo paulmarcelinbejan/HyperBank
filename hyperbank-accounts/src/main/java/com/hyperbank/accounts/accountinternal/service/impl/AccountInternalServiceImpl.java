@@ -148,23 +148,17 @@ public class AccountInternalServiceImpl implements AccountInternalService {
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		try {
-			delete(id);
-		} catch (FunctionalException e) { }
+		deleteService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		for(Long id : ids) {
-			delete(id);
-		}
+		deleteService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		for(Long id : ids) {
-			deleteIfPresent(id);
-		}
+		deleteService.deleteManyIfPresent(ids);
 	}
 	
 }
