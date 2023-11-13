@@ -1,0 +1,5 @@
+How to generate banner?
+
+https://springhow.com/spring-boot-banner-generator/
+
+use "small" font
