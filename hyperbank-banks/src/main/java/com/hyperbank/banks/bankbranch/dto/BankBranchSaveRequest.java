@@ -13,7 +13,7 @@ public class BankBranchSaveRequest {
 	private Integer bankId;
 
 	@JsonProperty
-	@NotNull( message = "locationId must not be null")
+	@NotNull(message = "locationId must not be null")
 	private Long locationId;
 
 }

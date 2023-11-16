@@ -1,4 +1,4 @@
-package com.hyperbank.staff.entity;
+package com.hyperbank.staff.employee.entity;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "employee")
 public class Employee {
