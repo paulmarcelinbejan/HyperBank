@@ -3,7 +3,7 @@ package com.hyperbank.staff.employee.sniper;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.BaseSniper;
+import com.paulmarcelinbejan.architecture.sniper.base.BaseSniper;
 import com.paulmarcelinbejan.architecture.sniper.mapper.input.MapperInput;
 import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
 import com.paulmarcelinbejan.architecture.sniper.service.Service;
