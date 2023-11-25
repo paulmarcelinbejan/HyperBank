@@ -11,9 +11,9 @@ import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
 import com.paulmarcelinbejan.architecture.sniper.validator.Validator;
 
 @Sniper
-public class SniperEmployeeSave extends BaseSniper<EmployeeSaveRequest, Employee, Employee, EmployeeResponse>{
+public class SniperSaveEmployee extends BaseSniper<EmployeeSaveRequest, Employee, Employee, EmployeeResponse>{
 
-	public SniperEmployeeSave(
+	public SniperSaveEmployee(
 			Validator<EmployeeSaveRequest> validator,
 			MapperInput<EmployeeSaveRequest, Employee> mapperInput, 
 			Service<Employee, Employee> service,

@@ -18,9 +18,9 @@ import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
 import com.hyperbank.staff.employee.mapper.EmployeeMapper;
 import com.hyperbank.staff.employee.service.EmployeeService;
-import com.hyperbank.staff.employee.sniper.SniperEmployeeSave;
-import com.paulmarcelinbejan.architecture.sniper.exception.TechnicalException;
+import com.hyperbank.staff.employee.sniper.SniperSaveEmployee;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/employee")
 public class EmployeeRestController {
 
-	private final SniperEmployeeSave sniperEmployeeSave;
+	private final SniperSaveEmployee sniperSaveEmployee;
 	
 	private final EmployeeService employeeService;
 	
@@ -49,8 +49,8 @@ public class EmployeeRestController {
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final EmployeeSaveRequest saveRequest) throws com.paulmarcelinbejan.architecture.sniper.exception.FunctionalException, TechnicalException {
-		return sniperEmployeeSave.fire(saveRequest).getId();
+	public @ResponseBody Long save(@Valid @RequestBody final EmployeeSaveRequest saveRequest) throws FunctionalException, TechnicalException {
+		return sniperSaveEmployee.fire(saveRequest).getId();
 //		return employeeService.save(employeeMapper.fromSaveRequestToEntity(saveRequest));
 	}
 

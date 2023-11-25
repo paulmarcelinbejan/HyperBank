@@ -132,14 +132,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee execute(Employee employee)
-			throws com.paulmarcelinbejan.architecture.sniper.exception.FunctionalException,
-			com.paulmarcelinbejan.architecture.sniper.exception.TechnicalException {
-		try {
-			return createService.saveAndReturn(employee);
-		} catch (FunctionalException e) {
-			throw new com.paulmarcelinbejan.architecture.sniper.exception.FunctionalException(e);
-		}
+	public Employee execute(Employee employee) throws FunctionalException, TechnicalException {
+		return createService.saveAndReturn(employee);
 	}
 	
 }
