@@ -15,7 +15,7 @@ import com.hyperbank.interests.interestratevariablehistory.repository.InterestRa
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.utils.time.LocalDateUtils;
+import com.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
 import com.paulmarcelinbejan.toolbox.web.service.CreateService;
 import com.paulmarcelinbejan.toolbox.web.service.ReadService;
 import com.paulmarcelinbejan.toolbox.web.service.UpdateService;

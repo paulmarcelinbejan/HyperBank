@@ -8,7 +8,7 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpda
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.time.LocalDateUtils;
+import com.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
 import com.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 
 import jakarta.validation.ConstraintValidator;

@@ -6,10 +6,10 @@ import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.paulmarcelinbejan.toolbox.utils.jackson.deserializer.LocalDateDeserializer;
-import com.paulmarcelinbejan.toolbox.utils.jackson.serializer.LocalDateSerializer;
+import com.hyperbank.architecture.web.jackson.deserializer.LocalDateDeserializer;
+import com.hyperbank.architecture.web.jackson.serializer.LocalDateSerializer;
+import com.hyperbank.architecture.web.validation.temporal.annotation.NonOverlappingLocalDate;
 import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
-import com.paulmarcelinbejan.toolbox.utils.validation.annotation.temporal.NonOverlappingLocalDate;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
