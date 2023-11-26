@@ -1,6 +1,5 @@
 package com.hyperbank.maps.continent.service.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class ContinentServiceImpl implements ContinentService {
 	public Continent getReferenceById(Integer id) {
 		return readServiceHelper.getReferenceById(id);
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public Continent findById(Integer id) throws FunctionalException {
@@ -56,13 +55,13 @@ public class ContinentServiceImpl implements ContinentService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Continent> findManyById(Collection<Integer> ids) throws FunctionalException {
+	public List<Continent> findManyById(List<Integer> ids) throws FunctionalException {
 		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Continent> findManyByIdIfPresent(Collection<Integer> ids) {
+	public List<Continent> findManyByIdIfPresent(List<Integer> ids) {
 		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
@@ -76,19 +75,19 @@ public class ContinentServiceImpl implements ContinentService {
 	public Integer save(Continent entity) throws FunctionalException {
 		return createServiceHelper.save(entity);
 	}
-	
+
 	@Override
 	public Continent saveAndReturn(Continent entity) throws FunctionalException {
 		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public List<Integer> save(Collection<Continent> entities) throws FunctionalException {
+	public List<Integer> save(List<Continent> entities) throws FunctionalException {
 		return createServiceHelper.save(entities);
 	}
-	
+
 	@Override
-	public List<Continent> saveAndReturn(Collection<Continent> entities) throws FunctionalException {
+	public List<Continent> saveAndReturn(List<Continent> entities) throws FunctionalException {
 		return createServiceHelper.saveAndReturn(entities);
 	}
 
@@ -103,12 +102,12 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 	
 	@Override
-	public List<Integer> update(Collection<Continent> entities) throws FunctionalException {
+	public List<Integer> update(List<Continent> entities) throws FunctionalException {
 		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public List<Continent> updateAndReturn(Collection<Continent> entities) throws FunctionalException {
+	public List<Continent> updateAndReturn(List<Continent> entities) throws FunctionalException {
 		return updateServiceHelper.updateAndReturn(entities);
 	}
 
@@ -123,12 +122,12 @@ public class ContinentServiceImpl implements ContinentService {
 	}
 
 	@Override
-	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
+	public void deleteMany(List<Integer> ids) throws FunctionalException {
 		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteManyIfPresent(Collection<Integer> ids) {
+	public void deleteManyIfPresent(List<Integer> ids) {
 		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	

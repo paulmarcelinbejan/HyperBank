@@ -17,35 +17,36 @@ import com.hyperbank.maps.continent.entity.Continent;
 import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface ContinentMapper extends FullMapper<Continent, ContinentSaveRequest, ContinentUpdateRequest, ContinentResponse> {
+public abstract class ContinentMapper implements FullMapper<Continent, ContinentSaveRequest, ContinentUpdateRequest, ContinentResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")
 	@Mapping(target = "id", ignore = true)
-	Continent fromSaveRequestToEntity(ContinentSaveRequest saveRequest);
+	public abstract Continent fromSaveRequestToEntity(ContinentSaveRequest saveRequest);
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	List<Continent> fromSaveRequestsToEntities(Collection<ContinentSaveRequest> saveRequests);
-	
+	public abstract List<Continent> fromSaveRequestsToEntities(Collection<ContinentSaveRequest> saveRequests);
+
 	@Override
 	@Named("fromUpdateRequestToEntity")
-	Continent fromUpdateRequestToEntity(ContinentUpdateRequest updateRequest);
-	
+	@Mapping(target = "id", ignore = true)
+	public abstract Continent fromUpdateRequestToEntity(ContinentUpdateRequest updateRequest);
+
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	List<Continent> fromUpdateRequestsToEntities(Collection<ContinentUpdateRequest> updateRequests);
-	
+	public abstract List<Continent> fromUpdateRequestsToEntities(Collection<ContinentUpdateRequest> updateRequests);
+
 	@Override
 	@Mapping(target = "id", ignore = true)
-	void updateEntity(@MappingTarget Continent toUpdate, Continent newValue);
+	public abstract void updateEntity(@MappingTarget Continent toUpdate, Continent newValue);
 
 	@Override
 	@Named("toResponse")
-	ContinentResponse toResponse(Continent entity);
+	public abstract ContinentResponse toResponse(Continent entity);
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	List<ContinentResponse> toResponses(Collection<Continent> entities);
+	public abstract List<ContinentResponse> toResponses(Collection<Continent> entities);
 
 }
