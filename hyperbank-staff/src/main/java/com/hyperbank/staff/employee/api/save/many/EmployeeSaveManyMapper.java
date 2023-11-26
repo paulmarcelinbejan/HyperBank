@@ -1,5 +1,8 @@
 package com.hyperbank.staff.employee.api.save.many;
 
+import java.util.List;
+
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -13,16 +16,22 @@ import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class EmployeeSaveManyMapper implements 
-	MapperInput<EmployeeSaveRequest, Employee>,
-	MapperOutput<Employee, EmployeeResponse> {
+	MapperInput<List<EmployeeSaveRequest>, List<Employee>>,
+	MapperOutput<List<Employee>, List<EmployeeResponse>> {
 	
 	@Override
-	@Named("toDomain")
+	@IterableMapping(qualifiedByName = "toSingleDomain")
+	public abstract List<Employee> toDomain(List<EmployeeSaveRequest> request);
+	
+	@Named("toSingleDomain")
 	@Mapping(target = "id", ignore = true)
-	public abstract Employee toDomain(EmployeeSaveRequest request);
+	protected abstract Employee toSingleDomain(EmployeeSaveRequest request);
 	
 	@Override
-	@Named("toResponse")
-	public abstract EmployeeResponse toResponse(Employee entity);
+	@IterableMapping(qualifiedByName = "toSingleResponse")
+	public abstract List<EmployeeResponse> toResponse(List<Employee> entity);
+	
+	@Named("toSingleResponse")
+	protected abstract EmployeeResponse toSingleResponse(Employee entity);
 	
 }
