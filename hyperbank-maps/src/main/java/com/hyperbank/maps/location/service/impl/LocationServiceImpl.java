@@ -1,6 +1,7 @@
 package com.hyperbank.maps.location.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,124 +12,124 @@ import com.hyperbank.maps.location.repository.LocationRepository;
 import com.hyperbank.maps.location.service.LocationService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class LocationServiceImpl implements LocationService {
 
 	public LocationServiceImpl(LocationMapper locationMapper, LocationRepository locationRepository) {
-		createService = new CreateServiceImpl<>(locationRepository, Location::getId);
-		readService = new ReadServiceImpl<>(locationRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Location.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(locationRepository, Location::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(locationRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(Location.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				locationRepository,
 				locationMapper,
-				readService,
+				readServiceHelper,
 				Location::getId);
-		deleteService = new DeleteServiceImpl<>(locationRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(locationRepository, readServiceHelper);
 	}
 
-	private final CreateService<Long, Location> createService;
-	private final ReadService<Long, Location> readService;
-	private final UpdateService<Long, Location> updateService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, Location> createServiceHelper;
+	private final ReadServiceHelper<Long, Location> readServiceHelper;
+	private final UpdateServiceHelper<Long, Location> updateServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Location getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public Location findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Location> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<Location> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Location> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<Location> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Location> findAll() {
-		return readService.findAll();
+	public List<Location> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Long save(Location entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 	
 	@Override
 	public Location saveAndReturn(Location entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<Location> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Long> save(Collection<Location> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 	
 	@Override
-	public Collection<Location> saveAndReturn(Collection<Location> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<Location> saveAndReturn(Collection<Location> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public Long update(Location entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public Location updateAndReturn(Location entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Long> update(Collection<Location> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Long> update(Collection<Location> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<Location> updateAndReturn(Collection<Location> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<Location> updateAndReturn(Collection<Location> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

@@ -15,65 +15,65 @@ import com.hyperbank.interests.interestratevariablehistory.repository.InterestRa
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 import com.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class InterestRateVariableHistoryServiceImpl implements InterestRateVariableHistoryService {
 	
 	public InterestRateVariableHistoryServiceImpl(InterestRateVariableHistoryRepository interestRateVariableHistoryRepository, InterestRateVariableHistoryMapper interestRateVariableHistoryMapper) {
-		createService = new CreateServiceImpl<>(interestRateVariableHistoryRepository, InterestRateVariableHistory::getId);
-		readService = new ReadServiceImpl<>(interestRateVariableHistoryRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(InterestRateVariable.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(interestRateVariableHistoryRepository, InterestRateVariableHistory::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(interestRateVariableHistoryRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(InterestRateVariable.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				interestRateVariableHistoryRepository,
 				interestRateVariableHistoryMapper,
-				readService,
+				readServiceHelper,
 				InterestRateVariableHistory::getId);
 		
 		this.interestRateVariableHistoryRepository = interestRateVariableHistoryRepository;
 	}
 	
-	private final CreateService<Long, InterestRateVariableHistory> createService;
-	private final ReadService<Long, InterestRateVariableHistory> readService;
-	private final UpdateService<Long, InterestRateVariableHistory> updateService;
+	private final CreateServiceHelper<Long, InterestRateVariableHistory> createServiceHelper;
+	private final ReadServiceHelper<Long, InterestRateVariableHistory> readServiceHelper;
+	private final UpdateServiceHelper<Long, InterestRateVariableHistory> updateServiceHelper;
 	
 	private final InterestRateVariableHistoryRepository interestRateVariableHistoryRepository;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public InterestRateVariableHistory getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public InterestRateVariableHistory findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRateVariableHistory> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<InterestRateVariableHistory> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRateVariableHistory> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<InterestRateVariableHistory> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRateVariableHistory> findAll() {
-		return readService.findAll();
+	public List<InterestRateVariableHistory> findAll() {
+		return readServiceHelper.findAll();
 	}
 	
 	@Override
@@ -97,12 +97,12 @@ public class InterestRateVariableHistoryServiceImpl implements InterestRateVaria
 			update(lastValidInterestRate);
 		}
 		
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<InterestRateVariableHistory> entities) throws FunctionalException {
-		Collection<Long> savedEntities = new ArrayList<>();
+	public List<Long> save(Collection<InterestRateVariableHistory> entities) throws FunctionalException {
+		List<Long> savedEntities = new ArrayList<>();
 		for(InterestRateVariableHistory entity : entities) {
 			savedEntities.add(save(entity));
 		}
@@ -110,8 +110,8 @@ public class InterestRateVariableHistoryServiceImpl implements InterestRateVaria
 	}
 	
 	@Override
-	public Collection<InterestRateVariableHistory> saveAndReturn(Collection<InterestRateVariableHistory> entities) throws FunctionalException {
-		Collection<InterestRateVariableHistory> savedEntities = new ArrayList<>();
+	public List<InterestRateVariableHistory> saveAndReturn(Collection<InterestRateVariableHistory> entities) throws FunctionalException {
+		List<InterestRateVariableHistory> savedEntities = new ArrayList<>();
 		for(InterestRateVariableHistory entity : entities) {
 			savedEntities.add(saveAndReturn(entity));
 		}
@@ -119,7 +119,7 @@ public class InterestRateVariableHistoryServiceImpl implements InterestRateVaria
 	}
 	
 	private Long update(InterestRateVariableHistory entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.hyperbank.accounts.depositaccountdetails.service.impl;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,27 +14,27 @@ import com.hyperbank.accounts.depositaccountdetails.repository.DepositAccountDet
 import com.hyperbank.accounts.depositaccountdetails.service.DepositAccountDetailsService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsService {
 
 	public DepositAccountDetailsServiceImpl(DepositAccountDetailsRepository depositAccountDetailsRepository) {
-		createService = new CreateServiceImpl<>(depositAccountDetailsRepository, DepositAccountDetails::getId);
-		readService = new ReadServiceImpl<>(depositAccountDetailsRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(DepositAccountDetails.class));
-		deleteService = new DeleteServiceImpl<>(depositAccountDetailsRepository, readService);
+		createServiceHelper = new CreateServiceHelperImpl<>(depositAccountDetailsRepository, DepositAccountDetails::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(depositAccountDetailsRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(DepositAccountDetails.class));
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(depositAccountDetailsRepository, readServiceHelper);
 	}
 
-	private final CreateService<Long, DepositAccountDetails> createService;
-	private final ReadService<Long, DepositAccountDetails> readService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, DepositAccountDetails> createServiceHelper;
+	private final ReadServiceHelper<Long, DepositAccountDetails> readServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
 	@Value(value = "hyperbank.constants.deposit_account.interestrate")
 	private BigDecimal interestRate;
@@ -41,31 +42,31 @@ public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsSe
 	@Override
 	@Transactional(readOnly = true)
 	public DepositAccountDetails getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public DepositAccountDetails findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<DepositAccountDetails> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<DepositAccountDetails> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<DepositAccountDetails> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<DepositAccountDetails> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<DepositAccountDetails> findAll() {
-		return readService.findAll();
+	public List<DepositAccountDetails> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
@@ -76,39 +77,39 @@ public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsSe
 	@Override
 	public DepositAccountDetails saveAndReturn(AccountInternal accountInternal) throws FunctionalException {
 		DepositAccountDetails depositAccountDetails = buildDepositAccountDetails(accountInternal);
-		return createService.saveAndReturn(depositAccountDetails);
+		return createServiceHelper.saveAndReturn(depositAccountDetails);
 	}
 
 	@Override
 	public Collection<Long> save(Collection<AccountInternal> accountsInternal) throws FunctionalException {
 		Collection<DepositAccountDetails> details = accountsInternal.stream().map(this::buildDepositAccountDetails).toList();
-		return createService.save(details);
+		return createServiceHelper.save(details);
 	}
 
 	@Override
 	public Collection<DepositAccountDetails> saveAndReturn(Collection<AccountInternal> accountsInternal) throws FunctionalException {
 		Collection<DepositAccountDetails> details = accountsInternal.stream().map(this::buildDepositAccountDetails).toList();
-		return createService.saveAndReturn(details);
+		return createServiceHelper.saveAndReturn(details);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 	private DepositAccountDetails buildDepositAccountDetails(AccountInternal accountInternal) {

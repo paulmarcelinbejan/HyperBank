@@ -1,6 +1,7 @@
 package com.hyperbank.interests.interestrate.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,93 +12,93 @@ import com.hyperbank.interests.interestrate.service.InterestRateService;
 import com.hyperbank.interests.interestratetype.service.InterestRateTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class InterestRateServiceImpl implements InterestRateService {
 
 	public InterestRateServiceImpl(InterestRateRepository interestRateRepository, InterestRateTypeService interestRateTypeService) {
-		createService = new CreateServiceImpl<>(interestRateRepository, InterestRate::getId);
-		readService = new ReadServiceImpl<>(interestRateRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(InterestRate.class));
-		deleteService = new DeleteServiceImpl<>(interestRateRepository, readService);
+		createServiceHelper = new CreateServiceHelperImpl<>(interestRateRepository, InterestRate::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(interestRateRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(InterestRate.class));
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(interestRateRepository, readServiceHelper);
 		this.interestRateTypeService = interestRateTypeService;
 	}
 
-	private final CreateService<Long, InterestRate> createService;
-	private final ReadService<Long, InterestRate> readService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, InterestRate> createServiceHelper;
+	private final ReadServiceHelper<Long, InterestRate> readServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
 	private final InterestRateTypeService interestRateTypeService;
 	
 	@Override
 	@Transactional(readOnly = true)
 	public InterestRate getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public InterestRate findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRate> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<InterestRate> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRate> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<InterestRate> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<InterestRate> findAll() {
-		return readService.findAll();
+	public List<InterestRate> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public InterestRate saveWithInterestRateFixedType() throws FunctionalException {
 		InterestRate interestRate = new InterestRate();
 		interestRate.setInterestRateType(interestRateTypeService.getReferenceById(1));
-		return createService.saveAndReturn(interestRate);
+		return createServiceHelper.saveAndReturn(interestRate);
 	}
 	
 	@Override
 	public InterestRate saveWithInterestRateVariableType() throws FunctionalException {
 		InterestRate interestRate = new InterestRate();
 		interestRate.setInterestRateType(interestRateTypeService.getReferenceById(2));
-		return createService.saveAndReturn(interestRate);
+		return createServiceHelper.saveAndReturn(interestRate);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

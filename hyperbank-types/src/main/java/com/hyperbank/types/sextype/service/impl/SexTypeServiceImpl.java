@@ -1,6 +1,7 @@
 package com.hyperbank.types.sextype.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,124 +12,124 @@ import com.hyperbank.types.sextype.repository.SexTypeRepository;
 import com.hyperbank.types.sextype.service.SexTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class SexTypeServiceImpl implements SexTypeService {
 
 	public SexTypeServiceImpl(SexTypeMapper sexTypeMapper, SexTypeRepository sexTypeRepository) {
-		createService = new CreateServiceImpl<>(sexTypeRepository, SexType::getId);
-		readService = new ReadServiceImpl<>(sexTypeRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(SexType.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(sexTypeRepository, SexType::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(sexTypeRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(SexType.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				sexTypeRepository,
 				sexTypeMapper,
-				readService,
+				readServiceHelper,
 				SexType::getId);
-		deleteService = new DeleteServiceImpl<>(sexTypeRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(sexTypeRepository, readServiceHelper);
 	}
 
-	private final CreateService<Integer, SexType> createService;
-	private final ReadService<Integer, SexType> readService;
-	private final UpdateService<Integer, SexType> updateService;
-	private final DeleteService<Integer> deleteService;
+	private final CreateServiceHelper<Integer, SexType> createServiceHelper;
+	private final ReadServiceHelper<Integer, SexType> readServiceHelper;
+	private final UpdateServiceHelper<Integer, SexType> updateServiceHelper;
+	private final DeleteServiceHelper<Integer> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public SexType getReferenceById(Integer id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public SexType findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<SexType> findManyById(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<SexType> findManyById(Collection<Integer> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<SexType> findManyByIdIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<SexType> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<SexType> findAll() {
-		return readService.findAll();
+	public List<SexType> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Integer save(SexType entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 
 	@Override
 	public SexType saveAndReturn(SexType entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<SexType> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Integer> save(Collection<SexType> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 
 	@Override
-	public Collection<SexType> saveAndReturn(Collection<SexType> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<SexType> saveAndReturn(Collection<SexType> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public Integer update(SexType entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public SexType updateAndReturn(SexType entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<SexType> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Integer> update(Collection<SexType> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<SexType> updateAndReturn(Collection<SexType> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<SexType> updateAndReturn(Collection<SexType> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Integer id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Integer> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

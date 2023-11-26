@@ -1,8 +1,8 @@
 package com.hyperbank.maps.location.service;
 
 import com.hyperbank.maps.location.entity.Location;
-import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
+import com.paulmarcelinbejan.toolbox.service.helper.aggregate.CrudServiceHelper;
 
-public interface LocationService extends CrudService<Long, Location> {
+public interface LocationService extends CrudServiceHelper<Long, Location> {
 
 }

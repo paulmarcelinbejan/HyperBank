@@ -13,7 +13,7 @@ import com.hyperbank.types.currency.dto.CurrencyResponse;
 import com.hyperbank.types.currency.dto.CurrencySaveRequest;
 import com.hyperbank.types.currency.dto.CurrencyUpdateRequest;
 import com.hyperbank.types.currency.entity.Currency;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class CurrencyMapper implements FullMapper<Currency, CurrencySaveRequest, CurrencyUpdateRequest, CurrencyResponse> {

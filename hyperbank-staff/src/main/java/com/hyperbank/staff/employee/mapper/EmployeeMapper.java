@@ -13,15 +13,11 @@ import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.mapper.input.MapperInput;
-import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class EmployeeMapper implements 
-	FullMapper<Employee, EmployeeSaveRequest, EmployeeUpdateRequest, EmployeeResponse>, 
-	MapperInput<EmployeeSaveRequest, Employee>,
-	MapperOutput<Employee, EmployeeResponse> {
+	FullMapper<Employee, EmployeeSaveRequest, EmployeeUpdateRequest, EmployeeResponse> {
 
 	@Override
 	@Named("fromSaveRequestToEntity")
@@ -52,11 +48,5 @@ public abstract class EmployeeMapper implements
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
 	public abstract Collection<EmployeeResponse> toResponses(Collection<Employee> entities);
-
-	@Override
-	@Named("toDomain")
-	public Employee toDomain(EmployeeSaveRequest request) {
-		return fromSaveRequestToEntity(request);
-	}
 	
 }

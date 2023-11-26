@@ -11,7 +11,7 @@ import org.mapstruct.Named;
 import com.hyperbank.accounts.accountnotification.dto.AccountNotificationResponse;
 import com.hyperbank.accounts.accountnotification.dto.AccountNotificationSaveRequest;
 import com.hyperbank.accounts.accountnotification.entity.AccountNotification;
-import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromSaveRequestToEntityAndFromEntityToResponse;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.MapperFromSaveRequestToEntityAndFromEntityToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class AccountNotificationMapper implements MapperFromSaveRequestToEntityAndFromEntityToResponse<AccountNotification, AccountNotificationSaveRequest, AccountNotificationResponse> {

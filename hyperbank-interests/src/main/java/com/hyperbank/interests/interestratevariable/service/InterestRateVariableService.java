@@ -1,9 +1,9 @@
 package com.hyperbank.interests.interestratevariable.service;
 
 import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
 
-public interface InterestRateVariableService extends CreateService<Long, InterestRateVariable>, ReadService<Long, InterestRateVariable> {
+public interface InterestRateVariableService extends CreateServiceHelper<Long, InterestRateVariable>, ReadServiceHelper<Long, InterestRateVariable> {
 
 }

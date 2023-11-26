@@ -6,7 +6,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
-import com.paulmarcelinbejan.toolbox.utils.mapping.MapperUpdateEntity;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.MapperUpdateEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class InterestRateVariableHistoryMapper implements MapperUpdateEntity<InterestRateVariableHistory> {

@@ -16,8 +16,8 @@ import com.hyperbank.interests.interestratevariable.entity.InterestRateVariable;
 import com.hyperbank.interests.interestratevariable.service.InterestRateVariableService;
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromEntityToResponse;
-import com.paulmarcelinbejan.toolbox.utils.mapping.MapperFromSaveRequestToEntity;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.MapperFromEntityToResponse;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.MapperFromSaveRequestToEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class InterestRateVariableMapper implements MapperFromSaveRequestToEntity<InterestRateVariable, InterestRateVariableSaveRequest>, MapperFromEntityToResponse<InterestRateVariable, InterestRateVariableResponse> {

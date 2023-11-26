@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.accountinternaltype.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,124 +12,124 @@ import com.hyperbank.accounts.accountinternaltype.repository.AccountInternalType
 import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class AccountInternalTypeServiceImpl implements AccountInternalTypeService {
 
 	public AccountInternalTypeServiceImpl(AccountInternalTypeMapper accountInternalTypeMapper, AccountInternalTypeRepository accountInternalTypeRepository) {
-		createService = new CreateServiceImpl<>(accountInternalTypeRepository, AccountInternalType::getId);
-		readService = new ReadServiceImpl<>(accountInternalTypeRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountInternalType.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(accountInternalTypeRepository, AccountInternalType::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(accountInternalTypeRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(AccountInternalType.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				accountInternalTypeRepository,
 				accountInternalTypeMapper,
-				readService,
+				readServiceHelper,
 				AccountInternalType::getId);
-		deleteService = new DeleteServiceImpl<>(accountInternalTypeRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(accountInternalTypeRepository, readServiceHelper);
 	}
 
-	private final CreateService<Integer, AccountInternalType> createService;
-	private final ReadService<Integer, AccountInternalType> readService;
-	private final UpdateService<Integer, AccountInternalType> updateService;
-	private final DeleteService<Integer> deleteService;
+	private final CreateServiceHelper<Integer, AccountInternalType> createServiceHelper;
+	private final ReadServiceHelper<Integer, AccountInternalType> readServiceHelper;
+	private final UpdateServiceHelper<Integer, AccountInternalType> updateServiceHelper;
+	private final DeleteServiceHelper<Integer> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public AccountInternalType getReferenceById(Integer id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public AccountInternalType findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountInternalType> findManyById(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<AccountInternalType> findManyById(Collection<Integer> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountInternalType> findManyByIdIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<AccountInternalType> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountInternalType> findAll() {
-		return readService.findAll();
+	public List<AccountInternalType> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Integer save(AccountInternalType entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 
 	@Override
 	public AccountInternalType saveAndReturn(AccountInternalType entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<AccountInternalType> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Integer> save(Collection<AccountInternalType> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 
 	@Override
-	public Collection<AccountInternalType> saveAndReturn(Collection<AccountInternalType> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<AccountInternalType> saveAndReturn(Collection<AccountInternalType> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public Integer update(AccountInternalType entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public AccountInternalType updateAndReturn(AccountInternalType entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<AccountInternalType> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Integer> update(Collection<AccountInternalType> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<AccountInternalType> updateAndReturn(Collection<AccountInternalType> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<AccountInternalType> updateAndReturn(Collection<AccountInternalType> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Integer id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Integer> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

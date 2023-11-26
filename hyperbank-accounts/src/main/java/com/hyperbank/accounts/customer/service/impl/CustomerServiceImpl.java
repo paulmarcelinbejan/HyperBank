@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.customer.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,93 +12,93 @@ import com.hyperbank.accounts.customer.service.CustomerService;
 import com.hyperbank.accounts.customertype.service.CustomerTypeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CustomerServiceImpl implements CustomerService {
 
 	public CustomerServiceImpl(CustomerRepository customerRepository, CustomerTypeService customerTypeService) {
-		createService = new CreateServiceImpl<>(customerRepository, Customer::getId);
-		readService = new ReadServiceImpl<>(customerRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Customer.class));
-		deleteService = new DeleteServiceImpl<>(customerRepository, readService);
+		createServiceHelper = new CreateServiceHelperImpl<>(customerRepository, Customer::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(customerRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(Customer.class));
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(customerRepository, readServiceHelper);
 		this.customerTypeService = customerTypeService;
 	}
 
-	private final CreateService<Long, Customer> createService;
-	private final ReadService<Long, Customer> readService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, Customer> createServiceHelper;
+	private final ReadServiceHelper<Long, Customer> readServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 	
 	private final CustomerTypeService customerTypeService;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Customer getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public Customer findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Customer> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<Customer> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Customer> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<Customer> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Customer> findAll() {
-		return readService.findAll();
+	public List<Customer> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Customer saveWithCustomerIndividualType() throws FunctionalException {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(1));
-		return createService.saveAndReturn(customer);
+		return createServiceHelper.saveAndReturn(customer);
 	}
 
 	@Override
 	public Customer saveWithCustomerLegalEntityType() throws FunctionalException {
 		Customer customer = new Customer();
 		customer.setCustomerType(customerTypeService.getReferenceById(2));
-		return createService.saveAndReturn(customer);
+		return createServiceHelper.saveAndReturn(customer);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 
 }

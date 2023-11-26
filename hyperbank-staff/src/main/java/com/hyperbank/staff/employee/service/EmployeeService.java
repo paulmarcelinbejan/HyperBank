@@ -1,9 +1,8 @@
 package com.hyperbank.staff.employee.service;
 
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.service.Service;
-import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
+import com.paulmarcelinbejan.toolbox.service.helper.aggregate.CrudServiceHelper;
 
-public interface EmployeeService extends CrudService<Long, Employee>, Service<Employee, Employee> {
+public interface EmployeeService extends CrudServiceHelper<Long, Employee> {
 
 }

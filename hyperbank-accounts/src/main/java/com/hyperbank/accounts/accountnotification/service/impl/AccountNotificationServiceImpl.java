@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.accountnotification.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,96 +12,96 @@ import com.hyperbank.accounts.accountnotification.repository.AccountNotification
 import com.hyperbank.accounts.accountnotification.service.AccountNotificationService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class AccountNotificationServiceImpl implements AccountNotificationService {
 
 	public AccountNotificationServiceImpl(AccountNotificationMapper accountNotificationMapper, AccountNotificationRepository accountNotificationRepository) {
-		createService = new CreateServiceImpl<>(accountNotificationRepository, AccountNotification::getId);
-		readService = new ReadServiceImpl<>(accountNotificationRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountNotification.class));
-		deleteService = new DeleteServiceImpl<>(accountNotificationRepository, readService);
+		createServiceHelper = new CreateServiceHelperImpl<>(accountNotificationRepository, AccountNotification::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(accountNotificationRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(AccountNotification.class));
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(accountNotificationRepository, readServiceHelper);
 	}
 
-	private final CreateService<Long, AccountNotification> createService;
-	private final ReadService<Long, AccountNotification> readService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, AccountNotification> createServiceHelper;
+	private final ReadServiceHelper<Long, AccountNotification> readServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public AccountNotification getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public AccountNotification findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountNotification> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<AccountNotification> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountNotification> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<AccountNotification> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountNotification> findAll() {
-		return readService.findAll();
+	public List<AccountNotification> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Long save(AccountNotification entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 
 	@Override
 	public AccountNotification saveAndReturn(AccountNotification entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountNotification> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Long> save(Collection<AccountNotification> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 
 	@Override
-	public Collection<AccountNotification> saveAndReturn(Collection<AccountNotification> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<AccountNotification> saveAndReturn(Collection<AccountNotification> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

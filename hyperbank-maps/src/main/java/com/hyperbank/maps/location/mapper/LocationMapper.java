@@ -17,7 +17,7 @@ import com.hyperbank.maps.location.dto.LocationSaveRequest;
 import com.hyperbank.maps.location.dto.LocationUpdateRequest;
 import com.hyperbank.maps.location.entity.Location;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class LocationMapper implements FullMapper<Location, LocationSaveRequest, LocationUpdateRequest, LocationResponse> {

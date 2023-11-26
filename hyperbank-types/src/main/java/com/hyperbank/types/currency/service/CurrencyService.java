@@ -1,8 +1,8 @@
 package com.hyperbank.types.currency.service;
 
 import com.hyperbank.types.currency.entity.Currency;
-import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
+import com.paulmarcelinbejan.toolbox.service.helper.aggregate.CrudServiceHelper;
 
-public interface CurrencyService extends CrudService<Integer, Currency> {
+public interface CurrencyService extends CrudServiceHelper<Integer, Currency> {
 
 }

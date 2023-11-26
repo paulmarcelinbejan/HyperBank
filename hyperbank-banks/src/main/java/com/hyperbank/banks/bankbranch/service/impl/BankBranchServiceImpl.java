@@ -1,6 +1,7 @@
 package com.hyperbank.banks.bankbranch.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,125 +12,125 @@ import com.hyperbank.banks.bankbranch.repository.BankBranchRepository;
 import com.hyperbank.banks.bankbranch.service.BankBranchService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class BankBranchServiceImpl implements BankBranchService {
 
 	public BankBranchServiceImpl(BankBranchMapper bankBranchMapper, BankBranchRepository bankBranchRepository) {
-		createService = new CreateServiceImpl<>(bankBranchRepository, BankBranch::getId);
-		readService = new ReadServiceImpl<>(bankBranchRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(BankBranch.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(bankBranchRepository, BankBranch::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(bankBranchRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(BankBranch.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				bankBranchRepository,
 				bankBranchMapper,
-				readService,
+				readServiceHelper,
 				BankBranch::getId);
-		deleteService = new DeleteServiceImpl<>(bankBranchRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(bankBranchRepository, readServiceHelper);
 	}
 
-	private final CreateService<Integer, BankBranch> createService;
-	private final ReadService<Integer, BankBranch> readService;
-	private final UpdateService<Integer, BankBranch> updateService;
-	private final DeleteService<Integer> deleteService;
+	private final CreateServiceHelper<Integer, BankBranch> createServiceHelper;
+	private final ReadServiceHelper<Integer, BankBranch> readServiceHelper;
+	private final UpdateServiceHelper<Integer, BankBranch> updateServiceHelper;
+	private final DeleteServiceHelper<Integer> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public BankBranch getReferenceById(Integer id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public BankBranch findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankBranch> findManyById(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<BankBranch> findManyById(Collection<Integer> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankBranch> findManyByIdIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<BankBranch> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<BankBranch> findAll() {
-		return readService.findAll();
+	public List<BankBranch> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Integer save(BankBranch entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 	
 	@Override
 	public BankBranch saveAndReturn(BankBranch entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<BankBranch> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Integer> save(Collection<BankBranch> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 	
 	@Override
-	public Collection<BankBranch> saveAndReturn(Collection<BankBranch> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<BankBranch> saveAndReturn(Collection<BankBranch> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 
 	@Override
 	public Integer update(BankBranch entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public BankBranch updateAndReturn(BankBranch entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<BankBranch> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Integer> update(Collection<BankBranch> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<BankBranch> updateAndReturn(Collection<BankBranch> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<BankBranch> updateAndReturn(Collection<BankBranch> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Integer id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Integer> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

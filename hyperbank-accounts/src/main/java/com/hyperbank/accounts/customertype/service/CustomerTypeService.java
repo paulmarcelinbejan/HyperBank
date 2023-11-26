@@ -1,8 +1,8 @@
 package com.hyperbank.accounts.customertype.service;
 
 import com.hyperbank.accounts.customertype.entity.CustomerType;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
 
-public interface CustomerTypeService extends ReadService<Integer, CustomerType> {
+public interface CustomerTypeService extends ReadServiceHelper<Integer, CustomerType> {
 
 }

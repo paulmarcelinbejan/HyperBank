@@ -2,6 +2,7 @@ package com.hyperbank.accounts.accountexternal.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,59 +14,59 @@ import com.hyperbank.accounts.accountexternal.repository.AccountExternalReposito
 import com.hyperbank.accounts.accountexternal.service.AccountExternalService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class AccountExternalServiceImpl implements AccountExternalService {
 
 	public AccountExternalServiceImpl(AccountExternalRepository accountExternalRepository, AccountService accountService) {
-		createService = new CreateServiceImpl<>(accountExternalRepository, AccountExternal::getId);
-		readService = new ReadServiceImpl<>(accountExternalRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(AccountExternal.class));
-		deleteService = new DeleteServiceImpl<>(accountExternalRepository, readService);
+		createServiceHelper = new CreateServiceHelperImpl<>(accountExternalRepository, AccountExternal::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(accountExternalRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(AccountExternal.class));
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(accountExternalRepository, readServiceHelper);
 		this.accountService = accountService;
 	}
 
-	private final CreateService<Long, AccountExternal> createService;
-	private final ReadService<Long, AccountExternal> readService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, AccountExternal> createServiceHelper;
+	private final ReadServiceHelper<Long, AccountExternal> readServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 	
 	private final AccountService accountService;
 
 	@Override
 	@Transactional(readOnly = true)
 	public AccountExternal getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public AccountExternal findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountExternal> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<AccountExternal> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountExternal> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<AccountExternal> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<AccountExternal> findAll() {
-		return readService.findAll();
+	public List<AccountExternal> findAll() {
+		return readServiceHelper.findAll();
 	}
 	
 	@Override
@@ -77,13 +78,13 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	public AccountExternal saveAndReturn(AccountExternal entity) throws FunctionalException {
 		Account account = accountService.saveWithAccountExternalType();
 		entity.setAccount(account);
-		entity = createService.saveAndReturn(entity);
+		entity = createServiceHelper.saveAndReturn(entity);
 		return entity;
 	}
 
 	@Override
-	public Collection<Long> save(Collection<AccountExternal> entities) throws FunctionalException {
-		Collection<Long> savedEntities = new ArrayList<>();
+	public List<Long> save(Collection<AccountExternal> entities) throws FunctionalException {
+		List<Long> savedEntities = new ArrayList<>();
 		for(AccountExternal entity : entities) {
 			savedEntities.add(save(entity));
 		}
@@ -91,8 +92,8 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 	
 	@Override
-	public Collection<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) throws FunctionalException {
-		Collection<AccountExternal> savedEntities = new ArrayList<>();
+	public List<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) throws FunctionalException {
+		List<AccountExternal> savedEntities = new ArrayList<>();
 		for(AccountExternal entity : entities) {
 			savedEntities.add(saveAndReturn(entity));
 		}
@@ -101,22 +102,22 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

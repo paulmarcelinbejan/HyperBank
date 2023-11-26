@@ -13,7 +13,7 @@ import com.hyperbank.interests.interestratetype.dto.InterestRateTypeResponse;
 import com.hyperbank.interests.interestratetype.dto.InterestRateTypeSaveRequest;
 import com.hyperbank.interests.interestratetype.dto.InterestRateTypeUpdateRequest;
 import com.hyperbank.interests.interestratetype.entity.InterestRateType;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class InterestRateTypeMapper implements FullMapper<InterestRateType, InterestRateTypeSaveRequest, InterestRateTypeUpdateRequest, InterestRateTypeResponse> {

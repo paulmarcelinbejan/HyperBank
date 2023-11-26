@@ -1,10 +1,10 @@
-package com.hyperbank.staff.employee.validator;
+package com.hyperbank.staff.employee.api.save.one;
 
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.paulmarcelinbejan.architecture.sniper.validator.BaseValidator;
 import com.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 
 @Validator
-public class EmployeeValidator implements BaseValidator<EmployeeSaveRequest> {
+public class EmployeeSaveOneRequestValidator implements BaseValidator<EmployeeSaveRequest> {
 	
 }

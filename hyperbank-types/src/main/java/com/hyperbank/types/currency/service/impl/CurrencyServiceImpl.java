@@ -1,6 +1,7 @@
 package com.hyperbank.types.currency.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,124 +12,124 @@ import com.hyperbank.types.currency.repository.CurrencyRepository;
 import com.hyperbank.types.currency.service.CurrencyService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CurrencyServiceImpl implements CurrencyService {
 
 	public CurrencyServiceImpl(CurrencyMapper currencyMapper, CurrencyRepository currencyRepository) {
-		createService = new CreateServiceImpl<>(currencyRepository, Currency::getId);
-		readService = new ReadServiceImpl<>(currencyRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Currency.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(currencyRepository, Currency::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(currencyRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(Currency.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				currencyRepository,
 				currencyMapper,
-				readService,
+				readServiceHelper,
 				Currency::getId);
-		deleteService = new DeleteServiceImpl<>(currencyRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(currencyRepository, readServiceHelper);
 	}
 
-	private final CreateService<Integer, Currency> createService;
-	private final ReadService<Integer, Currency> readService;
-	private final UpdateService<Integer, Currency> updateService;
-	private final DeleteService<Integer> deleteService;
+	private final CreateServiceHelper<Integer, Currency> createServiceHelper;
+	private final ReadServiceHelper<Integer, Currency> readServiceHelper;
+	private final UpdateServiceHelper<Integer, Currency> updateServiceHelper;
+	private final DeleteServiceHelper<Integer> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Currency getReferenceById(Integer id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Currency findById(Integer id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Currency> findManyById(Collection<Integer> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<Currency> findManyById(Collection<Integer> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Currency> findManyByIdIfPresent(Collection<Integer> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<Currency> findManyByIdIfPresent(Collection<Integer> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Currency> findAll() {
-		return readService.findAll();
+	public List<Currency> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Integer save(Currency entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 
 	@Override
 	public Currency saveAndReturn(Currency entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Integer> save(Collection<Currency> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Integer> save(Collection<Currency> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 
 	@Override
-	public Collection<Currency> saveAndReturn(Collection<Currency> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<Currency> saveAndReturn(Collection<Currency> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public Integer update(Currency entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public Currency updateAndReturn(Currency entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Integer> update(Collection<Currency> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Integer> update(Collection<Currency> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<Currency> updateAndReturn(Collection<Currency> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<Currency> updateAndReturn(Collection<Currency> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Integer id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Integer id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Integer> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Integer> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

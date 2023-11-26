@@ -1,8 +1,8 @@
 package com.hyperbank.accounts.accountinternal.service;
 
 import com.hyperbank.accounts.accountinternal.entity.AccountInternal;
-import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
+import com.paulmarcelinbejan.toolbox.service.helper.aggregate.CrudServiceHelper;
 
-public interface AccountInternalService extends CrudService<Long, AccountInternal> {
+public interface AccountInternalService extends CrudServiceHelper<Long, AccountInternal> {
 
 }

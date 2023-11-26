@@ -16,7 +16,7 @@ import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualResponse;
 import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualSaveRequest;
 import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualUpdateRequest;
 import com.hyperbank.accounts.customerindividual.entity.CustomerIndividual;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class CustomerIndividualMapper implements FullMapper<CustomerIndividual, CustomerIndividualSaveRequest, CustomerIndividualUpdateRequest, CustomerIndividualResponse> {

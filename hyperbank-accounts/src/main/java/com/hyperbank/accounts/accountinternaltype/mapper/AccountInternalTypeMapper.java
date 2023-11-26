@@ -13,7 +13,7 @@ import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeRespons
 import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeSaveRequest;
 import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeUpdateRequest;
 import com.hyperbank.accounts.accountinternaltype.entity.AccountInternalType;
-import com.paulmarcelinbejan.toolbox.utils.mapping.FullMapper;
+import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class AccountInternalTypeMapper implements FullMapper<AccountInternalType, AccountInternalTypeSaveRequest, AccountInternalTypeUpdateRequest, AccountInternalTypeResponse> {

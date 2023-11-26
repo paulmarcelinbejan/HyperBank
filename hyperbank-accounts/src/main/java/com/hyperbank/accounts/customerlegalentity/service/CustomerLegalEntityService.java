@@ -1,8 +1,8 @@
 package com.hyperbank.accounts.customerlegalentity.service;
 
 import com.hyperbank.accounts.customerlegalentity.entity.CustomerLegalEntity;
-import com.paulmarcelinbejan.toolbox.web.service.aggregate.CrudService;
+import com.paulmarcelinbejan.toolbox.service.helper.aggregate.CrudServiceHelper;
 
-public interface CustomerLegalEntityService extends CrudService<Long, CustomerLegalEntity> {
+public interface CustomerLegalEntityService extends CrudServiceHelper<Long, CustomerLegalEntity> {
 
 }

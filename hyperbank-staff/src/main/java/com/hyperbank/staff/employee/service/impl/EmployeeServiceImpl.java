@@ -1,6 +1,7 @@
 package com.hyperbank.staff.employee.service.impl;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,129 +12,124 @@ import com.hyperbank.staff.employee.repository.EmployeeRepository;
 import com.hyperbank.staff.employee.service.EmployeeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class EmployeeServiceImpl implements EmployeeService {
 
 	public EmployeeServiceImpl(EmployeeMapper employeeMapper, EmployeeRepository employeeRepository) {
-		createService = new CreateServiceImpl<>(employeeRepository, Employee::getId);
-		readService = new ReadServiceImpl<>(employeeRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(Employee.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(employeeRepository, Employee::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(employeeRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(Employee.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				employeeRepository,
 				employeeMapper,
-				readService,
+				readServiceHelper,
 				Employee::getId);
-		deleteService = new DeleteServiceImpl<>(employeeRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(employeeRepository, readServiceHelper);
 	}
 
-	private final CreateService<Long, Employee> createService;
-	private final ReadService<Long, Employee> readService;
-	private final UpdateService<Long, Employee> updateService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, Employee> createServiceHelper;
+	private final ReadServiceHelper<Long, Employee> readServiceHelper;
+	private final UpdateServiceHelper<Long, Employee> updateServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
 	@Override
 	@Transactional(readOnly = true)
 	public Employee getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Employee findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Employee> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<Employee> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Employee> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<Employee> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<Employee> findAll() {
-		return readService.findAll();
+	public List<Employee> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
 	public Long save(Employee entity) throws FunctionalException {
-		return createService.save(entity);
+		return createServiceHelper.save(entity);
 	}
 
 	@Override
 	public Employee saveAndReturn(Employee entity) throws FunctionalException {
-		return createService.saveAndReturn(entity);
+		return createServiceHelper.saveAndReturn(entity);
 	}
 
 	@Override
-	public Collection<Long> save(Collection<Employee> entities) throws FunctionalException {
-		return createService.save(entities);
+	public List<Long> save(Collection<Employee> entities) throws FunctionalException {
+		return createServiceHelper.save(entities);
 	}
 
 	@Override
-	public Collection<Employee> saveAndReturn(Collection<Employee> entities) throws FunctionalException {
-		return createService.saveAndReturn(entities);
+	public List<Employee> saveAndReturn(Collection<Employee> entities) throws FunctionalException {
+		return createServiceHelper.saveAndReturn(entities);
 	}
 
 	@Override
 	public Long update(Employee entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public Employee updateAndReturn(Employee entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Long> update(Collection<Employee> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Long> update(Collection<Employee> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<Employee> updateAndReturn(Collection<Employee> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<Employee> updateAndReturn(Collection<Employee> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
-	}
-
-	@Override
-	public Employee execute(Employee employee) throws FunctionalException, TechnicalException {
-		return createService.saveAndReturn(employee);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	
 }

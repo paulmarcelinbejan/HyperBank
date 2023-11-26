@@ -1,4 +1,4 @@
-package com.hyperbank.staff.employee.sniper;
+package com.hyperbank.staff.employee.api.save.one;
 
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
@@ -11,9 +11,9 @@ import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
 import com.paulmarcelinbejan.architecture.sniper.validator.Validator;
 
 @Sniper
-public class SniperSaveEmployee extends BaseSniper<EmployeeSaveRequest, Employee, Employee, EmployeeResponse>{
+public class EmployeeSaveOneSniper extends BaseSniper<EmployeeSaveRequest, Employee, Employee, EmployeeResponse> {
 
-	public SniperSaveEmployee(
+	public EmployeeSaveOneSniper(
 			Validator<EmployeeSaveRequest> validator,
 			MapperInput<EmployeeSaveRequest, Employee> mapperInput, 
 			Service<Employee, Employee> service,

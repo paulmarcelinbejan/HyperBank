@@ -2,6 +2,7 @@ package com.hyperbank.accounts.customerindividual.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,67 +15,67 @@ import com.hyperbank.accounts.customerindividual.repository.CustomerIndividualRe
 import com.hyperbank.accounts.customerindividual.service.CustomerIndividualService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.service.CreateService;
-import com.paulmarcelinbejan.toolbox.web.service.DeleteService;
-import com.paulmarcelinbejan.toolbox.web.service.ReadService;
-import com.paulmarcelinbejan.toolbox.web.service.UpdateService;
-import com.paulmarcelinbejan.toolbox.web.service.impl.CreateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.DeleteServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.ReadServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.impl.UpdateServiceImpl;
-import com.paulmarcelinbejan.toolbox.web.service.utils.ServiceUtils;
+import com.paulmarcelinbejan.toolbox.service.helper.CreateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.DeleteServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.ReadServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.UpdateServiceHelper;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.CreateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.DeleteServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.ReadServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.impl.UpdateServiceHelperImpl;
+import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 @Service
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class CustomerIndividualServiceImpl implements CustomerIndividualService {
 
 	public CustomerIndividualServiceImpl(CustomerIndividualMapper customerIndividualMapper, CustomerIndividualRepository customerIndividualRepository, CustomerService customerService) {
-		createService = new CreateServiceImpl<>(customerIndividualRepository, CustomerIndividual::getId);
-		readService = new ReadServiceImpl<>(customerIndividualRepository, ServiceUtils.buildErrorMessageIfEntityNotFoundById(CustomerIndividual.class));
-		updateService = new UpdateServiceImpl<>(
+		createServiceHelper = new CreateServiceHelperImpl<>(customerIndividualRepository, CustomerIndividual::getId);
+		readServiceHelper = new ReadServiceHelperImpl<>(customerIndividualRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(CustomerIndividual.class));
+		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				customerIndividualRepository,
 				customerIndividualMapper,
-				readService,
+				readServiceHelper,
 				CustomerIndividual::getId);
-		deleteService = new DeleteServiceImpl<>(customerIndividualRepository, readService);
+		deleteServiceHelper = new DeleteServiceHelperImpl<>(customerIndividualRepository, readServiceHelper);
 		this.customerService = customerService;
 	}
 
-	private final CreateService<Long, CustomerIndividual> createService;
-	private final ReadService<Long, CustomerIndividual> readService;
-	private final UpdateService<Long, CustomerIndividual> updateService;
-	private final DeleteService<Long> deleteService;
+	private final CreateServiceHelper<Long, CustomerIndividual> createServiceHelper;
+	private final ReadServiceHelper<Long, CustomerIndividual> readServiceHelper;
+	private final UpdateServiceHelper<Long, CustomerIndividual> updateServiceHelper;
+	private final DeleteServiceHelper<Long> deleteServiceHelper;
 	
 	private final CustomerService customerService;
 
 	@Override
 	@Transactional(readOnly = true)
 	public CustomerIndividual getReferenceById(Long id) {
-		return readService.getReferenceById(id);
+		return readServiceHelper.getReferenceById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public CustomerIndividual findById(Long id) throws FunctionalException {
-		return readService.findById(id);
+		return readServiceHelper.findById(id);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<CustomerIndividual> findManyById(Collection<Long> ids) throws FunctionalException {
-		return readService.findManyById(ids);
+	public List<CustomerIndividual> findManyById(Collection<Long> ids) throws FunctionalException {
+		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<CustomerIndividual> findManyByIdIfPresent(Collection<Long> ids) {
-		return readService.findManyByIdIfPresent(ids);
+	public List<CustomerIndividual> findManyByIdIfPresent(Collection<Long> ids) {
+		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Collection<CustomerIndividual> findAll() {
-		return readService.findAll();
+	public List<CustomerIndividual> findAll() {
+		return readServiceHelper.findAll();
 	}
 
 	@Override
@@ -86,13 +87,13 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	public CustomerIndividual saveAndReturn(CustomerIndividual entity) throws FunctionalException {
 		Customer customer = customerService.saveWithCustomerIndividualType();
 		entity.setCustomer(customer);
-		entity = createService.saveAndReturn(entity);
+		entity = createServiceHelper.saveAndReturn(entity);
 		return entity;
 	}
 
 	@Override
-	public Collection<Long> save(Collection<CustomerIndividual> entities) throws FunctionalException {
-		Collection<Long> savedEntities = new ArrayList<>();
+	public List<Long> save(Collection<CustomerIndividual> entities) throws FunctionalException {
+		List<Long> savedEntities = new ArrayList<>();
 		for(CustomerIndividual entity : entities) {
 			savedEntities.add(save(entity));
 		}
@@ -100,8 +101,8 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 	}
 	
 	@Override
-	public Collection<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) throws FunctionalException {
-		Collection<CustomerIndividual> savedEntities = new ArrayList<>();
+	public List<CustomerIndividual> saveAndReturn(Collection<CustomerIndividual> entities) throws FunctionalException {
+		List<CustomerIndividual> savedEntities = new ArrayList<>();
 		for(CustomerIndividual entity : entities) {
 			savedEntities.add(saveAndReturn(entity));
 		}
@@ -110,45 +111,45 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
 
 	@Override
 	public Long update(CustomerIndividual entity) throws FunctionalException {
-		return updateService.update(entity);
+		return updateServiceHelper.update(entity);
 	}
 
 	@Override
 	public CustomerIndividual updateAndReturn(CustomerIndividual entity) throws FunctionalException {
-		return updateService.updateAndReturn(entity);
+		return updateServiceHelper.updateAndReturn(entity);
 	}
 	
 	@Override
-	public Collection<Long> update(Collection<CustomerIndividual> entities) throws FunctionalException {
-		return updateService.update(entities);
+	public List<Long> update(Collection<CustomerIndividual> entities) throws FunctionalException {
+		return updateServiceHelper.update(entities);
 	}
 	
 	@Override
-	public Collection<CustomerIndividual> updateAndReturn(Collection<CustomerIndividual> entities) throws FunctionalException {
-		return updateService.updateAndReturn(entities);
+	public List<CustomerIndividual> updateAndReturn(Collection<CustomerIndividual> entities) throws FunctionalException {
+		return updateServiceHelper.updateAndReturn(entities);
 	}
 
 	@Override
 	public void delete(Long id) throws FunctionalException {
-		deleteService.delete(id);
+		deleteServiceHelper.delete(id);
 		customerService.delete(id);
 	}
 	
 	@Override
 	public void deleteIfPresent(Long id) {
-		deleteService.deleteIfPresent(id);
+		deleteServiceHelper.deleteIfPresent(id);
 		customerService.deleteIfPresent(id);
 	}
 
 	@Override
 	public void deleteMany(Collection<Long> ids) throws FunctionalException {
-		deleteService.deleteMany(ids);
+		deleteServiceHelper.deleteMany(ids);
 		customerService.deleteMany(ids);
 	}
 
 	@Override
 	public void deleteManyIfPresent(Collection<Long> ids) {
-		deleteService.deleteManyIfPresent(ids);
+		deleteServiceHelper.deleteManyIfPresent(ids);
 		customerService.deleteManyIfPresent(ids);
 	}
 	
