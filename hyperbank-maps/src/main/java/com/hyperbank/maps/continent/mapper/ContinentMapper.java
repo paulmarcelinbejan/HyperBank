@@ -1,6 +1,7 @@
 package com.hyperbank.maps.continent.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -25,7 +26,7 @@ public interface ContinentMapper extends FullMapper<Continent, ContinentSaveRequ
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	Collection<Continent> fromSaveRequestsToEntities(Collection<ContinentSaveRequest> saveRequests);
+	List<Continent> fromSaveRequestsToEntities(Collection<ContinentSaveRequest> saveRequests);
 	
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -33,7 +34,7 @@ public interface ContinentMapper extends FullMapper<Continent, ContinentSaveRequ
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	Collection<Continent> fromUpdateRequestsToEntities(Collection<ContinentUpdateRequest> updateRequests);
+	List<Continent> fromUpdateRequestsToEntities(Collection<ContinentUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -45,6 +46,6 @@ public interface ContinentMapper extends FullMapper<Continent, ContinentSaveRequ
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	Collection<ContinentResponse> toResponses(Collection<Continent> entities);
+	List<ContinentResponse> toResponses(Collection<Continent> entities);
 
 }

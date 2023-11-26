@@ -1,6 +1,7 @@
 package com.hyperbank.maps.country.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -33,7 +34,7 @@ public abstract class CountryMapper implements FullMapper<Country, CountrySaveRe
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<Country> fromSaveRequestsToEntities(Collection<CountrySaveRequest> saveRequests);
+	public abstract List<Country> fromSaveRequestsToEntities(Collection<CountrySaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -42,7 +43,7 @@ public abstract class CountryMapper implements FullMapper<Country, CountrySaveRe
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<Country> fromUpdateRequestsToEntities(Collection<CountryUpdateRequest> updateRequests);
+	public abstract List<Country> fromUpdateRequestsToEntities(Collection<CountryUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -55,7 +56,7 @@ public abstract class CountryMapper implements FullMapper<Country, CountrySaveRe
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<CountryResponse> toResponses(Collection<Country> entities);
+	public abstract List<CountryResponse> toResponses(Collection<Country> entities);
 
 	@Named("getContinentById")
 	protected Continent getContinentById(Integer id) throws FunctionalException {

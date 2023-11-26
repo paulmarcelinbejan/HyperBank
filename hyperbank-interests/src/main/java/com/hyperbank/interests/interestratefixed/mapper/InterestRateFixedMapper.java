@@ -1,6 +1,7 @@
 package com.hyperbank.interests.interestratefixed.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -24,7 +25,7 @@ public abstract class InterestRateFixedMapper implements MapperFromSaveRequestTo
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<InterestRateFixed> fromSaveRequestsToEntities(Collection<InterestRateFixedSaveRequest> saveRequests);
+	public abstract List<InterestRateFixed> fromSaveRequestsToEntities(Collection<InterestRateFixedSaveRequest> saveRequests);
 
 	@Override
 	@Named("toResponse")
@@ -32,6 +33,6 @@ public abstract class InterestRateFixedMapper implements MapperFromSaveRequestTo
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<InterestRateFixedResponse> toResponses(Collection<InterestRateFixed> entities);
+	public abstract List<InterestRateFixedResponse> toResponses(Collection<InterestRateFixed> entities);
 
 }

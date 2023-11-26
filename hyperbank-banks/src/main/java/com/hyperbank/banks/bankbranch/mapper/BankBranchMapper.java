@@ -1,6 +1,7 @@
 package com.hyperbank.banks.bankbranch.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -33,7 +34,7 @@ public abstract class BankBranchMapper implements FullMapper<BankBranch, BankBra
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<BankBranch> fromSaveRequestsToEntities(Collection<BankBranchSaveRequest> saveRequests);
+	public abstract List<BankBranch> fromSaveRequestsToEntities(Collection<BankBranchSaveRequest> saveRequests);
 	
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -42,7 +43,7 @@ public abstract class BankBranchMapper implements FullMapper<BankBranch, BankBra
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<BankBranch> fromUpdateRequestsToEntities(Collection<BankBranchUpdateRequest> updateRequests);
+	public abstract List<BankBranch> fromUpdateRequestsToEntities(Collection<BankBranchUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -55,7 +56,7 @@ public abstract class BankBranchMapper implements FullMapper<BankBranch, BankBra
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<BankBranchResponse> toResponses(Collection<BankBranch> entities);
+	public abstract List<BankBranchResponse> toResponses(Collection<BankBranch> entities);
 
 	@Named("getBankById")
 	protected Bank getBankById(Integer id) throws FunctionalException {

@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.customerindividual.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -32,7 +33,7 @@ public abstract class CustomerIndividualMapper implements FullMapper<CustomerInd
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<CustomerIndividual> fromSaveRequestsToEntities(Collection<CustomerIndividualSaveRequest> saveRequests);
+	public abstract List<CustomerIndividual> fromSaveRequestsToEntities(Collection<CustomerIndividualSaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -41,7 +42,7 @@ public abstract class CustomerIndividualMapper implements FullMapper<CustomerInd
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<CustomerIndividual> fromUpdateRequestsToEntities(Collection<CustomerIndividualUpdateRequest> updateRequests);
+	public abstract List<CustomerIndividual> fromUpdateRequestsToEntities(Collection<CustomerIndividualUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -53,7 +54,7 @@ public abstract class CustomerIndividualMapper implements FullMapper<CustomerInd
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<CustomerIndividualResponse> toResponses(Collection<CustomerIndividual> entities);
+	public abstract List<CustomerIndividualResponse> toResponses(Collection<CustomerIndividual> entities);
 	
 	@Named("getCustomerReferenceById")
 	protected Customer getCustomerReferenceById(Long id) {

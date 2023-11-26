@@ -1,6 +1,7 @@
 package com.hyperbank.interests.interestratevariable.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -34,7 +35,7 @@ public abstract class InterestRateVariableMapper implements MapperFromSaveReques
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<InterestRateVariable> fromSaveRequestsToEntities(Collection<InterestRateVariableSaveRequest> saveRequests);
+	public abstract List<InterestRateVariable> fromSaveRequestsToEntities(Collection<InterestRateVariableSaveRequest> saveRequests);
 
 	@Named("fromUpdateRequestToHistoryEntity")
 	public InterestRateVariableHistory fromUpdateRequestToHistoryEntity(InterestRateVariableUpdateRequest updateRequest) throws FunctionalException {
@@ -43,7 +44,7 @@ public abstract class InterestRateVariableMapper implements MapperFromSaveReques
 	}
 
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToHistoryEntity")
-	public abstract Collection<InterestRateVariableHistory> fromUpdateRequestsToHistoryEntities(Collection<InterestRateVariableUpdateRequest> updateRequests);
+	public abstract List<InterestRateVariableHistory> fromUpdateRequestsToHistoryEntities(Collection<InterestRateVariableUpdateRequest> updateRequests);
 
 	@Override
 	@Named("toResponse")
@@ -51,7 +52,7 @@ public abstract class InterestRateVariableMapper implements MapperFromSaveReques
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<InterestRateVariableResponse> toResponses(Collection<InterestRateVariable> entities);
+	public abstract List<InterestRateVariableResponse> toResponses(Collection<InterestRateVariable> entities);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "interestRateVariable", source = "interestRateVariable")

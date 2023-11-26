@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.depositaccountdetails.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -24,6 +25,6 @@ public abstract class DepositAccountDetailsMapper implements MapperFromEntityToR
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<DepositAccountResponse> toResponses(Collection<DepositAccountDetails> entities);
+	public abstract List<DepositAccountResponse> toResponses(Collection<DepositAccountDetails> entities);
 
 }

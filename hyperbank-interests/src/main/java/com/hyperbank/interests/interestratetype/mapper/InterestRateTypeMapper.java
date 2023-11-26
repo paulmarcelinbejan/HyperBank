@@ -1,6 +1,7 @@
 package com.hyperbank.interests.interestratetype.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -25,7 +26,7 @@ public abstract class InterestRateTypeMapper implements FullMapper<InterestRateT
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<InterestRateType> fromSaveRequestsToEntities(Collection<InterestRateTypeSaveRequest> saveRequests);
+	public abstract List<InterestRateType> fromSaveRequestsToEntities(Collection<InterestRateTypeSaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -34,7 +35,7 @@ public abstract class InterestRateTypeMapper implements FullMapper<InterestRateT
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<InterestRateType> fromUpdateRequestsToEntities(Collection<InterestRateTypeUpdateRequest> updateRequests);
+	public abstract List<InterestRateType> fromUpdateRequestsToEntities(Collection<InterestRateTypeUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -46,6 +47,6 @@ public abstract class InterestRateTypeMapper implements FullMapper<InterestRateT
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<InterestRateTypeResponse> toResponses(Collection<InterestRateType> entities);
+	public abstract List<InterestRateTypeResponse> toResponses(Collection<InterestRateType> entities);
 
 }

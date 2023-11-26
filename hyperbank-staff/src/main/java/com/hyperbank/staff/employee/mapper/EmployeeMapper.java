@@ -1,6 +1,7 @@
 package com.hyperbank.staff.employee.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -26,7 +27,7 @@ public abstract class EmployeeMapper implements
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<Employee> fromSaveRequestsToEntities(Collection<EmployeeSaveRequest> saveRequests);
+	public abstract List<Employee> fromSaveRequestsToEntities(Collection<EmployeeSaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -35,7 +36,7 @@ public abstract class EmployeeMapper implements
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<Employee> fromUpdateRequestsToEntities(Collection<EmployeeUpdateRequest> updateRequests);
+	public abstract List<Employee> fromUpdateRequestsToEntities(Collection<EmployeeUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -47,6 +48,6 @@ public abstract class EmployeeMapper implements
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<EmployeeResponse> toResponses(Collection<Employee> entities);
+	public abstract List<EmployeeResponse> toResponses(Collection<Employee> entities);
 	
 }

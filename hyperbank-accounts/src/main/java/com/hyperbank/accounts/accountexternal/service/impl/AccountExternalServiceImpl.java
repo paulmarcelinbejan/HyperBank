@@ -1,7 +1,6 @@
 package com.hyperbank.accounts.accountexternal.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -53,13 +52,13 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<AccountExternal> findManyById(Collection<Long> ids) throws FunctionalException {
+	public List<AccountExternal> findManyById(List<Long> ids) throws FunctionalException {
 		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<AccountExternal> findManyByIdIfPresent(Collection<Long> ids) {
+	public List<AccountExternal> findManyByIdIfPresent(List<Long> ids) {
 		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
@@ -83,7 +82,7 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 
 	@Override
-	public List<Long> save(Collection<AccountExternal> entities) throws FunctionalException {
+	public List<Long> save(List<AccountExternal> entities) throws FunctionalException {
 		List<Long> savedEntities = new ArrayList<>();
 		for(AccountExternal entity : entities) {
 			savedEntities.add(save(entity));
@@ -92,7 +91,7 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 	
 	@Override
-	public List<AccountExternal> saveAndReturn(Collection<AccountExternal> entities) throws FunctionalException {
+	public List<AccountExternal> saveAndReturn(List<AccountExternal> entities) throws FunctionalException {
 		List<AccountExternal> savedEntities = new ArrayList<>();
 		for(AccountExternal entity : entities) {
 			savedEntities.add(saveAndReturn(entity));
@@ -111,12 +110,12 @@ public class AccountExternalServiceImpl implements AccountExternalService {
 	}
 
 	@Override
-	public void deleteMany(Collection<Long> ids) throws FunctionalException {
+	public void deleteMany(List<Long> ids) throws FunctionalException {
 		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteManyIfPresent(Collection<Long> ids) {
+	public void deleteManyIfPresent(List<Long> ids) {
 		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	

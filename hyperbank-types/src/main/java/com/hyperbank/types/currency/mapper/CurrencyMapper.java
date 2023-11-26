@@ -1,6 +1,7 @@
 package com.hyperbank.types.currency.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -25,7 +26,7 @@ public abstract class CurrencyMapper implements FullMapper<Currency, CurrencySav
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<Currency> fromSaveRequestsToEntities(Collection<CurrencySaveRequest> saveRequests);
+	public abstract List<Currency> fromSaveRequestsToEntities(Collection<CurrencySaveRequest> saveRequests);
 	
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -33,7 +34,7 @@ public abstract class CurrencyMapper implements FullMapper<Currency, CurrencySav
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<Currency> fromUpdateRequestsToEntities(Collection<CurrencyUpdateRequest> updateRequests);
+	public abstract List<Currency> fromUpdateRequestsToEntities(Collection<CurrencyUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -45,6 +46,6 @@ public abstract class CurrencyMapper implements FullMapper<Currency, CurrencySav
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<CurrencyResponse> toResponses(Collection<Currency> entities);
+	public abstract List<CurrencyResponse> toResponses(Collection<Currency> entities);
 	
 }

@@ -1,6 +1,7 @@
 package com.hyperbank.maps.location.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -33,7 +34,7 @@ public abstract class LocationMapper implements FullMapper<Location, LocationSav
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<Location> fromSaveRequestsToEntities(Collection<LocationSaveRequest> saveRequests);
+	public abstract List<Location> fromSaveRequestsToEntities(Collection<LocationSaveRequest> saveRequests);
 	
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -42,7 +43,7 @@ public abstract class LocationMapper implements FullMapper<Location, LocationSav
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<Location> fromUpdateRequestsToEntities(Collection<LocationUpdateRequest> updateRequests);
+	public abstract List<Location> fromUpdateRequestsToEntities(Collection<LocationUpdateRequest> updateRequests);
 
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -55,7 +56,7 @@ public abstract class LocationMapper implements FullMapper<Location, LocationSav
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<LocationResponse> toResponses(Collection<Location> entities);
+	public abstract List<LocationResponse> toResponses(Collection<Location> entities);
 
 	@Named("getCityById")
 	protected City getCityById(Integer id) throws FunctionalException {

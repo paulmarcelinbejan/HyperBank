@@ -1,6 +1,7 @@
 package com.hyperbank.types.sextype.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -25,7 +26,7 @@ public abstract class SexTypeMapper implements FullMapper<SexType, SexTypeSaveRe
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<SexType> fromSaveRequestsToEntities(Collection<SexTypeSaveRequest> saveRequests);
+	public abstract List<SexType> fromSaveRequestsToEntities(Collection<SexTypeSaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -33,7 +34,7 @@ public abstract class SexTypeMapper implements FullMapper<SexType, SexTypeSaveRe
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<SexType> fromUpdateRequestsToEntities(Collection<SexTypeUpdateRequest> updateRequests);
+	public abstract List<SexType> fromUpdateRequestsToEntities(Collection<SexTypeUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -45,6 +46,6 @@ public abstract class SexTypeMapper implements FullMapper<SexType, SexTypeSaveRe
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<SexTypeResponse> toResponses(Collection<SexType> entities);
+	public abstract List<SexTypeResponse> toResponses(Collection<SexType> entities);
 
 }

@@ -1,6 +1,7 @@
 package com.hyperbank.banks.bank.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -25,7 +26,7 @@ public interface BankMapper extends FullMapper<Bank, BankSaveRequest, BankUpdate
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	Collection<Bank> fromSaveRequestsToEntities(Collection<BankSaveRequest> saveRequests);
+	List<Bank> fromSaveRequestsToEntities(Collection<BankSaveRequest> saveRequests);
 	
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -33,7 +34,7 @@ public interface BankMapper extends FullMapper<Bank, BankSaveRequest, BankUpdate
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	Collection<Bank> fromUpdateRequestsToEntities(Collection<BankUpdateRequest> updateRequests);
+	List<Bank> fromUpdateRequestsToEntities(Collection<BankUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -45,6 +46,6 @@ public interface BankMapper extends FullMapper<Bank, BankSaveRequest, BankUpdate
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	Collection<BankResponse> toResponses(Collection<Bank> entities);
+	List<BankResponse> toResponses(Collection<Bank> entities);
 	
 }

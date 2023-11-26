@@ -1,6 +1,7 @@
 package com.hyperbank.maps.city.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -33,7 +34,7 @@ public abstract class CityMapper implements FullMapper<City, CitySaveRequest, Ci
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<City> fromSaveRequestsToEntities(Collection<CitySaveRequest> saveRequests);
+	public abstract List<City> fromSaveRequestsToEntities(Collection<CitySaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -42,7 +43,7 @@ public abstract class CityMapper implements FullMapper<City, CitySaveRequest, Ci
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<City> fromUpdateRequestsToEntities(Collection<CityUpdateRequest> updateRequests);
+	public abstract List<City> fromUpdateRequestsToEntities(Collection<CityUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -55,7 +56,7 @@ public abstract class CityMapper implements FullMapper<City, CitySaveRequest, Ci
 	
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<CityResponse> toResponses(Collection<City> entities);
+	public abstract List<CityResponse> toResponses(Collection<City> entities);
 	
 	@Named("getCountryById")
 	protected Country getCountryById(Integer id) throws FunctionalException {

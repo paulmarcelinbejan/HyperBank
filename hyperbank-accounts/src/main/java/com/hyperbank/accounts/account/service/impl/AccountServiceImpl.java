@@ -1,6 +1,5 @@
 package com.hyperbank.accounts.account.service.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -51,13 +50,13 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Account> findManyById(Collection<Long> ids) throws FunctionalException {
+	public List<Account> findManyById(List<Long> ids) throws FunctionalException {
 		return readServiceHelper.findManyById(ids);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Account> findManyByIdIfPresent(Collection<Long> ids) {
+	public List<Account> findManyByIdIfPresent(List<Long> ids) {
 		return readServiceHelper.findManyByIdIfPresent(ids);
 	}
 
@@ -92,12 +91,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void deleteMany(Collection<Long> ids) throws FunctionalException {
+	public void deleteMany(List<Long> ids) throws FunctionalException {
 		deleteServiceHelper.deleteMany(ids);
 	}
 
 	@Override
-	public void deleteManyIfPresent(Collection<Long> ids) {
+	public void deleteManyIfPresent(List<Long> ids) {
 		deleteServiceHelper.deleteManyIfPresent(ids);
 	}
 	

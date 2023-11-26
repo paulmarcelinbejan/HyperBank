@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.accountinternal.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -45,7 +46,7 @@ public abstract class AccountInternalMapper implements FullMapper<AccountInterna
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<AccountInternal> fromSaveRequestsToEntities(Collection<AccountInternalSaveRequest> saveRequests);
+	public abstract List<AccountInternal> fromSaveRequestsToEntities(Collection<AccountInternalSaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -56,7 +57,7 @@ public abstract class AccountInternalMapper implements FullMapper<AccountInterna
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<AccountInternal> fromUpdateRequestsToEntities(Collection<AccountInternalUpdateRequest> updateRequests);
+	public abstract List<AccountInternal> fromUpdateRequestsToEntities(Collection<AccountInternalUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -70,7 +71,7 @@ public abstract class AccountInternalMapper implements FullMapper<AccountInterna
 	
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<AccountInternalResponse> toResponses(Collection<AccountInternal> entities);
+	public abstract List<AccountInternalResponse> toResponses(Collection<AccountInternal> entities);
 	
 	@Named("getAccountReferenceById")
 	protected Account getAccountReferenceById(Long id) {

@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.accountnotification.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -23,7 +24,7 @@ public abstract class AccountNotificationMapper implements MapperFromSaveRequest
 
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<AccountNotification> fromSaveRequestsToEntities(Collection<AccountNotificationSaveRequest> saveRequests);
+	public abstract List<AccountNotification> fromSaveRequestsToEntities(Collection<AccountNotificationSaveRequest> saveRequests);
 
 	@Override
 	@Named("toResponse")
@@ -31,6 +32,6 @@ public abstract class AccountNotificationMapper implements MapperFromSaveRequest
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<AccountNotificationResponse> toResponses(Collection<AccountNotification> entities);
+	public abstract List<AccountNotificationResponse> toResponses(Collection<AccountNotification> entities);
 
 }

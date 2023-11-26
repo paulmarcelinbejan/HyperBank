@@ -1,6 +1,7 @@
 package com.hyperbank.accounts.customerlegalentity.mapper;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -32,7 +33,7 @@ public abstract class CustomerLegalEntityMapper implements FullMapper<CustomerLe
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromSaveRequestToEntity")
-	public abstract Collection<CustomerLegalEntity> fromSaveRequestsToEntities(Collection<CustomerLegalEntitySaveRequest> saveRequests);
+	public abstract List<CustomerLegalEntity> fromSaveRequestsToEntities(Collection<CustomerLegalEntitySaveRequest> saveRequests);
 
 	@Override
 	@Named("fromUpdateRequestToEntity")
@@ -41,7 +42,7 @@ public abstract class CustomerLegalEntityMapper implements FullMapper<CustomerLe
 	
 	@Override
 	@IterableMapping(qualifiedByName = "fromUpdateRequestToEntity")
-	public abstract Collection<CustomerLegalEntity> fromUpdateRequestsToEntities(Collection<CustomerLegalEntityUpdateRequest> updateRequests);
+	public abstract List<CustomerLegalEntity> fromUpdateRequestsToEntities(Collection<CustomerLegalEntityUpdateRequest> updateRequests);
 	
 	@Override
 	@Mapping(target = "id", ignore = true)
@@ -53,7 +54,7 @@ public abstract class CustomerLegalEntityMapper implements FullMapper<CustomerLe
 
 	@Override
 	@IterableMapping(qualifiedByName = "toResponse")
-	public abstract Collection<CustomerLegalEntityResponse> toResponses(Collection<CustomerLegalEntity> entities);
+	public abstract List<CustomerLegalEntityResponse> toResponses(Collection<CustomerLegalEntity> entities);
 	
 	@Named("getCustomerReferenceById")
 	protected Customer getCustomerReferenceById(Long id) {
