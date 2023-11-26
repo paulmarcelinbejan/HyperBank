@@ -1,6 +1,6 @@
 package com.hyperbank.banks.bankbranch.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class BankBranchRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<BankBranchResponse> findAll() {
+	public @ResponseBody List<BankBranchResponse> findAll() {
 		return bankBranchMapper.toResponses(bankBranchService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class BankBranchRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankBranchSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> save(@RequestBody final List<BankBranchSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return bankBranchService.save(bankBranchMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class BankBranchRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankBranchUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> update(@RequestBody final List<BankBranchUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return bankBranchService.update(bankBranchMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class BankBranchRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Integer> ids) throws FunctionalException {
 		bankBranchService.deleteMany(ids);
 		return new OkResponse();
 	}

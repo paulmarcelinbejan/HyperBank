@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.customerlegalentity.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class CustomerLegalEntityRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<CustomerLegalEntityResponse> findAll() {
+	public @ResponseBody List<CustomerLegalEntityResponse> findAll() {
 		return customerLegalEntityMapper.toResponses(customerLegalEntityService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class CustomerLegalEntityRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<CustomerLegalEntitySaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Long> save(@RequestBody final List<CustomerLegalEntitySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return customerLegalEntityService.save(customerLegalEntityMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class CustomerLegalEntityRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> update(@RequestBody final Collection<CustomerLegalEntityUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Long> update(@RequestBody final List<CustomerLegalEntityUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return customerLegalEntityService.update(customerLegalEntityMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class CustomerLegalEntityRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
 		customerLegalEntityService.deleteMany(ids);
 		return new OkResponse();
 	}

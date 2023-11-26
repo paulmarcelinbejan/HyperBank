@@ -1,6 +1,6 @@
 package com.hyperbank.interests.interestratevariable.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +41,7 @@ public class InterestRateVariableRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<InterestRateVariableResponse> findAll() {
+	public @ResponseBody List<InterestRateVariableResponse> findAll() {
 		return interestRateVariableMapper.toResponses(interestRateVariableService.findAll());
 	}
 
@@ -51,7 +51,7 @@ public class InterestRateVariableRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<InterestRateVariableSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Long> save(@RequestBody final List<InterestRateVariableSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return interestRateVariableService.save(interestRateVariableMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -63,7 +63,7 @@ public class InterestRateVariableRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> update(@RequestBody final Collection<InterestRateVariableUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Long> update(@RequestBody final List<InterestRateVariableUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		interestRateVariableHistoryService.save(interestRateVariableMapper.fromUpdateRequestsToHistoryEntities(updateRequests));
 		return updateRequests.stream().map(InterestRateVariableUpdateRequest::getId).toList();

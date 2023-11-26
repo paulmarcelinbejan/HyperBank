@@ -1,6 +1,6 @@
 package com.hyperbank.interests.interestratefixed.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +36,7 @@ public class InterestRateFixedRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<InterestRateFixedResponse> findAll() {
+	public @ResponseBody List<InterestRateFixedResponse> findAll() {
 		return interestRateFixedMapper.toResponses(interestRateFixedService.findAll());
 	}
 
@@ -46,7 +46,7 @@ public class InterestRateFixedRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<InterestRateFixedSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Long> save(@RequestBody final List<InterestRateFixedSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return interestRateFixedService.save(interestRateFixedMapper.fromSaveRequestsToEntities(saveRequests));
 	}

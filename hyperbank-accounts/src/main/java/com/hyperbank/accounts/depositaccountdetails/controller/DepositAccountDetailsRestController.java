@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.depositaccountdetails.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +34,7 @@ public class DepositAccountDetailsRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<DepositAccountResponse> findAll() {
+	public @ResponseBody List<DepositAccountResponse> findAll() {
 		return depositAccountDetailsMapper.toResponses(depositAccountDetailsService.findAll());
 	}
 
@@ -45,7 +45,7 @@ public class DepositAccountDetailsRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
 		depositAccountDetailsService.deleteMany(ids);
 		return new OkResponse();
 	}

@@ -1,6 +1,6 @@
 package com.hyperbank.banks.bank.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class BankRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<BankResponse> findAll() {
+	public @ResponseBody List<BankResponse> findAll() {
 		return bankMapper.toResponses(bankService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class BankRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<BankSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> save(@RequestBody final List<BankSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return bankService.save(bankMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class BankRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<BankUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> update(@RequestBody final List<BankUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return bankService.update(bankMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class BankRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Integer> ids) throws FunctionalException {
 		bankService.deleteMany(ids);
 		return new OkResponse();
 	}

@@ -1,6 +1,6 @@
 package com.hyperbank.maps.city.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class CityRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<CityResponse> findAll() {
+	public @ResponseBody List<CityResponse> findAll() {
 		return cityMapper.toResponses(cityService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class CityRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<CitySaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> save(@RequestBody final List<CitySaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return cityService.save(cityMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class CityRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<CityUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> update(@RequestBody final List<CityUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return cityService.update(cityMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class CityRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Integer> ids) throws FunctionalException {
 		cityService.deleteMany(ids);
 		return new OkResponse();
 	}

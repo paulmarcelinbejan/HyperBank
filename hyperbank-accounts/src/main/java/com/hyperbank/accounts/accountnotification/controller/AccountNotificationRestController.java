@@ -1,6 +1,6 @@
 package com.hyperbank.accounts.accountnotification.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +38,7 @@ public class AccountNotificationRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<AccountNotificationResponse> findAll() {
+	public @ResponseBody List<AccountNotificationResponse> findAll() {
 		return accountNotificationMapper.toResponses(accountNotificationService.findAll());
 	}
 
@@ -48,7 +48,7 @@ public class AccountNotificationRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<AccountNotificationSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Long> save(@RequestBody final List<AccountNotificationSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return accountNotificationService.save(accountNotificationMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -60,7 +60,7 @@ public class AccountNotificationRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
 		accountNotificationService.deleteMany(ids);
 		return new OkResponse();
 	}

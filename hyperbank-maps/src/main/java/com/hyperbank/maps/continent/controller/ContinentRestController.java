@@ -1,6 +1,6 @@
 package com.hyperbank.maps.continent.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class ContinentRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<ContinentResponse> findAll() {
+	public @ResponseBody List<ContinentResponse> findAll() {
 		return continentMapper.toResponses(continentService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class ContinentRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<ContinentSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> save(@RequestBody final List<ContinentSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return continentService.save(continentMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class ContinentRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<ContinentUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> update(@RequestBody final List<ContinentUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return continentService.update(continentMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class ContinentRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Integer> ids) throws FunctionalException {
 		continentService.deleteMany(ids);
 		return new OkResponse();
 	}

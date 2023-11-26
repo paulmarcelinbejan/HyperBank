@@ -1,6 +1,6 @@
 package com.hyperbank.maps.location.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class LocationRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<LocationResponse> findAll() {
+	public @ResponseBody List<LocationResponse> findAll() {
 		return locationMapper.toResponses(locationService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class LocationRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> save(@RequestBody final Collection<LocationSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Long> save(@RequestBody final List<LocationSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return locationService.save(locationMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class LocationRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Long> update(@RequestBody final Collection<LocationUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Long> update(@RequestBody final List<LocationUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return locationService.update(locationMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class LocationRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
 		locationService.deleteMany(ids);
 		return new OkResponse();
 	}

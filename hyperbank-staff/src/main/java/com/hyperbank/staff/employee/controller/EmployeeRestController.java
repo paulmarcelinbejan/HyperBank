@@ -33,7 +33,7 @@ public class EmployeeRestController {
 //	}
 //
 //	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody Collection<EmployeeResponse> findAll() {
+//	public @ResponseBody List<EmployeeResponse> findAll() {
 //		return employeeMapper.toResponses(employeeService.findAll());
 //	}
 
@@ -43,7 +43,7 @@ public class EmployeeRestController {
 	}
 
 //	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody Collection<Long> save(@RequestBody final Collection<EmployeeSaveRequest> saveRequests) throws FunctionalException {
+//	public @ResponseBody List<Long> save(@RequestBody final List<EmployeeSaveRequest> saveRequests) throws FunctionalException {
 //		ValidatorUtils.validateAll(saveRequests);
 //		return employeeService.save(employeeMapper.fromSaveRequestsToEntities(saveRequests));
 //	}
@@ -54,7 +54,7 @@ public class EmployeeRestController {
 //	}
 //
 //	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody Collection<Long> update(@RequestBody final Collection<EmployeeUpdateRequest> updateRequests) throws FunctionalException {
+//	public @ResponseBody List<Long> update(@RequestBody final List<EmployeeUpdateRequest> updateRequests) throws FunctionalException {
 //		ValidatorUtils.validateAll(updateRequests);
 //		return employeeService.update(employeeMapper.fromUpdateRequestsToEntities(updateRequests));
 //	}
@@ -66,7 +66,7 @@ public class EmployeeRestController {
 //	}
 //
 //	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody OkResponse delete(@RequestBody Collection<Long> ids) throws FunctionalException {
+//	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
 //		employeeService.deleteMany(ids);
 //		return new OkResponse();
 //	}

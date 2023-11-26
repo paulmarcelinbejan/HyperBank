@@ -1,6 +1,6 @@
 package com.hyperbank.types.sextype.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class SexTypeRestController {
 	}
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<SexTypeResponse> findAll() {
+	public @ResponseBody List<SexTypeResponse> findAll() {
 		return sexTypeMapper.toResponses(sexTypeService.findAll());
 	}
 
@@ -50,7 +50,7 @@ public class SexTypeRestController {
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> save(@RequestBody final Collection<SexTypeSaveRequest> saveRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> save(@RequestBody final List<SexTypeSaveRequest> saveRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(saveRequests);
 		return sexTypeService.save(sexTypeMapper.fromSaveRequestsToEntities(saveRequests));
 	}
@@ -61,7 +61,7 @@ public class SexTypeRestController {
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Collection<Integer> update(@RequestBody final Collection<SexTypeUpdateRequest> updateRequests) throws FunctionalException {
+	public @ResponseBody List<Integer> update(@RequestBody final List<SexTypeUpdateRequest> updateRequests) throws FunctionalException {
 		ValidatorUtils.validateAll(updateRequests);
 		return sexTypeService.update(sexTypeMapper.fromUpdateRequestsToEntities(updateRequests));
 	}
@@ -73,7 +73,7 @@ public class SexTypeRestController {
 	}
 
 	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody Collection<Integer> ids) throws FunctionalException {
+	public @ResponseBody OkResponse delete(@RequestBody List<Integer> ids) throws FunctionalException {
 		sexTypeService.deleteMany(ids);
 		return new OkResponse();
 	}
