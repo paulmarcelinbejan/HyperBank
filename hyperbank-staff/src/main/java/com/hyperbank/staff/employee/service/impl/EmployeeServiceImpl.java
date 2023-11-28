@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyperbank.staff.employee.entity.Employee;
-import com.hyperbank.staff.employee.mapper.EmployeeMapper;
+import com.hyperbank.staff.employee.mapper.EmployeeMapperRMV;
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
 import com.hyperbank.staff.employee.service.EmployeeService;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
@@ -26,12 +26,12 @@ import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 @Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
 public class EmployeeServiceImpl implements EmployeeService {
 
-	public EmployeeServiceImpl(EmployeeMapper employeeMapper, EmployeeRepository employeeRepository) {
+	public EmployeeServiceImpl(EmployeeMapperRMV employeeMapperRMV, EmployeeRepository employeeRepository) {
 		createServiceHelper = new CreateServiceHelperImpl<>(employeeRepository, Employee::getId);
 		readServiceHelper = new ReadServiceHelperImpl<>(employeeRepository, ServiceHelperUtils.buildErrorMessageIfEntityNotFoundById(Employee.class));
 		updateServiceHelper = new UpdateServiceHelperImpl<>(
 				employeeRepository,
-				employeeMapper,
+				employeeMapperRMV,
 				readServiceHelper,
 				Employee::getId);
 		deleteServiceHelper = new DeleteServiceHelperImpl<>(employeeRepository, readServiceHelper);

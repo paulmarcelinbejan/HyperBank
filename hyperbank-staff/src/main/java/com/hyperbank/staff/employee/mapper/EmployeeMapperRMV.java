@@ -17,7 +17,7 @@ import com.hyperbank.staff.employee.entity.Employee;
 import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public abstract class EmployeeMapper implements 
+public abstract class EmployeeMapperRMV implements 
 	FullMapper<Employee, EmployeeSaveRequest, EmployeeUpdateRequest, EmployeeResponse> {
 
 	@Override
