@@ -2,6 +2,7 @@ package com.hyperbank.staff.employee.api.save.one;
 
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
@@ -17,8 +18,8 @@ public interface EmployeeSaveOneMapper extends
 	MapperOutput<Employee, EmployeeResponse> {
 	
 	@Override
-	@Named("fromRequestToDomain")
-	@InheritConfiguration
+	@Named("fromSaveRequestToDomain")
+	@Mapping(target = "id", ignore = true)
 	Employee toDomain(EmployeeSaveRequest request);
 	
 	@Override

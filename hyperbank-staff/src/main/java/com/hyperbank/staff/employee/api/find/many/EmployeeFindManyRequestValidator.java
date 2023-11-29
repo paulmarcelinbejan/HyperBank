@@ -2,13 +2,13 @@ package com.hyperbank.staff.employee.api.find.many;
 
 import java.util.List;
 
-import com.paulmarcelinbejan.architecture.sniper.validator.CollectionValidator;
+import com.paulmarcelinbejan.architecture.sniper.validator.jakarta.JakartaCollectionValidator;
 import com.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 
 import jakarta.validation.ValidationException;
 
 @Validator
-public class EmployeeFindManyRequestValidator implements CollectionValidator<Long, List<Long>> {
+public class EmployeeFindManyRequestValidator implements JakartaCollectionValidator<Long, List<Long>> {
 	
 	@Override
 	public void validate(List<Long> request) {

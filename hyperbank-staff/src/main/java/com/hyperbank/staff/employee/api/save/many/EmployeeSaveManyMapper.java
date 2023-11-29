@@ -2,7 +2,6 @@ package com.hyperbank.staff.employee.api.save.many;
 
 import java.util.List;
 
-import org.mapstruct.InjectionStrategy;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 
@@ -16,14 +15,13 @@ import com.paulmarcelinbejan.architecture.sniper.mapper.input.MapperInput;
 import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
 
 @Mapper(config = EmployeeMapperConfig.class,
-		uses = { EmployeeFindOneMapper.class, EmployeeSaveOneMapper.class },
-		injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+		uses = { EmployeeFindOneMapper.class, EmployeeSaveOneMapper.class })
 public interface EmployeeSaveManyMapper extends  
 	MapperInput<List<EmployeeSaveRequest>, List<Employee>>,
 	MapperOutput<List<Employee>, List<EmployeeResponse>> {
 	
 	@Override
-	@IterableMapping(qualifiedByName = "fromRequestToDomain")
+	@IterableMapping(qualifiedByName = "fromSaveRequestToDomain")
 	List<Employee> toDomain(List<EmployeeSaveRequest> request);
 	
 	@Override
