@@ -14,7 +14,8 @@ import com.hyperbank.maps.continent.dto.ContinentResponse;
 import com.hyperbank.maps.continent.dto.ContinentSaveRequest;
 import com.hyperbank.maps.continent.dto.ContinentUpdateRequest;
 import com.hyperbank.maps.continent.entity.Continent;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class ContinentMapper implements FullMapper<Continent, ContinentSaveRequest, ContinentUpdateRequest, ContinentResponse> {

@@ -18,10 +18,10 @@ import com.hyperbank.types.currency.dto.CurrencySaveRequest;
 import com.hyperbank.types.currency.dto.CurrencyUpdateRequest;
 import com.hyperbank.types.currency.mapper.CurrencyMapper;
 import com.hyperbank.types.currency.service.CurrencyService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

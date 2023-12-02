@@ -7,10 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpdateRequest;
 import com.hyperbank.interests.interestratevariablehistory.entity.InterestRateVariableHistory;
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
-import com.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.stereotype.Validator;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;

@@ -12,9 +12,9 @@ import com.hyperbank.architecture.web.validation.temporal.annotation.FirstDayOfM
 import com.hyperbank.architecture.web.validation.temporal.annotation.LastDayOfMonth;
 import com.hyperbank.architecture.web.validation.temporal.annotation.NonOverlappingLocalDate;
 import com.hyperbank.interests.interestratevariablehistory.validator.NonOverlappingHistory;
-import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
-import com.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
 
+import io.github.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
+import io.github.paulmarcelinbejan.toolbox.utils.time.localdate.LocalDateUtils;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

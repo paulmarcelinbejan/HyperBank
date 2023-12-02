@@ -18,10 +18,10 @@ import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeSaveReq
 import com.hyperbank.accounts.accountinternaltype.dto.AccountInternalTypeUpdateRequest;
 import com.hyperbank.accounts.accountinternaltype.mapper.AccountInternalTypeMapper;
 import com.hyperbank.accounts.accountinternaltype.service.AccountInternalTypeService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

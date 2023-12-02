@@ -3,7 +3,8 @@ package com.hyperbank.maps.continent.service;
 import java.util.List;
 
 import com.hyperbank.maps.continent.entity.Continent;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 
 public interface ContinentService {
 

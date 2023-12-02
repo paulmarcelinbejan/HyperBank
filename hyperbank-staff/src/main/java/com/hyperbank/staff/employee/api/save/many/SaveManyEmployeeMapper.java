@@ -11,8 +11,9 @@ import com.hyperbank.staff.employee.api.save.one.SaveOneEmployeeMapper;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.coordinator.mapper.input.MapperInput;
-import com.paulmarcelinbejan.architecture.coordinator.mapper.output.MapperOutput;
+
+import io.github.paulmarcelinbejan.coordinator.architecture.mapper.input.MapperInput;
+import io.github.paulmarcelinbejan.coordinator.architecture.mapper.output.MapperOutput;
 
 @Mapper(config = HyperBankMapperConfig.class,
 		uses = { FindOneEmployeeMapper.class, SaveOneEmployeeMapper.class })

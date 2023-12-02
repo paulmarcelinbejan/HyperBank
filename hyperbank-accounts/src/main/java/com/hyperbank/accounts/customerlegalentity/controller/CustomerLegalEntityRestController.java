@@ -18,10 +18,10 @@ import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntitySaveReq
 import com.hyperbank.accounts.customerlegalentity.dto.CustomerLegalEntityUpdateRequest;
 import com.hyperbank.accounts.customerlegalentity.mapper.CustomerLegalEntityMapper;
 import com.hyperbank.accounts.customerlegalentity.service.CustomerLegalEntityService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

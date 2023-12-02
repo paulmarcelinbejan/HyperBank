@@ -5,8 +5,9 @@ import java.util.List;
 import com.hyperbank.architecture.web.validator.id.base.LongIdsValidator;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.coordinator.base.CoordinatorWithoutInputMapping;
-import com.paulmarcelinbejan.architecture.coordinator.stereotype.Coordinator;
+
+import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.Coordinator;
+import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.CoordinatorWithoutInputMapping;
 
 @Coordinator
 public class FindManyEmployeeCoordinatorImpl extends CoordinatorWithoutInputMapping<List<Long>, List<Employee>, List<EmployeeResponse>> implements FindManyEmployeeCoordinator {

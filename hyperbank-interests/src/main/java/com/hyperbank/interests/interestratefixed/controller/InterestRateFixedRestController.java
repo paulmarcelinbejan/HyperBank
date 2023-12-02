@@ -15,9 +15,9 @@ import com.hyperbank.interests.interestratefixed.dto.InterestRateFixedResponse;
 import com.hyperbank.interests.interestratefixed.dto.InterestRateFixedSaveRequest;
 import com.hyperbank.interests.interestratefixed.mapper.InterestRateFixedMapper;
 import com.hyperbank.interests.interestratefixed.service.InterestRateFixedService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

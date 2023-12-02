@@ -18,10 +18,10 @@ import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualSaveReque
 import com.hyperbank.accounts.customerindividual.dto.CustomerIndividualUpdateRequest;
 import com.hyperbank.accounts.customerindividual.mapper.CustomerIndividualMapper;
 import com.hyperbank.accounts.customerindividual.service.CustomerIndividualService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

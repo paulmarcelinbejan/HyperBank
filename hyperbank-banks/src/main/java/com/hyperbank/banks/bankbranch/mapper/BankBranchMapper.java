@@ -17,8 +17,9 @@ import com.hyperbank.banks.bankbranch.dto.BankBranchResponse;
 import com.hyperbank.banks.bankbranch.dto.BankBranchSaveRequest;
 import com.hyperbank.banks.bankbranch.dto.BankBranchUpdateRequest;
 import com.hyperbank.banks.bankbranch.entity.BankBranch;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class BankBranchMapper implements FullMapper<BankBranch, BankBranchSaveRequest, BankBranchUpdateRequest, BankBranchResponse> {

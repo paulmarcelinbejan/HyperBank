@@ -17,8 +17,9 @@ import com.hyperbank.maps.city.dto.CityUpdateRequest;
 import com.hyperbank.maps.city.entity.City;
 import com.hyperbank.maps.country.entity.Country;
 import com.hyperbank.maps.country.service.CountryService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class CityMapper implements FullMapper<City, CitySaveRequest, CityUpdateRequest, CityResponse> {

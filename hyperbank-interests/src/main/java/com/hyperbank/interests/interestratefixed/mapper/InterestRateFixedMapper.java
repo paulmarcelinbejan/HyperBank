@@ -12,7 +12,8 @@ import org.mapstruct.Named;
 import com.hyperbank.interests.interestratefixed.dto.InterestRateFixedResponse;
 import com.hyperbank.interests.interestratefixed.dto.InterestRateFixedSaveRequest;
 import com.hyperbank.interests.interestratefixed.entity.InterestRateFixed;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.MapperFromSaveRequestToEntityAndFromEntityToResponse;
+
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.MapperFromSaveRequestToEntityAndFromEntityToResponse;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class InterestRateFixedMapper implements MapperFromSaveRequestToEntityAndFromEntityToResponse<InterestRateFixed, InterestRateFixedSaveRequest, InterestRateFixedResponse> {

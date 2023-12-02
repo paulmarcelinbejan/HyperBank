@@ -3,7 +3,8 @@ package com.hyperbank.accounts.account.service;
 import java.util.List;
 
 import com.hyperbank.accounts.account.entity.Account;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 
 public interface AccountService {
 

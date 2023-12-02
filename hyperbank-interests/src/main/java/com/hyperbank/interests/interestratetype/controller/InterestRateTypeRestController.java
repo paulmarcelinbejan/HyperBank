@@ -18,10 +18,10 @@ import com.hyperbank.interests.interestratetype.dto.InterestRateTypeSaveRequest;
 import com.hyperbank.interests.interestratetype.dto.InterestRateTypeUpdateRequest;
 import com.hyperbank.interests.interestratetype.mapper.InterestRateTypeMapper;
 import com.hyperbank.interests.interestratetype.service.InterestRateTypeService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

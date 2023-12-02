@@ -16,10 +16,10 @@ import com.hyperbank.accounts.accountnotification.dto.AccountNotificationRespons
 import com.hyperbank.accounts.accountnotification.dto.AccountNotificationSaveRequest;
 import com.hyperbank.accounts.accountnotification.mapper.AccountNotificationMapper;
 import com.hyperbank.accounts.accountnotification.service.AccountNotificationService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

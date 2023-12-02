@@ -18,9 +18,9 @@ import com.hyperbank.interests.interestratevariable.dto.InterestRateVariableUpda
 import com.hyperbank.interests.interestratevariable.mapper.InterestRateVariableMapper;
 import com.hyperbank.interests.interestratevariable.service.InterestRateVariableService;
 import com.hyperbank.interests.interestratevariablehistory.service.InterestRateVariableHistoryService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

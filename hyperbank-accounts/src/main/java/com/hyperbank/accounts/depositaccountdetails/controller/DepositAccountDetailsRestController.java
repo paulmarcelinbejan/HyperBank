@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hyperbank.accounts.depositaccountdetails.dto.DepositAccountResponse;
 import com.hyperbank.accounts.depositaccountdetails.mapper.DepositAccountDetailsMapper;
 import com.hyperbank.accounts.depositaccountdetails.service.DepositAccountDetailsService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController

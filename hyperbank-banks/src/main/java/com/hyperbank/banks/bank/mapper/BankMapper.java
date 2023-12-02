@@ -14,7 +14,8 @@ import com.hyperbank.banks.bank.dto.BankResponse;
 import com.hyperbank.banks.bank.dto.BankSaveRequest;
 import com.hyperbank.banks.bank.dto.BankUpdateRequest;
 import com.hyperbank.banks.bank.entity.Bank;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface BankMapper extends FullMapper<Bank, BankSaveRequest, BankUpdateRequest, BankResponse> {

@@ -26,10 +26,10 @@ import com.hyperbank.staff.employee.api.update.one.UpdateOneEmployeeCoordinator;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController

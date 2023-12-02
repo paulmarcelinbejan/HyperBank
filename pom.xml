@@ -47,7 +47,7 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>com.paulmarcelinbejan.toolbox</groupId>
+				<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
 				<artifactId>toolbox</artifactId>
 				<version>${paulmarcelinbejan-toolbox.version}</version>
 				<scope>import</scope>

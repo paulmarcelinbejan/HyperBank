@@ -14,7 +14,8 @@ import com.hyperbank.types.sextype.dto.SexTypeResponse;
 import com.hyperbank.types.sextype.dto.SexTypeSaveRequest;
 import com.hyperbank.types.sextype.dto.SexTypeUpdateRequest;
 import com.hyperbank.types.sextype.entity.SexType;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class SexTypeMapper implements FullMapper<SexType, SexTypeSaveRequest, SexTypeUpdateRequest, SexTypeResponse> {

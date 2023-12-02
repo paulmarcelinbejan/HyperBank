@@ -17,8 +17,9 @@ import com.hyperbank.maps.country.dto.CountryResponse;
 import com.hyperbank.maps.country.dto.CountrySaveRequest;
 import com.hyperbank.maps.country.dto.CountryUpdateRequest;
 import com.hyperbank.maps.country.entity.Country;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
+
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.service.helper.mapping.FullMapper;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class CountryMapper implements FullMapper<Country, CountrySaveRequest, CountryUpdateRequest, CountryResponse> {

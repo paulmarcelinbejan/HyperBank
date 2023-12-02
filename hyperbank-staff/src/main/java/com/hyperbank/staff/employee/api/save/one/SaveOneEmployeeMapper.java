@@ -8,8 +8,9 @@ import com.hyperbank.architecture.web.mapper.config.HyperBankMapperConfig;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.coordinator.mapper.input.MapperInput;
-import com.paulmarcelinbejan.architecture.coordinator.mapper.output.MapperOutput;
+
+import io.github.paulmarcelinbejan.coordinator.architecture.mapper.input.MapperInput;
+import io.github.paulmarcelinbejan.coordinator.architecture.mapper.output.MapperOutput;
 
 @Mapper(config = HyperBankMapperConfig.class)
 public interface SaveOneEmployeeMapper extends 

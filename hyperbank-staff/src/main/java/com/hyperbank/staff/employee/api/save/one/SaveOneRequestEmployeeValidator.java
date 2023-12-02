@@ -1,7 +1,8 @@
 package com.hyperbank.staff.employee.api.save.one;
 
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
-import com.paulmarcelinbejan.architecture.coordinator.validator.jakarta.impl.JakartaBaseValidator;
+
+import io.github.paulmarcelinbejan.coordinator.architecture.validator.jakarta.JakartaBaseValidator;
 
 public interface SaveOneRequestEmployeeValidator extends JakartaBaseValidator<EmployeeSaveRequest> {
 	

@@ -18,10 +18,10 @@ import com.hyperbank.banks.bank.dto.BankSaveRequest;
 import com.hyperbank.banks.bank.dto.BankUpdateRequest;
 import com.hyperbank.banks.bank.mapper.BankMapper;
 import com.hyperbank.banks.bank.service.BankService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

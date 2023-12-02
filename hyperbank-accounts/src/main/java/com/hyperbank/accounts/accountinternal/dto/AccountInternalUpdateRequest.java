@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hyperbank.architecture.web.jackson.deserializer.LocalDateDeserializer;
 import com.hyperbank.architecture.web.jackson.serializer.LocalDateSerializer;
 import com.hyperbank.architecture.web.validation.temporal.annotation.NonOverlappingLocalDate;
-import com.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 
+import io.github.paulmarcelinbejan.toolbox.utils.time.aware.HistoricalLocalDateAware;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

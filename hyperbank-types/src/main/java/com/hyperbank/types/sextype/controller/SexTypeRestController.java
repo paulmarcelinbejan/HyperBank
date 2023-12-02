@@ -18,10 +18,10 @@ import com.hyperbank.types.sextype.dto.SexTypeSaveRequest;
 import com.hyperbank.types.sextype.dto.SexTypeUpdateRequest;
 import com.hyperbank.types.sextype.mapper.SexTypeMapper;
 import com.hyperbank.types.sextype.service.SexTypeService;
-import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import com.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
-import com.paulmarcelinbejan.toolbox.web.response.OkResponse;
 
+import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
+import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
