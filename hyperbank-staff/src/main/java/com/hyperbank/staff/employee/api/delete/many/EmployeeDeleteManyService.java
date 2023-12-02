@@ -2,8 +2,11 @@ package com.hyperbank.staff.employee.api.delete.many;
 
 import java.util.List;
 
-import com.paulmarcelinbejan.architecture.sniper.service.Service;
+import org.springframework.stereotype.Service;
 
-public interface EmployeeDeleteManyService extends Service<List<Long>, Void> {
+import com.paulmarcelinbejan.architecture.sniper.service.ServiceInputAware;
+
+@Service
+public interface EmployeeDeleteManyService extends ServiceInputAware<List<Long>> {
 
 }

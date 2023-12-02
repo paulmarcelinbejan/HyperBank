@@ -2,9 +2,12 @@ package com.hyperbank.staff.employee.api.find.many;
 
 import java.util.List;
 
-import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.service.Service;
+import org.springframework.stereotype.Service;
 
-public interface EmployeeFindManyService extends Service<List<Long>, List<Employee>> {
+import com.hyperbank.staff.employee.entity.Employee;
+import com.paulmarcelinbejan.architecture.sniper.service.ServiceInputOutputAware;
+
+@Service
+public interface EmployeeFindManyService extends ServiceInputOutputAware<List<Long>, List<Employee>> {
 
 }

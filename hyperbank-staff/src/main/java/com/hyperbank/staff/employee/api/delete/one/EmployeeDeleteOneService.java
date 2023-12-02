@@ -1,7 +1,10 @@
 package com.hyperbank.staff.employee.api.delete.one;
 
-import com.paulmarcelinbejan.architecture.sniper.service.Service;
+import org.springframework.stereotype.Service;
 
-public interface EmployeeDeleteOneService extends Service<Long, Void> {
+import com.paulmarcelinbejan.architecture.sniper.service.ServiceInputAware;
+
+@Service
+public interface EmployeeDeleteOneService extends ServiceInputAware<Long> {
 
 }

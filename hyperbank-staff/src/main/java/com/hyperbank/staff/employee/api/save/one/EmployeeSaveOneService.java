@@ -1,8 +1,11 @@
 package com.hyperbank.staff.employee.api.save.one;
 
-import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.service.Service;
+import org.springframework.stereotype.Service;
 
-public interface EmployeeSaveOneService extends Service<Employee, Employee> {
+import com.hyperbank.staff.employee.entity.Employee;
+import com.paulmarcelinbejan.architecture.sniper.service.ServiceInputOutputAware;
+
+@Service
+public interface EmployeeSaveOneService extends ServiceInputOutputAware<Employee, Employee> {
 
 }
