@@ -11,8 +11,8 @@ import com.hyperbank.staff.employee.api.find.one.EmployeeFindOneService;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.mapper.input.MapperInput;
-import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
+import com.paulmarcelinbejan.architecture.coordinator.mapper.input.MapperInput;
+import com.paulmarcelinbejan.architecture.coordinator.mapper.output.MapperOutput;
 import com.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
 import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 

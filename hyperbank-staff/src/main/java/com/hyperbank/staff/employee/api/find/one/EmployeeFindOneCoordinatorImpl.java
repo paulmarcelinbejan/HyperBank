@@ -3,13 +3,13 @@ package com.hyperbank.staff.employee.api.find.one;
 import com.hyperbank.architecture.web.validator.id.base.LongIdValidator;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.base.SniperWithoutInputMapping;
-import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
+import com.paulmarcelinbejan.architecture.coordinator.base.CoordinatorWithoutInputMapping;
+import com.paulmarcelinbejan.architecture.coordinator.stereotype.Coordinator;
 
-@Sniper
-public class EmployeeFindOneSniperImpl extends SniperWithoutInputMapping<Long, Employee, EmployeeResponse> implements EmployeeFindOneSniper {
+@Coordinator
+public class EmployeeFindOneCoordinatorImpl extends CoordinatorWithoutInputMapping<Long, Employee, EmployeeResponse> implements EmployeeFindOneCoordinator {
 
-	public EmployeeFindOneSniperImpl(
+	public EmployeeFindOneCoordinatorImpl(
 			LongIdValidator validator,
 			EmployeeFindOneMapper mapper, 
 			EmployeeFindOneService service) {

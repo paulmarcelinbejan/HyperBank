@@ -5,13 +5,13 @@ import java.util.List;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.base.SniperFull;
-import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
+import com.paulmarcelinbejan.architecture.coordinator.base.CoordinatorFull;
+import com.paulmarcelinbejan.architecture.coordinator.stereotype.Coordinator;
 
-@Sniper
-public class EmployeeSaveManySniperImpl extends SniperFull<List<EmployeeSaveRequest>, List<Employee>, List<Employee>, List<EmployeeResponse>> implements EmployeeSaveManySniper {
+@Coordinator
+public class EmployeeSaveManyCoordinatorImpl extends CoordinatorFull<List<EmployeeSaveRequest>, List<Employee>, List<Employee>, List<EmployeeResponse>> implements EmployeeSaveManyCoordinator {
 
-	public EmployeeSaveManySniperImpl(
+	public EmployeeSaveManyCoordinatorImpl(
 			EmployeeSaveManyRequestValidator validator,
 			EmployeeSaveManyMapper mapper, 
 			EmployeeSaveManyService service) {

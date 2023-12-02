@@ -32,9 +32,5 @@
 		    <groupId>com.hyperbank.architecture</groupId>
 			<artifactId>hyperbank-architecture-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.paulmarcelinbejan.architecture</groupId>
-			<artifactId>sniper-architecture</artifactId>
-		</dependency>
 	</dependencies>
 </project>

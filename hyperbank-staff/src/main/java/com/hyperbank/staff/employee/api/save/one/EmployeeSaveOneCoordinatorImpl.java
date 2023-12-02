@@ -3,13 +3,13 @@ package com.hyperbank.staff.employee.api.save.one;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.base.SniperFull;
-import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
+import com.paulmarcelinbejan.architecture.coordinator.base.CoordinatorFull;
+import com.paulmarcelinbejan.architecture.coordinator.stereotype.Coordinator;
 
-@Sniper
-public class EmployeeSaveOneSniperImpl extends SniperFull<EmployeeSaveRequest, Employee, Employee, EmployeeResponse> implements EmployeeSaveOneSniper {
+@Coordinator
+public class EmployeeSaveOneCoordinatorImpl extends CoordinatorFull<EmployeeSaveRequest, Employee, Employee, EmployeeResponse> implements EmployeeSaveOneCoordinator {
 
-	public EmployeeSaveOneSniperImpl(
+	public EmployeeSaveOneCoordinatorImpl(
 			EmployeeSaveOneRequestValidator validator,
 			EmployeeSaveOneMapper mapper, 
 			EmployeeSaveOneService service) {

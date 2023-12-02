@@ -5,13 +5,13 @@ import java.util.List;
 import com.hyperbank.architecture.web.validator.id.base.LongIdsValidator;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.base.SniperWithoutInputMapping;
-import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
+import com.paulmarcelinbejan.architecture.coordinator.base.CoordinatorWithoutInputMapping;
+import com.paulmarcelinbejan.architecture.coordinator.stereotype.Coordinator;
 
-@Sniper
-public class EmployeeFindManySniperImpl extends SniperWithoutInputMapping<List<Long>, List<Employee>, List<EmployeeResponse>> implements EmployeeFindManySniper {
+@Coordinator
+public class EmployeeFindManyCoordinatorImpl extends CoordinatorWithoutInputMapping<List<Long>, List<Employee>, List<EmployeeResponse>> implements EmployeeFindManyCoordinator {
 
-	public EmployeeFindManySniperImpl(
+	public EmployeeFindManyCoordinatorImpl(
 			LongIdsValidator validator,
 			EmployeeFindManyService service,
 			EmployeeFindManyMapper mapper) {

@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hyperbank.staff.employee.api.delete.many.EmployeeDeleteManySniper;
-import com.hyperbank.staff.employee.api.delete.one.EmployeeDeleteOneSniper;
-import com.hyperbank.staff.employee.api.find.all.EmployeeFindAllSniper;
-import com.hyperbank.staff.employee.api.find.many.EmployeeFindManySniper;
-import com.hyperbank.staff.employee.api.find.one.EmployeeFindOneSniper;
-import com.hyperbank.staff.employee.api.save.many.EmployeeSaveManySniper;
-import com.hyperbank.staff.employee.api.save.one.EmployeeSaveOneSniper;
-import com.hyperbank.staff.employee.api.update.many.EmployeeUpdateManySniper;
-import com.hyperbank.staff.employee.api.update.one.EmployeeUpdateOneSniper;
+import com.hyperbank.staff.employee.api.delete.many.EmployeeDeleteManyCoordinator;
+import com.hyperbank.staff.employee.api.delete.one.EmployeeDeleteOneCoordinator;
+import com.hyperbank.staff.employee.api.find.all.EmployeeFindAllCoordinator;
+import com.hyperbank.staff.employee.api.find.many.EmployeeFindManyCoordinator;
+import com.hyperbank.staff.employee.api.find.one.EmployeeFindOneCoordinator;
+import com.hyperbank.staff.employee.api.save.many.EmployeeSaveManyCoordinator;
+import com.hyperbank.staff.employee.api.save.one.EmployeeSaveOneCoordinator;
+import com.hyperbank.staff.employee.api.update.many.EmployeeUpdateManyCoordinator;
+import com.hyperbank.staff.employee.api.update.one.EmployeeUpdateOneCoordinator;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
@@ -37,68 +37,68 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/employee")
 public class EmployeeRestController {
 
-	private final EmployeeSaveOneSniper employeeSaveOneSniper;
+	private final EmployeeSaveOneCoordinator employeeSaveOneCoordinator;
 	
-	private final EmployeeSaveManySniper employeeSaveManySniper;
+	private final EmployeeSaveManyCoordinator employeeSaveManyCoordinator;
 	
-	private final EmployeeFindOneSniper employeeFindOneSniper;
+	private final EmployeeFindOneCoordinator employeeFindOneCoordinator;
 	
-	private final EmployeeFindManySniper employeeFindManySniper;
+	private final EmployeeFindManyCoordinator employeeFindManyCoordinator;
 	
-	private final EmployeeFindAllSniper employeeFindAllSniper;
+	private final EmployeeFindAllCoordinator employeeFindAllCoordinator;
 	
-	private final EmployeeUpdateOneSniper employeeUpdateOneSniper;
+	private final EmployeeUpdateOneCoordinator employeeUpdateOneCoordinator;
 	
-	private final EmployeeUpdateManySniper employeeUpdateManySniper;
+	private final EmployeeUpdateManyCoordinator employeeUpdateManyCoordinator;
 	
-	private final EmployeeDeleteOneSniper employeeDeleteOneSniper;
+	private final EmployeeDeleteOneCoordinator employeeDeleteOneCoordinator;
 	
-	private final EmployeeDeleteManySniper employeeDeleteManySniper;
+	private final EmployeeDeleteManyCoordinator employeeDeleteManyCoordinator;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody EmployeeResponse findById(@PathVariable Long id) throws FunctionalException, TechnicalException {
-		return employeeFindOneSniper.fire(id);
+		return employeeFindOneCoordinator.process(id);
 	}
 
 	@GetMapping(value = "/find-many", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EmployeeResponse> findMany(@RequestParam List<Long> ids) throws FunctionalException, TechnicalException {
-		return employeeFindManySniper.fire(ids);
+		return employeeFindManyCoordinator.process(ids);
 	}
 	
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EmployeeResponse> findAll() throws FunctionalException, TechnicalException {
-		return employeeFindAllSniper.fire();
+		return employeeFindAllCoordinator.process();
 	}
 
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody EmployeeResponse save(@RequestBody final EmployeeSaveRequest saveRequest) throws FunctionalException, TechnicalException {
-		return employeeSaveOneSniper.fire(saveRequest);
+		return employeeSaveOneCoordinator.process(saveRequest);
 	}
 
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EmployeeResponse> save(@RequestBody final List<EmployeeSaveRequest> saveRequests) throws FunctionalException, TechnicalException {
-		return employeeSaveManySniper.fire(saveRequests);
+		return employeeSaveManyCoordinator.process(saveRequests);
 	}
 
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody EmployeeResponse update(@RequestBody final EmployeeUpdateRequest updateRequest) throws FunctionalException, TechnicalException {
-		return employeeUpdateOneSniper.fire(updateRequest);
+		return employeeUpdateOneCoordinator.process(updateRequest);
 	}
 
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EmployeeResponse> update(@RequestBody final List<EmployeeUpdateRequest> updateRequests) throws FunctionalException, TechnicalException {
-		return employeeUpdateManySniper.fire(updateRequests);
+		return employeeUpdateManyCoordinator.process(updateRequests);
 	}
 
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@PathVariable Long id) throws FunctionalException, TechnicalException {
-		employeeDeleteOneSniper.fire(id);
+		employeeDeleteOneCoordinator.process(id);
 		return new OkResponse();
 	}
 
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody OkResponse delete(@RequestParam List<Long> ids) throws FunctionalException, TechnicalException {
-		employeeDeleteManySniper.fire(ids);
+		employeeDeleteManyCoordinator.process(ids);
 		return new OkResponse();
 	}
 

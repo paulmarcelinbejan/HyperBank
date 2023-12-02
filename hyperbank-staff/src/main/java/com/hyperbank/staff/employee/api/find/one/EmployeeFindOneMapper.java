@@ -6,7 +6,7 @@ import org.mapstruct.Named;
 import com.hyperbank.architecture.web.mapper.config.HyperBankMapperConfig;
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.entity.Employee;
-import com.paulmarcelinbejan.architecture.sniper.mapper.output.MapperOutput;
+import com.paulmarcelinbejan.architecture.coordinator.mapper.output.MapperOutput;
 
 @Mapper(config = HyperBankMapperConfig.class)
 public interface EmployeeFindOneMapper extends 
