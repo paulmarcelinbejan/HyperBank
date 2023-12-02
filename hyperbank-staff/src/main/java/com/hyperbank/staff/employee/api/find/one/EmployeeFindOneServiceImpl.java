@@ -2,6 +2,7 @@ package com.hyperbank.staff.employee.api.find.one;
 
 import java.text.MessageFormat;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyperbank.staff.employee.entity.Employee;
@@ -12,6 +13,7 @@ import com.paulmarcelinbejan.toolbox.service.helper.utils.ServiceHelperUtils;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class EmployeeFindOneServiceImpl implements EmployeeFindOneService {
 

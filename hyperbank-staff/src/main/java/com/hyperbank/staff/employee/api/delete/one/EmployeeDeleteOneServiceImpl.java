@@ -1,5 +1,6 @@
 package com.hyperbank.staff.employee.api.delete.one;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
@@ -8,6 +9,7 @@ import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class EmployeeDeleteOneServiceImpl implements EmployeeDeleteOneService {
 

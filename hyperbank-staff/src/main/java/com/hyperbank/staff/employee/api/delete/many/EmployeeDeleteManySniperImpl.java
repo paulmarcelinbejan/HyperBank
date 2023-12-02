@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.hyperbank.architecture.web.validator.id.base.LongIdsValidator;
 import com.paulmarcelinbejan.architecture.sniper.base.SniperWithoutMappings;
+import com.paulmarcelinbejan.architecture.sniper.stereotype.Sniper;
 
+@Sniper
 public class EmployeeDeleteManySniperImpl extends SniperWithoutMappings<List<Long>> implements EmployeeDeleteManySniper {
 
 	public EmployeeDeleteManySniperImpl(

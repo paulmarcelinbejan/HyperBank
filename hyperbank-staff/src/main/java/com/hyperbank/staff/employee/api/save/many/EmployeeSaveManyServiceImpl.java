@@ -2,6 +2,7 @@ package com.hyperbank.staff.employee.api.save.many;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hyperbank.staff.employee.entity.Employee;
@@ -11,6 +12,7 @@ import com.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class EmployeeSaveManyServiceImpl implements EmployeeSaveManyService {
 
