@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
 
-import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -22,8 +20,8 @@ public class DeleteManyEmployeeServiceImpl implements DeleteManyEmployeeService 
 	 * <br>Entities that aren't found in the persistence store are silently ignored.
 	 */
 	@Override
-	@Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
-	public void execute(List<Long> ids) throws FunctionalException, TechnicalException {
+	@Transactional
+	public void execute(List<Long> ids) {
 		
 		repository.deleteAllById(ids);
 		

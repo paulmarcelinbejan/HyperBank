@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.staff.employee.entity.Employee;
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
 
-import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,8 +17,8 @@ public class SaveManyEmployeeServiceImpl implements SaveManyEmployeeService {
 	private final EmployeeRepository repository;
 
 	@Override
-	@Transactional(rollbackFor = { FunctionalException.class, TechnicalException.class })
-	public List<Employee> execute(List<Employee> entities) throws FunctionalException, TechnicalException {
+	@Transactional
+	public List<Employee> execute(List<Employee> entities) {
 
 		return repository.saveAll(entities);
 		

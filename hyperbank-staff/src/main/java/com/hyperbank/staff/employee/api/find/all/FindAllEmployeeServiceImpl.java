@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.staff.employee.entity.Employee;
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
 
-import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,7 +18,7 @@ public class FindAllEmployeeServiceImpl implements FindAllEmployeeService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Employee> execute() throws FunctionalException, TechnicalException {
+	public List<Employee> execute() {
 		
 		return repository.findAll();
 		
