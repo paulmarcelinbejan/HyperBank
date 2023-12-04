@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hyperbank.staff.employee.dto.EmployeeResponse;
 import com.hyperbank.staff.employee.entity.Employee;
+import com.hyperbank.staff.employee.mapper.EntitiesToDtosEmployeeMapper;
 
 import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.Coordinator;
 import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.CoordinatorServiceResponse;
@@ -13,7 +14,7 @@ public class FindAllEmployeeCoordinatorImpl extends CoordinatorServiceResponse<L
 
 	public FindAllEmployeeCoordinatorImpl(
 			FindAllEmployeeService service,
-			FindAllEmployeeMapper mapper) {
+			EntitiesToDtosEmployeeMapper mapper) {
 		super(service, mapper);
 	}
 	
