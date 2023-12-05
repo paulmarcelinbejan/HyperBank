@@ -6,6 +6,6 @@ import com.hyperbank.staff.employee.dto.EmployeeUpdateRequest;
 
 import io.github.paulmarcelinbejan.coordinator.architecture.validator.jakarta.JakartaCollectionValidator;
 
-public interface UpdateManyRequestEmployeeValidator extends JakartaCollectionValidator<EmployeeUpdateRequest, List<EmployeeUpdateRequest>> {
+public interface EmployeeUpdateRequestsValidator extends JakartaCollectionValidator<EmployeeUpdateRequest, List<EmployeeUpdateRequest>> {
 	
 }

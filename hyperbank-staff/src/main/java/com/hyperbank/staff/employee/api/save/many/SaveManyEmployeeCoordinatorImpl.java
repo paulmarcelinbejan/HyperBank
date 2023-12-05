@@ -14,7 +14,7 @@ import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.Coo
 public class SaveManyEmployeeCoordinatorImpl extends CoordinatorFull<List<EmployeeSaveRequest>, List<Employee>, List<Employee>, List<EmployeeResponse>> implements SaveManyEmployeeCoordinator {
 
 	public SaveManyEmployeeCoordinatorImpl(
-			SaveManyRequestEmployeeValidator validator,
+			EmployeeSaveRequestsValidator validator,
 			SaveManyEmployeeMapper mapperInput, 
 			SaveManyEmployeeService service,
 			EntitiesToDtosEmployeeMapper mapperOutput) {

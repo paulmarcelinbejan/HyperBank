@@ -14,7 +14,7 @@ import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.Coo
 public class UpdateManyEmployeeCoordinatorImpl extends CoordinatorFull<List<EmployeeUpdateRequest>, List<Employee>, List<Employee>, List<EmployeeResponse>> implements UpdateManyEmployeeCoordinator {
 
 	public UpdateManyEmployeeCoordinatorImpl(
-			UpdateManyRequestEmployeeValidator validator,
+			EmployeeUpdateRequestsValidator validator,
 			UpdateManyEmployeeMapper mapperInput, 
 			UpdateManyEmployeeService service,
 			EntitiesToDtosEmployeeMapper mapperOutput) {

@@ -6,6 +6,6 @@ import com.hyperbank.staff.employee.dto.EmployeeSaveRequest;
 
 import io.github.paulmarcelinbejan.coordinator.architecture.validator.jakarta.JakartaCollectionValidator;
 
-public interface SaveManyRequestEmployeeValidator extends JakartaCollectionValidator<EmployeeSaveRequest, List<EmployeeSaveRequest>> {
+public interface EmployeeSaveRequestsValidator extends JakartaCollectionValidator<EmployeeSaveRequest, List<EmployeeSaveRequest>> {
 	
 }

@@ -12,7 +12,7 @@ import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.Coo
 public class UpdateOneEmployeeCoordinatorImpl extends CoordinatorFull<EmployeeUpdateRequest, Employee, Employee, EmployeeResponse> implements UpdateOneEmployeeCoordinator {
 
 	public UpdateOneEmployeeCoordinatorImpl(
-			UpdateOneRequestEmployeeValidator validator,
+			EmployeeUpdateRequestValidator validator,
 			UpdateOneEmployeeMapper mapperInput, 
 			UpdateOneEmployeeService service,
 			EntityToDtoEmployeeMapper mapperOutput) {

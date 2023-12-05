@@ -12,7 +12,7 @@ import io.github.paulmarcelinbejan.coordinator.architecture.coordinator.base.Coo
 public class SaveOneEmployeeCoordinatorImpl extends CoordinatorFull<EmployeeSaveRequest, Employee, Employee, EmployeeResponse> implements SaveOneEmployeeCoordinator {
 
 	public SaveOneEmployeeCoordinatorImpl(
-			SaveOneRequestEmployeeValidator validator,
+			EmployeeSaveRequestValidator validator,
 			SaveOneEmployeeMapper mapperInput, 
 			SaveOneEmployeeService service,
 			EntityToDtoEmployeeMapper mapperOutput) {
