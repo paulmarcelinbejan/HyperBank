@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan({ "com.hyperbank*", "com.paulmarcelinbejan*" })
+@ComponentScan({ "com.hyperbank*", "io.github.paulmarcelinbejan*" })
 @EntityScan("com.hyperbank*")
 @EnableJpaRepositories("com.hyperbank*")
 public class HyperBankLoansApplication {

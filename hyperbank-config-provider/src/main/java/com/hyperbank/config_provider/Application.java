@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableConfigServer
-@ComponentScan(basePackages = { "com.hyperbank", "com.paulmarcelinbejan.toolbox" } )
+@ComponentScan(basePackages = { "com.hyperbank*", "io.github.paulmarcelinbejan*" } )
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 public class Application {
 
