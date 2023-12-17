@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hyperbank.staff.employee.entity.Employee;
 import com.hyperbank.staff.employee.repository.EmployeeRepository;
 
+import io.github.paulmarcelinbejan.toolbox.utils.log.duration.TimeExecution;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -17,6 +18,7 @@ public class FindAllEmployeeServiceImpl implements FindAllEmployeeService {
 	private final EmployeeRepository repository;
 
 	@Override
+	@TimeExecution
 	@Transactional(readOnly = true)
 	public List<Employee> execute() {
 		
