@@ -9,8 +9,9 @@ import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalExceptio
 public interface DeleteManyEmployeeService extends ServiceInputAware<List<Long>> {
 
 	/**
-	 * Delete Many employees by ids
+	 * Delete many employee by IDs
 	 */
+	@Override
 	void execute(List<Long> ids) throws FunctionalException, TechnicalException;
 	
 }

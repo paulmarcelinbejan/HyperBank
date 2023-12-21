@@ -9,7 +9,7 @@ import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalExceptio
 public interface DeleteManyEmployeeCoordinator extends CoordinatorRequestAware<List<Long>> {
 	
 	/**
-	 * Delete many employee by ids
+	 * Delete many employee by IDs
 	 */
 	@Override
 	void process(List<Long> ids) throws FunctionalException, TechnicalException;

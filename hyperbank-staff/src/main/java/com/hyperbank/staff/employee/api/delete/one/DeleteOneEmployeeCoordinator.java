@@ -7,7 +7,7 @@ import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalExceptio
 public interface DeleteOneEmployeeCoordinator extends CoordinatorRequestAware<Long> {
 	
 	/**
-	 * Delete one employee by id
+	 * Delete employee by ID
 	 */
 	@Override
 	void process(Long id) throws FunctionalException, TechnicalException;
