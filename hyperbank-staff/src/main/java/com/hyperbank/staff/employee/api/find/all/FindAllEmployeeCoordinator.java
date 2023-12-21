@@ -9,7 +9,7 @@ import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalExcept
 import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 
 public interface FindAllEmployeeCoordinator extends CoordinatorResponseAware<List<EmployeeResponse>> {
-	
+
 	/**
 	 * Find all employee
 	 */

@@ -11,5 +11,5 @@ public interface DeleteOneEmployeeCoordinator extends CoordinatorRequestAware<Lo
 	 */
 	@Override
 	void process(Long id) throws FunctionalException, TechnicalException;
-	
+
 }

@@ -9,11 +9,11 @@ import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalExcept
 import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 
 public interface FindManyEmployeeCoordinator extends CoordinatorRequestResponseAware<List<Long>, List<EmployeeResponse>> {
-	
+
 	/**
 	 * Find many employee by IDs
 	 */
 	@Override
 	List<EmployeeResponse> process(List<Long> ids) throws FunctionalException, TechnicalException;
-	
+
 }
