@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.hyperbank.architecture.base.AbstractHyperBankApplication;
+
 @EnableConfigServer
 @ComponentScan(basePackages = { "com.hyperbank*", "io.github.paulmarcelinbejan*" } )
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class Application {
+public class Application extends AbstractHyperBankApplication {
 
 	public static void main(final String[] args) {
 		SpringApplication.run(Application.class, args);

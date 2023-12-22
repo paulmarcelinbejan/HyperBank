@@ -37,7 +37,7 @@ public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsSe
 	private final ReadServiceHelper<Long, DepositAccountDetails> readServiceHelper;
 	private final DeleteServiceHelper<Long> deleteServiceHelper;
 
-	@Value(value = "hyperbank.constants.deposit_account.interestrate")
+	@Value(value = "${hyperbank.constants.deposit_account.interestrate}")
 	private BigDecimal interestRate;
 	
 	@Override
