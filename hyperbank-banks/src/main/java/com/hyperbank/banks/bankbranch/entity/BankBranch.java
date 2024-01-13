@@ -29,7 +29,7 @@ public class BankBranch {
 	@JoinColumn(name = "fk_bank", nullable = false)
 	private Bank bank;
 
-	@Column(name = "fk_location", nullable = false)
+	@Column(name = "fk_location")
 	private Long locationId;
 
 }

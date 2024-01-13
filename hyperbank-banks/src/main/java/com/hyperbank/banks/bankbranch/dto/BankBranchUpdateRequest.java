@@ -17,7 +17,6 @@ public class BankBranchUpdateRequest {
 	private Integer bankId;
 
 	@JsonProperty
-	@NotNull(message = "locationId must not be null")
 	private Long locationId;
 
 }
