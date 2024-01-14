@@ -1,6 +1,7 @@
 spring:
    application:
       name: config-provider
+      version: 1.0.0
    profile:
       active: aws-secretmanager, awss3
    cloud:

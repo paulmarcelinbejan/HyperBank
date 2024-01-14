@@ -77,20 +77,16 @@
 		</dependency>
 		<!-- Loggers -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
 			<artifactId>toolbox-utils-log</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
+			<artifactId>toolbox-utils-log-json</artifactId>
 		</dependency>
 	</dependencies>
     <build>

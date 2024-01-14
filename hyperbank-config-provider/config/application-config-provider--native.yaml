@@ -1,6 +1,7 @@
 spring:
    application:
       name: config-provider
+      version: 1.0.0
    profiles:
       active: native
    cloud:
