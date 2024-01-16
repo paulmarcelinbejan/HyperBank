@@ -81,6 +81,16 @@
 		    <artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-spring-cloud-config-client</artifactId>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.cloud</groupId>
+		            <artifactId>spring-cloud-bus</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		<dependency>
 			<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
 			<artifactId>toolbox-utils-log</artifactId>
 		</dependency>
