@@ -43,4 +43,7 @@
 			<artifactId>hyperbank-architecture-web</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+        <finalName>hyperbank-loans</finalName>
+    </build>
 </project>

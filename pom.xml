@@ -21,6 +21,7 @@
 		<java.version>17</java.version>
 		<!-- MAVEN -->
 		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-surefire-report-plugin.version>3.2.5</maven-surefire-report-plugin.version>
 		<!-- SPRING -->
 		<spring-boot.version>3.1.0</spring-boot.version>
 		<!-- LOMBOK -->
@@ -77,18 +78,18 @@
 		</dependency>
 		<!-- Loggers -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-log4j2</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.logging.log4j</groupId>
-		    <artifactId>log4j-spring-cloud-config-client</artifactId>
-		    <exclusions>
-		        <exclusion>
-		            <groupId>org.springframework.cloud</groupId>
-		            <artifactId>spring-cloud-bus</artifactId>
-		        </exclusion>
-		    </exclusions>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-spring-cloud-config-client</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-bus</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.github.paulmarcelinbejan.toolbox</groupId>
@@ -99,48 +100,65 @@
 			<artifactId>toolbox-utils-log-json</artifactId>
 		</dependency>
 	</dependencies>
-    <build>
-	    <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot.version}</version>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-compiler-plugin</artifactId>
-	            <version>${maven-compiler-plugin.version}</version>
-	            <configuration>
-	                <source>${java.version}</source> <!-- depending on your project -->
-	                <target>${java.version}</target> <!-- depending on your project -->
-	                <annotationProcessorPaths>
-	                    <path>
-	                        <groupId>org.mapstruct</groupId>
-	                        <artifactId>mapstruct-processor</artifactId>
-	                        <version>${mapstruct.version}</version>
-	                    </path>
-	                    <!-- other annotation processors -->
-	                    <path>
-			                <groupId>org.projectlombok</groupId>
-			                <artifactId>lombok</artifactId>
-			                <version>${lombok.version}</version>
-			            </path>
-			            <dependency>
-			                <groupId>org.projectlombok</groupId>
-			                <artifactId>lombok-mapstruct-binding</artifactId>
-			                <version>${lombok-mapstruct-binding.version}</version>
-			            </dependency>
-	                </annotationProcessorPaths>
-	            </configuration>
-	        </plugin>
-        </plugins>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+					<fork>true</fork>
+					<skip>false</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source> <!-- depending on your
+					project -->
+					<target>${java.version}</target> <!-- depending on your
+					project -->
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+						<!-- other annotation processors -->
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<dependency>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${lombok-mapstruct-binding.version}</version>
+						</dependency>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-surefire-report-plugin</artifactId>
+		        <version>${maven-surefire-report-plugin.version}</version>
+			</plugin>
+		</plugins>
 	</build>
 </project>

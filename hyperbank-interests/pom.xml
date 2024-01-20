@@ -33,4 +33,7 @@
 			<artifactId>hyperbank-architecture-web</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+        <finalName>hyperbank-interests</finalName>
+    </build>
 </project>

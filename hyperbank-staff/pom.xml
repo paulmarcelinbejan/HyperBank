@@ -39,4 +39,7 @@
 			<artifactId>hyperbank-architecture-web</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+        <finalName>hyperbank-staff</finalName>
+    </build>
 </project>

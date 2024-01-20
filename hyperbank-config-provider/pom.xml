@@ -57,6 +57,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>hyperbank-config-provider</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
