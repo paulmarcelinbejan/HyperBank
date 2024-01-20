@@ -1,10 +1,10 @@
 spring:
    application:
-      name: interests
+      name: hyperbank-interests
       version: 1.0.0
    profiles:
       include: config_main, config_storage, config_swagger
    config:
       import: configserver:http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config
 
-server.port: ${env.services-server-port.interests}
+server.port: ${env.services-server-port.hyperbank-interests}

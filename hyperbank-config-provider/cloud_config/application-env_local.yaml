@@ -27,11 +27,12 @@ env:
 #            host:
 #            port:
    services-server-port:
-      accounts: 9001
-      banks: 9002
-      interests: 9003
-      loans: 9004
-      maps: 9005
-      staff: 9006
-      transactions: 9007
-      types: 9008
+      hyperbank-config-provider: 8888
+      hyperbank-accounts: 9001
+      hyperbank-banks: 9002
+      hyperbank-interests: 9003
+      hyperbank-loans: 9004
+      hyperbank-maps: 9005
+      hyperbank-staff: 9006
+      hyperbank-transactions: 9007
+      hyperbank-types: 9008

@@ -1,12 +1,10 @@
 spring:
    application:
-      name: accounts
+      name: hyperbank-accounts
       version: 1.0.0
    profiles:
       include: config_main, config_storage, config_swagger
    config:
       import: configserver:http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config
 
-server.port: ${env.services-server-port.accounts}
-
-hyperbank.constants.deposit_account.interestrate: 2
+server.port: ${env.services-server-port.hyperbank-accounts}

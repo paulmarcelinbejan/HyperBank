@@ -1,10 +1,8 @@
 package com.hyperbank.accounts.depositaccountdetails.service.impl;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,9 +34,6 @@ public class DepositAccountDetailsServiceImpl implements DepositAccountDetailsSe
 	private final CreateServiceHelper<Long, DepositAccountDetails> createServiceHelper;
 	private final ReadServiceHelper<Long, DepositAccountDetails> readServiceHelper;
 	private final DeleteServiceHelper<Long> deleteServiceHelper;
-
-	@Value(value = "${hyperbank.constants.deposit_account.interestrate}")
-	private BigDecimal interestRate;
 	
 	@Override
 	@Transactional(readOnly = true)

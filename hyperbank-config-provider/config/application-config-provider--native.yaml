@@ -1,6 +1,6 @@
 spring:
    application:
-      name: config-provider
+      name: hyperbank-config-provider
       version: 1.0.0
    profiles:
       active: native
@@ -13,4 +13,4 @@ spring:
             prefix: /config
             bootstrap: true
 
-server.port: 8888
+server.port: ${env.services-server-port.hyperbank-config-provider}
