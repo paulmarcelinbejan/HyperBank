@@ -4,7 +4,7 @@ spring:
       version: 1.0.0
    profiles:
       active: native
-      include: config_main
+      include: env_local, config_main
    cloud:
       config:
          server:

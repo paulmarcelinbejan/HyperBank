@@ -4,7 +4,7 @@ spring:
       version: 1.0.0
    profiles:
       active: aws-secretmanager, awss3
-      include: config_main
+      include: env_aws, config_main
    cloud:
       config:
          server:
