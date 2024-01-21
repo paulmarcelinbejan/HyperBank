@@ -23,12 +23,8 @@ readInput() {
 
     CURRENT_DIRECTORY=$(pwd)
 
-    echo -e "Current directory: ${CURRENT_DIRECTORY}"
-
     # Path to the YAML file application-env_local
     CONFIG_ENV_LOCAL="$CURRENT_DIRECTORY/hyperbank-config-provider/cloud_config/application-env_local.yaml"
-
-    echo -e "Config env_local file path: ${CONFIG_ENV_LOCAL}"
 }
 
 retrievePort() {
@@ -42,12 +38,35 @@ retrievePort() {
 
 readInput
 
-for module in "${MAVEN_MODULES[@]}"; do
+# Start the important Docker image
+echo "Starting hyperbank-config-provider Docker image: ${MAVEN_MODULES[1]}"
+retrievePort ${MAVEN_MODULES[1]}
+docker run -d -p ${port}:${port} --name ${MAVEN_MODULES[1]} ${MAVEN_MODULES[1]}:${PROJECT_VERSION} 
+
+# Check if the config-provider Docker container is up and running
+counter=1
+while ! docker inspect -f '{{.State.Running}}' ${MAVEN_MODULES[1]} | grep -q true; do
+    echo "$counter - Waiting for ${MAVEN_MODULES[1]} to be up and running..."
+    ((counter++))
+    sleep 1
+
+    # Abort if counter reaches 60
+    if [ "$counter" -eq 60 ]; then
+        echo "$RED Aborting. ${MAVEN_MODULES[1]} did not start within the expected time."
+        exit 1
+    fi
+done
+
+echo "$GREEN ${MAVEN_MODULES[1]} is up and running on port ${port}! $COLOR_OFF"
+
+printHorizontalLine
+
+for module in "${MAVEN_MODULES[@]:1}"; do
     echo -e "$BLUE Running ${module} docker image! $COLOR_OFF"
-    
+
     retrievePort $module
 
-    docker pull ${module}
+    #docker pull ${module}
     docker run -d -p ${port}:${port} --name ${module} ${module}:${PROJECT_VERSION} 
 
     # Check if the docker command was executed correctly
