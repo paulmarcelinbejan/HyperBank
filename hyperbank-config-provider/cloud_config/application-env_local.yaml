@@ -2,11 +2,11 @@ env:
    endpoints:
       sql:
          HyperBankDB:
-            host: localhost
+            host: 0.0.0.0
             port: 5432
             name: HyperBankDB
             username: paulmarcelinbejan
-            password: '#PaulMarcelinBejanDB!'
+            password: HyperBankPassword
 #      nosql:
 #         DB_NAME:
 #            host: 
