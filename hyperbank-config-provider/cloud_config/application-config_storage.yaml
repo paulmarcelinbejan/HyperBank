@@ -1,7 +1,7 @@
 spring:
    datasource:
       driverClassName: org.postgresql.Driver
-      url: jdbc:postgresql://${endpoints.sql.HyperBankDB.host}:${env.endpoints.sql.HyperBankDB.port}/${env.endpoints.sql.HyperBankDB.name}
+      url: jdbc:postgresql://${endpoints.sql.HyperBankDB.host}:${endpoints.sql.HyperBankDB.port}/${endpoints.sql.HyperBankDB.name}
       username: ${endpoints.sql.HyperBankDB.username}
       password: ${endpoints.sql.HyperBankDB.password}
    jpa:
