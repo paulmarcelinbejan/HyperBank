@@ -5,7 +5,7 @@ spring:
    profiles:
       include: config_main, config_storage, config_swagger
    config:
-      import: configserver:http://${env.config-provider-host:localhost}:${env.services-server-port.hyperbank-config-provider:8888}/config
+      import: configserver:http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config
    cloud:
      config:
        fail-fast: true

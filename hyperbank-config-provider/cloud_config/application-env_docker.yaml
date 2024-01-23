@@ -26,7 +26,6 @@ env:
 #         MB_NAME:
 #            host:
 #            port:
-   config-provider-host: hyperbank-config-provider
    services-server-port:
       hyperbank-config-provider: 8888
       hyperbank-accounts: 9001
