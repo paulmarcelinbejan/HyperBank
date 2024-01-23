@@ -14,4 +14,4 @@ COPY config/* config/
 
 EXPOSE 9003
 
-CMD java -jar hyperbank-interests.jar --spring.config.import=config/application-interests.yaml --spring.profiles.include=env_local
+CMD java -jar hyperbank-interests.jar --spring.config.import=config/application-interests.yaml --spring.profiles.include=env_docker

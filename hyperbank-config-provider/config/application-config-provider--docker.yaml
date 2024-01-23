@@ -1,0 +1,16 @@
+spring:
+   application:
+      name: hyperbank-config-provider
+      version: 1.0.0
+   profiles:
+      active: native
+      include: env_docker, config_main
+   cloud:
+      config:
+         server:
+            native:
+               search-locations: cloud_config
+            prefix: /config
+            bootstrap: true
+
+server.port: ${env.services-server-port.hyperbank-config-provider}

@@ -14,4 +14,4 @@ COPY config/* config/
 
 EXPOSE 9002
 
-CMD java -jar hyperbank-maps.jar --spring.config.import=config/application-maps.yaml --spring.profiles.include=env_local
+CMD java -jar hyperbank-maps.jar --spring.config.import=config/application-maps.yaml --spring.profiles.include=env_docker

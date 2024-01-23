@@ -14,4 +14,4 @@ COPY config/* config/
 
 EXPOSE 9001
 
-CMD java -jar hyperbank-accounts.jar --spring.config.import=config/application-accounts.yaml --spring.profiles.include=env_local
+CMD java -jar hyperbank-accounts.jar --spring.config.import=config/application-accounts.yaml --spring.profiles.include=env_docker

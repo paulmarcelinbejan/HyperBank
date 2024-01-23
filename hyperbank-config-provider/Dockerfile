@@ -18,4 +18,4 @@ COPY cloud_config/* cloud_config/
 
 EXPOSE 8888
 
-CMD java -jar hyperbank-banks.jar --spring.config.import=config/application-config-provider--local.yaml
+CMD java -jar hyperbank-banks.jar --spring.config.import=config/application-config-provider--docker.yaml
