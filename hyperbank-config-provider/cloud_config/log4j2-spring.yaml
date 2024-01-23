@@ -1,0 +1,31 @@
+Configuration:
+ Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      JSONLayout:
+        compact: true
+        eventEol: true
+        properties: true
+        stacktraceAsString: true
+        includeTimeMillis: true
+        KeyValuePair:
+          - key: appName
+            value: ${spring:spring.application.name} 
+          - key: version
+            value: ${spring:spring.application.version} 
+          
+ Loggers:
+    Root:
+      level: INFO
+      AppenderRef:
+        ref: Console
+    Logger:
+      - name: org.apache
+        level: WARN
+        AppenderRef:
+          ref: Console
+      - name: org.springframework.beans.factory
+        level: WARN
+        AppenderRef:
+          ref: Console

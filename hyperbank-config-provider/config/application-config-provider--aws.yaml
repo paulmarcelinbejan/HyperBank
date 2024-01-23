@@ -21,7 +21,7 @@ spring:
       bucket: 
       order: 2
 
-server.port: ${env.services-server-port.hyperbank-config-provider}
+server.port: ${services.hyperbank-config-provider.port}
          
 
       

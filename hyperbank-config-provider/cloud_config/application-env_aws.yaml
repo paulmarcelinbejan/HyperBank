@@ -1,38 +1,46 @@
-env:
-   endpoints:
-      sql:
-         HyperBankDB:
-            host: host.aws
-            port: 5432
-            name: HyperBankDB
-            username: myawsusername
-            password: 'myawssecret'
-#      nosql:
-#         DB_NAME:
-#            host: 
-#            port: 
-#            name: 
-#            username: 
-#            password: 
-#      cache:
-#         CACHE_NAME:
-#            host:
-#            port: 
-#            password: 
-#            ssl:
-#               enabled: false
-#               enablePeerVerification: false
-#      messagebroker:
-#         MB_NAME:
-#            host:
-#            port:
-   services-server-port:
-      hyperbank-config-provider: 8888
-      hyperbank-accounts: 9001
-      hyperbank-banks: 9002
-      hyperbank-interests: 9003
-      hyperbank-loans: 9004
-      hyperbank-maps: 9005
-      hyperbank-staff: 9006
-      hyperbank-transactions: 9007
-      hyperbank-types: 9008
+endpoints:
+   sql:
+      HyperBankDB:
+         host: host.aws
+         port: 5432
+         name: HyperBankDB
+         username: myawsusername
+         password: myawssecret
+#   nosql:
+#      DB_NAME:
+#         host: 
+#         port: 
+#         name: 
+#         username: 
+#         password: 
+#   cache:
+#      CACHE_NAME:
+#         host:
+#         port: 
+#         password: 
+#         ssl:
+#            enabled: false
+#            enablePeerVerification: false
+#   messagebroker:
+#      MB_NAME:
+#         host:
+#         port:
+services:
+   hyperbank-config-provider:
+      port: 8888
+   hyperbank-accounts:
+      port: 9001
+   hyperbank-banks:
+      port: 9002
+   hyperbank-interests:
+      port: 9003
+   hyperbank-loans:
+      port: 9004
+   hyperbank-maps:
+      port: 9005
+   hyperbank-staff:
+      port: 9006
+   hyperbank-transactions:
+      port: 9007
+   hyperbank-types:
+      port: 9008

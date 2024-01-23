@@ -10,4 +10,4 @@ spring:
      config:
        fail-fast: true
        
-server.port: ${env.services-server-port.hyperbank-loans}
+server.port: ${services.hyperbank-loans.port}

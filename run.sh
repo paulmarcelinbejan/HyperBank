@@ -25,15 +25,15 @@ readInput() {
 
     CURRENT_DIRECTORY=$(pwd)
 
-    # Path to the YAML file application-env_local
-    CONFIG_ENV_LOCAL="$CURRENT_DIRECTORY/${CONFIG_PROVIDER}/cloud_config/application-env_local.yaml"
+    # Path to the YAML file application-env_docker
+    CONFIG_ENV_DOCKER="$CURRENT_DIRECTORY/${CONFIG_PROVIDER}/cloud_config/application-env_docker.yaml"
 }
 
 retrievePort() {
     local module="$1"
 
-    # Use yq to extract the value based on the key
-    PORT=$(yq eval ".env.services-server-port.$module" "$CONFIG_ENV_LOCAL")
+    # Use yq to extract the port based on the key
+    PORT=$(yq eval ".services.$module.port" "$CONFIG_ENV_DOCKER")
 }
 
 retrieveDockerNetwork() {
@@ -78,14 +78,14 @@ runConfigProvider() {
     #TODO is not working, check for health, not for running
     # Check if the config-provider Docker container is up and running
     counter=1
-    while ! curl -s http://localhost:8888/actuator/health | jq -e '.status' | grep -q 'UP'; do
+    while ! curl -s http://localhost:${PORT}/actuator/health | jq -e '.status' | grep -q 'UP'; do
         echo -e "$counter - Waiting for ${CONFIG_PROVIDER} to be healthy..."
         ((counter++))
         sleep 1
 
         # Abort if counter reaches 60
         if [ "$counter" -eq 15 ]; then
-            echo -e "${RED} Aborting. ${CONFIG_PROVIDER} did not become healthy within the expected time. $COLOR_OFF"
+            echo -e "${RED}Aborting. ${CONFIG_PROVIDER} did not become healthy within the expected time. $COLOR_OFF"
             exit 1
         fi
     done

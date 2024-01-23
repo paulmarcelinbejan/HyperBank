@@ -13,4 +13,4 @@ spring:
             prefix: /config
             bootstrap: true
 
-server.port: ${env.services-server-port.hyperbank-config-provider}
+server.port: ${services.hyperbank-config-provider.port}
