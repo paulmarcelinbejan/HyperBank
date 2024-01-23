@@ -15,66 +15,112 @@ readInput() {
     echo -n "Enter PROJECT VERSION: "
     read PROJECT_VERSION
 
+    CONFIG_PROVIDER="hyperbank-config-provider"
+
     # Set the folder to exclude
-    EXCLUDED_FOLDERS=("hyperbank-config-provider" "tools" "target")
+    EXCLUDED_FOLDERS=(${CONFIG_PROVIDER} "tools" "target")
 
     # Get the list of maven modules to run
-    MAVEN_MODULES=("hyperbank-config-provider" $(ls -l | grep '^d' | awk '{print $9}' | grep -vE "$(IFS="|"; echo "${(j:|:)EXCLUDED_FOLDERS}")"))
+    MAVEN_MODULES=(${CONFIG_PROVIDER} $(ls -l | grep '^d' | awk '{print $9}' | grep -vE "$(IFS="|"; echo "${(j:|:)EXCLUDED_FOLDERS}")"))
 
     CURRENT_DIRECTORY=$(pwd)
 
     # Path to the YAML file application-env_local
-    CONFIG_ENV_LOCAL="$CURRENT_DIRECTORY/hyperbank-config-provider/cloud_config/application-env_local.yaml"
+    CONFIG_ENV_LOCAL="$CURRENT_DIRECTORY/${CONFIG_PROVIDER}/cloud_config/application-env_local.yaml"
 }
 
 retrievePort() {
     local module="$1"
 
     # Use yq to extract the value based on the key
-    port=$(yq eval ".env.services-server-port.$module" "$CONFIG_ENV_LOCAL")
+    PORT=$(yq eval ".env.services-server-port.$module" "$CONFIG_ENV_LOCAL")
+}
+
+retrieveDockerNetwork() {
+    # Get the current working directory
+    SCRIPT_DIRECTORY=$(pwd)
+
+    # Extract the name of the last component of the path (folder name)
+    FOLDER_NAME=$(basename "$SCRIPT_DIRECTORY")
+
+    # Convert folder name to lowercase
+    PROJECT_NAME=${FOLDER_NAME:l}
+
+    # Specify the desired network name
+    DOCKER_NETWORK="${PROJECT_NAME}-network"
+}
+
+createDockerNetwork() {
+    # Check if the network already exists
+    if docker network ls --filter name="$DOCKER_NETWORK" --quiet | grep -q .; then
+        echo -e "${YELLOW}Docker Network $DOCKER_NETWORK already exists. $COLOR_OFF"
+    else
+        # Create the network
+        docker network create "$DOCKER_NETWORK"
+        echo -e "${GREEN}Docker Network $DOCKER_NETWORK created. $COLOR_OFF"
+    fi
+}
+
+dockerRun() {
+    local module="$1"
+
+    echo -e "${BLUE}Running ${module} docker image! $COLOR_OFF"
+
+    retrievePort $module
+
+    #docker pull ${module}
+    docker run -d -p ${PORT}:${PORT} --name ${module} --network ${DOCKER_NETWORK} -e "CONFIG_PROVIDER_HOST=${CONFIG_PROVIDER}" ${module}:${PROJECT_VERSION} 
+}
+
+runConfigProvider() {
+    dockerRun ${CONFIG_PROVIDER}
+
+    #TODO is not working, check for health, not for running
+    # Check if the config-provider Docker container is up and running
+    counter=1
+    while ! curl -s http://localhost:8888/actuator/health | jq -e '.status' | grep -q 'UP'; do
+        echo -e "$counter - Waiting for ${CONFIG_PROVIDER} to be healthy..."
+        ((counter++))
+        sleep 1
+
+        # Abort if counter reaches 60
+        if [ "$counter" -eq 15 ]; then
+            echo -e "${RED} Aborting. ${CONFIG_PROVIDER} did not become healthy within the expected time. $COLOR_OFF"
+            exit 1
+        fi
+    done
+
+    echo -e "${GREEN}${CONFIG_PROVIDER} is up and running on port ${PORT}! $COLOR_OFF"
+
+    printHorizontalLine
+}
+
+runOtherModules() {
+    for module in "${MAVEN_MODULES[@]:1}"; do
+        
+        dockerRun ${module}
+
+        # Check if the docker command was executed correctly
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}${module} started on port ${PORT}! $COLOR_OFF"
+        else
+            echo -e "${RED}Error running ${module} !!! $COLOR_OFF"
+        fi
+
+        printHorizontalLine
+
+    done
 }
 
 #-------------------------------------------------------(MAIN SCRIPT LOGIC)-------------------------------------------------------
 
 readInput
 
-# Start the important Docker image
-echo "Starting hyperbank-config-provider Docker image: ${MAVEN_MODULES[1]}"
-retrievePort ${MAVEN_MODULES[1]}
-docker run -d -p ${port}:${port} --name ${MAVEN_MODULES[1]} ${MAVEN_MODULES[1]}:${PROJECT_VERSION} 
+retrieveDockerNetwork
 
-# Check if the config-provider Docker container is up and running
-counter=1
-while ! docker inspect -f '{{.State.Running}}' ${MAVEN_MODULES[1]} | grep -q true; do
-    echo "$counter - Waiting for ${MAVEN_MODULES[1]} to be up and running..."
-    ((counter++))
-    sleep 1
+createDockerNetwork
 
-    # Abort if counter reaches 60
-    if [ "$counter" -eq 60 ]; then
-        echo "$RED Aborting. ${MAVEN_MODULES[1]} did not start within the expected time."
-        exit 1
-    fi
-done
+runConfigProvider
 
-echo "$GREEN ${MAVEN_MODULES[1]} is up and running on port ${port}! $COLOR_OFF"
+runOtherModules
 
-printHorizontalLine
-
-for module in "${MAVEN_MODULES[@]:1}"; do
-    echo -e "$BLUE Running ${module} docker image! $COLOR_OFF"
-
-    retrievePort $module
-
-    #docker pull ${module}
-    docker run -d -p ${port}:${port} --name ${module} ${module}:${PROJECT_VERSION} 
-
-    # Check if the docker command was executed correctly
-    if [ $? -eq 0 ]; then
-        echo -e "$GREEN $module started on port ${port}! $COLOR_OFF"
-    else
-        echo -e "$RED Error running $module !!! $COLOR_OFF"
-    fi
-
-    printHorizontalLine
-done
