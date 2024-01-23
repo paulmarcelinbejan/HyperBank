@@ -21,15 +21,15 @@ deploy() {
     DIRECTORY=./$MAVEN_MODULE
     DOCKER_IMAGE=$MAVEN_MODULE:$PROJECT_VERSION
 
-    echo -e "$BLUE START DEPLOYING $MAVEN_MODULE:$PROJECT_VERSION ... $COLOR_OFF"
+    echo -e "${BLUE}START DEPLOYING $MAVEN_MODULE:$PROJECT_VERSION ... $COLOR_OFF"
 
     docker build -t "$DOCKER_IMAGE" "$DIRECTORY"
 
     # Check if the docker command was executed correctly
     if [ $? -eq 0 ]; then
-        echo -e "$GREEN Deploy of $MAVEN_MODULE completed! $COLOR_OFF"
+        echo -e "${GREEN}Deploy of $MAVEN_MODULE completed! $COLOR_OFF"
     else
-        echo -e "$RED Error during the deploy of $MAVEN_MODULE !!! $COLOR_OFF"
+        echo -e "${RED}Error during the deploy of $MAVEN_MODULE !!! $COLOR_OFF"
     fi
     
 
@@ -39,7 +39,7 @@ deploy() {
 deployAll() {
     PROJECT_VERSION=$1
 
-    echo -e "$BLUE START DEPLOYING $GREEN ALL-SERVICES $BLUE ... \n $COLOR_OFF"
+    echo -e "${BLUE}START DEPLOYING $GREEN ALL-SERVICES $BLUE ... \n $COLOR_OFF"
 
     for module in "${MAVEN_MODULES[@]}"; do
         deploy ${module} ${PROJECT_VERSION}
@@ -67,7 +67,7 @@ do
         read PROJECT_VERSION
 
         if [ -z "$PROJECT_VERSION" ]; then
-            echo -e  "$RED Version is missing, try again! $COLOR_OFF";
+            echo -e  "${RED}Version is missing, try again! $COLOR_OFF";
             exit 1;
         fi
 
@@ -83,7 +83,7 @@ do
         deploy ${operation} ${PROJECT_VERSION}
         break
     else
-        echo -e "$RED Oops!! - unknown choice $REPLY, try again \n $COLOR_OFF"
+        echo -e "${RED}Oops!! - unknown choice $REPLY, try again \n $COLOR_OFF"
     fi
 
 done
