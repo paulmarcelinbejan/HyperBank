@@ -22,7 +22,7 @@ clear() {
 
     #Use docker buildx prune to remove the Docker build cache.
     #This command will clear the build cache of the default builder.
-    docker buildx prune
+    #docker buildx prune
 }
 
 deploy() {
