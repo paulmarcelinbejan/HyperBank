@@ -6,5 +6,8 @@ spring:
       include: config_main, config_storage, config_swagger
    config:
       import: configserver:http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config
-
+   cloud:
+     config:
+       fail-fast: true
+       
 server.port: ${env.services-server-port.hyperbank-loans}
