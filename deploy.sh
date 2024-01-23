@@ -15,6 +15,16 @@ printHorizontalLine() {
 
 #------------------------------------------------------------------(Deploy functions)---------------------------------------------------------------------------------------------------------------
 
+clear() {
+    #Use docker container prune command to clear the disk space used by containers. 
+    #This command will remove all stopped containers from the system.
+    docker builder prune
+
+    #Use docker buildx prune to remove the Docker build cache.
+    #This command will clear the build cache of the default builder.
+    docker buildx prune
+}
+
 deploy() {
     MAVEN_MODULE=$1
     PROJECT_VERSION=$2
@@ -56,7 +66,7 @@ EXCLUDED_FOLDERS=("hyperbank-config-provider" "tools" "target")
 # Get the list of maven modules that can be deployed
 MAVEN_MODULES=("hyperbank-config-provider" $(ls -l | grep '^d' | awk '{print $9}' | grep -vE "$(IFS="|"; echo "${(j:|:)EXCLUDED_FOLDERS}")"))
 
-select operation in "${MAVEN_MODULES[@]}" all quit
+select operation in "${MAVEN_MODULES[@]}" all clear quit
 
 do
 
@@ -75,6 +85,9 @@ do
 
     if [[ "$operation" == "quit" ]]; then
         echo "Wish you a life without bugs!!!"
+        break
+    elif [[ "$operation" == "clear" ]]; then
+        clear
         break
     elif [[ "$operation" == "all" ]]; then
         deployAll ${PROJECT_VERSION}
