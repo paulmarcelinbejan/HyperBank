@@ -1,4 +1,6 @@
-logging.config: http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config/log4j2-spring.yaml
+log4j2.Configuration.allowedProtocols: "http,https"
+logging.config: http://${CONFIG_PROVIDER_HOST:localhost}:${CONFIG_PROVIDER_PORT:8888}/config/hyperbank-config-provider/application-config_log4j2-spring.yaml
+
 endpoints:
    sql:
       HyperBankDB:
