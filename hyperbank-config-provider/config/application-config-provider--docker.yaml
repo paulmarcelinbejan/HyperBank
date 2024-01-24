@@ -15,4 +15,4 @@ spring:
 
 server.port: ${services.hyperbank-config-provider.port}
 
-logging.config: ./cloud_config/log4j2-spring.yaml
+logging.config: ./cloud_config/application-config_log4j2-spring.yaml
