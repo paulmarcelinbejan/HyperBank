@@ -1,8 +1,8 @@
-logging.config: ../hyperbank-config-provider/cloud_config/log4j2-spring.yaml
+logging.config: http://hyperbank-config-provider:${services.hyperbank-config-provider.port}/config/log4j2-spring.yaml
 endpoints:
    sql:
       HyperBankDB:
-         host: 127.0.0.1
+         host: hyperbank-postgresql-db
          port: 5432
          name: HyperBankDB
          username: paulmarcelinbejan
