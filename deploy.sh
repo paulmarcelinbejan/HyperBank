@@ -33,7 +33,7 @@ deploy() {
 
     echo -e "${BLUE}START DEPLOYING $MAVEN_MODULE:$PROJECT_VERSION ... $COLOR_OFF"
 
-    docker build -t "$DOCKER_IMAGE" "$DIRECTORY"
+    docker build -t "$DOCKER_IMAGE" -t "$MAVEN_MODULE" "$DIRECTORY"
 
     # Check if the docker command was executed correctly
     if [ $? -eq 0 ]; then
