@@ -6,13 +6,13 @@ endpoints:
          name: HyperBankDB
          username: paulmarcelinbejan
          password: HyperBankPassword
-#   nosql:
-#      DB_NAME:
-#         host: 
-#         port: 
-#         name: 
-#         username: 
-#         password: 
+   nosql:
+      HyperBankMongoDB:
+         host: localhost
+         port: 27017
+         name: HyperBankMongoDB
+         username: paulmarcelinbejan
+         password: HyperBankPassword
 #   cache:
 #      CACHE_NAME:
 #         host:

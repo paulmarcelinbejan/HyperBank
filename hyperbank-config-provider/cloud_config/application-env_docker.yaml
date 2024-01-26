@@ -9,6 +9,13 @@ endpoints:
          name: HyperBankDB
          username: paulmarcelinbejan
          password: HyperBankPassword
+   nosql:
+      HyperBankMongoDB:
+         host: hyperbank-mongo-db
+         port: 27017
+         name: HyperBankMongoDB
+         username: paulmarcelinbejan
+         password: HyperBankPassword
 #   nosql:
 #      DB_NAME:
 #         host: 

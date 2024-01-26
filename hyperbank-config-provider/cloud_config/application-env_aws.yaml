@@ -6,13 +6,13 @@ endpoints:
          name: HyperBankDB
          username: myawsusername
          password: myawssecret
-#   nosql:
-#      DB_NAME:
-#         host: 
-#         port: 
-#         name: 
-#         username: 
-#         password: 
+   nosql:
+      HyperBankMongoDB:
+         host: host.aws
+         port: 27017
+         name: HyperBankMongoDB
+         username: myawsusername
+         password: myawssecret
 #   cache:
 #      CACHE_NAME:
 #         host:
