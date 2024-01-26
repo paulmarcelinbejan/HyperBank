@@ -75,7 +75,6 @@ dockerRun() {
 runConfigProvider() {
     dockerRun ${CONFIG_PROVIDER}
 
-    #TODO is not working, check for health, not for running
     # Check if the config-provider Docker container is up and running
     counter=1
     while ! curl -s http://localhost:${PORT}/actuator/health | jq -e '.status' | grep -q 'UP'; do
