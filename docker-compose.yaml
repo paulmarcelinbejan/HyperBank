@@ -1,0 +1,141 @@
+version: '3.8'
+
+services:
+  hyperbank-postgresql-db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - /Users/paulmarcelinbejan/Develop/Personal/projects/HyperBank/Data/PostgreSQL:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: paulmarcelinbejan
+      POSTGRES_PASSWORD: HyperBankPassword
+      POSTGRES_DB: HyperBankDB
+    networks:
+      - hyperbank-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "HyperBankDB", "-U", "paulmarcelinbejan"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hyperbank-mongo-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - /Users/paulmarcelinbejan/Develop/Personal/projects/HyperBank/Data/MongoDB:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: paulmarcelinbejan
+      MONGO_INITDB_ROOT_PASSWORD: HyperBankPassword
+    command: --auth
+    networks:
+      - hyperbank-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.getCollectionNames()"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  hyperbank-config-provider:
+    image: hyperbank-config-provider
+    ports:
+      - "8888:8888"
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-postgresql-db
+      - hyperbank-mongo-db
+    command: ["./tools/script/wait_for_config_provider_healthy.sh"]
+
+  hyperbank-accounts:
+    image: hyperbank-accounts
+    ports:
+      - "9001:9001"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-banks:
+    image: hyperbank-banks
+    ports:
+      - "9002:9002"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-interests:
+    image: hyperbank-interests
+    ports:
+      - "9003:9003"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-loans:
+    image: hyperbank-loans
+    ports:
+      - "9004:9004"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-maps:
+    image: hyperbank-maps
+    ports:
+      - "9005:9005"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-staff:
+    image: hyperbank-staff
+    ports:
+      - "9006:9006"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-transactions:
+    image: hyperbank-transactions
+    ports:
+      - "9007:9007"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+  hyperbank-types:
+    image: hyperbank-types
+    ports:
+      - "9008:9008"
+    environment:
+      CONFIG_PROVIDER_HOST: hyperbank-config-provider
+    networks:
+      - hyperbank-network
+    depends_on:
+      - hyperbank-config-provider
+
+networks:
+  hyperbank-network:
+    driver: bridge
