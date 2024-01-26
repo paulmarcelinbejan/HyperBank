@@ -38,7 +38,7 @@ services:
       retries: 5
 
   hyperbank-config-provider:
-    image: hyperbank-config-provider
+    image: hyperbank-config-provider:latest
     ports:
       - "8888:8888"
     networks:
@@ -49,7 +49,7 @@ services:
     command: ["./tools/script/wait_for_config_provider_healthy.sh"]
 
   hyperbank-accounts:
-    image: hyperbank-accounts
+    image: hyperbank-accounts:latest
     ports:
       - "9001:9001"
     environment:
@@ -60,7 +60,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-banks:
-    image: hyperbank-banks
+    image: hyperbank-banks:latest
     ports:
       - "9002:9002"
     environment:
@@ -71,7 +71,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-interests:
-    image: hyperbank-interests
+    image: hyperbank-interests:latest
     ports:
       - "9003:9003"
     environment:
@@ -82,7 +82,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-loans:
-    image: hyperbank-loans
+    image: hyperbank-loans:latest
     ports:
       - "9004:9004"
     environment:
@@ -93,7 +93,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-maps:
-    image: hyperbank-maps
+    image: hyperbank-maps:latest
     ports:
       - "9005:9005"
     environment:
@@ -104,7 +104,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-staff:
-    image: hyperbank-staff
+    image: hyperbank-staff:latest
     ports:
       - "9006:9006"
     environment:
@@ -115,7 +115,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-transactions:
-    image: hyperbank-transactions
+    image: hyperbank-transactions:latest
     ports:
       - "9007:9007"
     environment:
@@ -126,7 +126,7 @@ services:
       - hyperbank-config-provider
 
   hyperbank-types:
-    image: hyperbank-types
+    image: hyperbank-types:latest
     ports:
       - "9008:9008"
     environment:
