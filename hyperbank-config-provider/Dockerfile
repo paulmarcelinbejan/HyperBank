@@ -10,6 +10,9 @@ RUN mkdir config
 
 RUN mkdir cloud_config
 
+RUN apt-get update \
+    && apt-get install -y curl jq 
+
 COPY ${JAR_FILE} hyperbank-config-provider.jar
 
 COPY config/* config/
