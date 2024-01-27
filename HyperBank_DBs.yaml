@@ -1,0 +1,45 @@
+# docker compose -f ./HyperBank_DBs.yaml -p hyperbank up
+version: '3.8'
+
+services:
+  hyperbank-postgresql-db:
+    image: postgres:latest
+    container_name: postgresql-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - /Users/paulmarcelinbejan/Develop/Personal/projects/HyperBank/HyperBank/tools/Data/PostgreSQL:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: paulmarcelinbejan
+      POSTGRES_PASSWORD: HyperBankPassword
+      POSTGRES_DB: HyperBankDB
+    networks:
+      - hyperbank-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "HyperBankDB", "-U", "paulmarcelinbejan"]
+      interval: 10s
+      timeout: 5s
+      retries: 4
+
+  hyperbank-mongo-db:
+    image: mongo:latest
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - /Users/paulmarcelinbejan/Develop/Personal/projects/HyperBank/HyperBank/tools/Data/MongoDB:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: paulmarcelinbejan
+      MONGO_INITDB_ROOT_PASSWORD: HyperBankPassword
+    command: --auth
+    networks:
+      - hyperbank-network
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.getCollectionNames()"]
+      interval: 10s
+      timeout: 5s
+      retries: 4
+
+networks:
+  hyperbank-network:
+    driver: bridge

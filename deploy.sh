@@ -96,7 +96,7 @@ do
         deploy ${operation} ${PROJECT_VERSION}
         break
     else
-        echo -e "${RED}Oops!! - unknown choice $REPLY, try again \n $COLOR_OFF"
+        echo -e "${RED}Ooops!!! - unknown choice $REPLY, try again \n $COLOR_OFF"
     fi
 
 done
