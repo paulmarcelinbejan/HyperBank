@@ -1,4 +1,4 @@
-# docker compose -f ./HyperBank_APIs.yaml -p hyperbank up
+# docker compose -f ./HyperBank_APIs.yaml -p hyperbank up -d
 version: '3.8'
 
 services:
