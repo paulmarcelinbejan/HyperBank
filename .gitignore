@@ -83,3 +83,9 @@ nb-configuration.xml
 # OS X
 ##############################
 .DS_Store
+
+##############################
+# HyperBank
+##############################
+tools/Data/MongoDB
+tools/Data/PostgreSQL
