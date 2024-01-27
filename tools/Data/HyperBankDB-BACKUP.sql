@@ -58,7 +58,7 @@ SET default_table_access_method = heap;
 
 --
 -- TOC entry 220 (class 1259 OID 16438)
--- Name: account; Type: TABLE; Schema: public; Owner: postgres
+-- Name: account; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.account (
@@ -67,7 +67,7 @@ CREATE TABLE public.account (
 );
 
 
-ALTER TABLE public.account OWNER TO postgres;
+ALTER TABLE public.account OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 231 (class 1259 OID 16584)
@@ -169,7 +169,7 @@ ALTER TABLE public.bank OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 217 (class 1259 OID 16419)
--- Name: bank_branch; Type: TABLE; Schema: public; Owner: postgres
+-- Name: bank_branch; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.bank_branch (
@@ -179,11 +179,11 @@ CREATE TABLE public.bank_branch (
 );
 
 
-ALTER TABLE public.bank_branch OWNER TO postgres;
+ALTER TABLE public.bank_branch OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 216 (class 1259 OID 16405)
--- Name: city; Type: TABLE; Schema: public; Owner: postgres
+-- Name: city; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.city (
@@ -193,11 +193,11 @@ CREATE TABLE public.city (
 );
 
 
-ALTER TABLE public.city OWNER TO postgres;
+ALTER TABLE public.city OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 214 (class 1259 OID 16391)
--- Name: continent; Type: TABLE; Schema: public; Owner: postgres
+-- Name: continent; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.continent (
@@ -206,11 +206,11 @@ CREATE TABLE public.continent (
 );
 
 
-ALTER TABLE public.continent OWNER TO postgres;
+ALTER TABLE public.continent OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 215 (class 1259 OID 16398)
--- Name: country; Type: TABLE; Schema: public; Owner: postgres
+-- Name: country; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.country (
@@ -220,7 +220,7 @@ CREATE TABLE public.country (
 );
 
 
-ALTER TABLE public.country OWNER TO postgres;
+ALTER TABLE public.country OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 258 (class 1259 OID 17180)
@@ -251,7 +251,7 @@ ALTER TABLE public.customer OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 219 (class 1259 OID 16431)
--- Name: customer_individual; Type: TABLE; Schema: public; Owner: postgres
+-- Name: customer_individual; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.customer_individual (
@@ -267,7 +267,7 @@ CREATE TABLE public.customer_individual (
 );
 
 
-ALTER TABLE public.customer_individual OWNER TO postgres;
+ALTER TABLE public.customer_individual OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 227 (class 1259 OID 16540)
@@ -312,7 +312,7 @@ ALTER TABLE public.deposit_account_details OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 218 (class 1259 OID 16424)
--- Name: employee; Type: TABLE; Schema: public; Owner: postgres
+-- Name: employee; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.employee (
@@ -329,7 +329,7 @@ CREATE TABLE public.employee (
 );
 
 
-ALTER TABLE public.employee OWNER TO postgres;
+ALTER TABLE public.employee OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 263 (class 1259 OID 17800)
@@ -678,7 +678,7 @@ ALTER TABLE public.interest_rate_variable_history OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 222 (class 1259 OID 16448)
--- Name: loan; Type: TABLE; Schema: public; Owner: postgres
+-- Name: loan; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.loan (
@@ -689,12 +689,12 @@ CREATE TABLE public.loan (
 );
 
 
-ALTER TABLE public.loan OWNER TO postgres;
+ALTER TABLE public.loan OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 3909 (class 0 OID 0)
 -- Dependencies: 222
--- Name: COLUMN loan.loan_principal; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN loan.loan_principal; Type: COMMENT; Schema: public; Owner: paulmarcelinbejan
 --
 
 COMMENT ON COLUMN public.loan.loan_principal IS 'The amount of money that is being borrowed';
@@ -821,7 +821,7 @@ ALTER TABLE public.sex_type OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 221 (class 1259 OID 16443)
--- Name: transaction; Type: TABLE; Schema: public; Owner: postgres
+-- Name: transaction; Type: TABLE; Schema: public; Owner: paulmarcelinbejan
 --
 
 CREATE TABLE public.transaction (
@@ -834,12 +834,12 @@ CREATE TABLE public.transaction (
 );
 
 
-ALTER TABLE public.transaction OWNER TO postgres;
+ALTER TABLE public.transaction OWNER TO paulmarcelinbejan;
 
 --
 -- TOC entry 3857 (class 0 OID 16438)
 -- Dependencies: 220
--- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 
@@ -914,7 +914,7 @@ INSERT INTO public.bank VALUES (14, 'Deutsche Bank');
 --
 -- TOC entry 3854 (class 0 OID 16419)
 -- Dependencies: 217
--- Data for Name: bank_branch; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: bank_branch; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.bank_branch VALUES (1, 1, 2);
@@ -926,7 +926,7 @@ INSERT INTO public.bank_branch VALUES (16, 10, NULL);
 --
 -- TOC entry 3853 (class 0 OID 16405)
 -- Dependencies: 216
--- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: city; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.city VALUES (2, 143, 'Alba Iulia');
@@ -1159,7 +1159,7 @@ INSERT INTO public.city VALUES (225, 9, 'Sydney');
 --
 -- TOC entry 3851 (class 0 OID 16391)
 -- Dependencies: 214
--- Data for Name: continent; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: continent; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.continent VALUES (1, 'Africa');
@@ -1174,7 +1174,7 @@ INSERT INTO public.continent VALUES (7, 'Oceania');
 --
 -- TOC entry 3852 (class 0 OID 16398)
 -- Dependencies: 215
--- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.country VALUES (1, 2, 'Afghanistan');
@@ -1451,7 +1451,7 @@ INSERT INTO public.customer VALUES (14, 2);
 --
 -- TOC entry 3856 (class 0 OID 16431)
 -- Dependencies: 219
--- Data for Name: customer_individual; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: customer_individual; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.customer_individual VALUES (1, 186, 9, 1, '1998-09-18', 'Christian', 'Pulisic', 'christianpulisic@gmail.com', '+15136850137');
@@ -1494,7 +1494,7 @@ INSERT INTO public.customer_type VALUES (2, 'LEGAL_ENTITY', 'A customer that is 
 --
 -- TOC entry 3855 (class 0 OID 16424)
 -- Dependencies: 218
--- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 INSERT INTO public.employee VALUES (1, 9, 43, 2, 11, '1990-07-02', 'Margot', 'Robbie', 'margot.robbie@hollywood.com', '+61911666874');
@@ -1603,7 +1603,7 @@ INSERT INTO public.interest_rate_variable_history VALUES (19, 26, 4.25, '2023-08
 --
 -- TOC entry 3859 (class 0 OID 16448)
 -- Dependencies: 222
--- Data for Name: loan; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: loan; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 
@@ -1728,7 +1728,7 @@ INSERT INTO public.sex_type VALUES (2, 'F', 'Female');
 --
 -- TOC entry 3858 (class 0 OID 16443)
 -- Dependencies: 221
--- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: paulmarcelinbejan
 --
 
 
@@ -1897,7 +1897,7 @@ SELECT pg_catalog.setval('public.id_transaction_seq', 1, false);
 
 --
 -- TOC entry 3615 (class 2606 OID 16442)
--- Name: account pk_account; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account pk_account; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.account
@@ -1960,7 +1960,7 @@ ALTER TABLE ONLY public.bank
 
 --
 -- TOC entry 3609 (class 2606 OID 16616)
--- Name: bank_branch pk_bank_branch; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bank_branch pk_bank_branch; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.bank_branch
@@ -1969,7 +1969,7 @@ ALTER TABLE ONLY public.bank_branch
 
 --
 -- TOC entry 3607 (class 2606 OID 16411)
--- Name: city pk_city; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: city pk_city; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.city
@@ -1978,7 +1978,7 @@ ALTER TABLE ONLY public.city
 
 --
 -- TOC entry 3603 (class 2606 OID 16397)
--- Name: continent pk_continent; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: continent pk_continent; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.continent
@@ -1987,7 +1987,7 @@ ALTER TABLE ONLY public.continent
 
 --
 -- TOC entry 3605 (class 2606 OID 16404)
--- Name: country pk_country; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: country pk_country; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.country
@@ -2014,7 +2014,7 @@ ALTER TABLE ONLY public.customer
 
 --
 -- TOC entry 3613 (class 2606 OID 16437)
--- Name: customer_individual pk_customer_individual; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer_individual pk_customer_individual; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.customer_individual
@@ -2050,7 +2050,7 @@ ALTER TABLE ONLY public.deposit_account_details
 
 --
 -- TOC entry 3611 (class 2606 OID 16430)
--- Name: employee pk_employee; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: employee pk_employee; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.employee
@@ -2104,7 +2104,7 @@ ALTER TABLE ONLY public.interest_rate_variable_history
 
 --
 -- TOC entry 3619 (class 2606 OID 16452)
--- Name: loan pk_loan; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: loan pk_loan; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.loan
@@ -2176,7 +2176,7 @@ ALTER TABLE ONLY public.sex_type
 
 --
 -- TOC entry 3617 (class 2606 OID 16447)
--- Name: transaction pk_transaction; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaction pk_transaction; Type: CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.transaction
@@ -2230,7 +2230,7 @@ ALTER TABLE ONLY public.account_internal
 
 --
 -- TOC entry 3679 (class 2606 OID 16820)
--- Name: transaction fk_account_receiver; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaction fk_account_receiver; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.transaction
@@ -2239,7 +2239,7 @@ ALTER TABLE ONLY public.transaction
 
 --
 -- TOC entry 3680 (class 2606 OID 16825)
--- Name: transaction fk_account_sender; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaction fk_account_sender; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.transaction
@@ -2248,7 +2248,7 @@ ALTER TABLE ONLY public.transaction
 
 --
 -- TOC entry 3678 (class 2606 OID 17133)
--- Name: account fk_account_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: account fk_account_type; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.account
@@ -2266,7 +2266,7 @@ ALTER TABLE ONLY public.account_external
 
 --
 -- TOC entry 3668 (class 2606 OID 16909)
--- Name: bank_branch fk_bank; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bank_branch fk_bank; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.bank_branch
@@ -2275,7 +2275,7 @@ ALTER TABLE ONLY public.bank_branch
 
 --
 -- TOC entry 3670 (class 2606 OID 17077)
--- Name: employee fk_bank_branch; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: employee fk_bank_branch; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.employee
@@ -2285,7 +2285,7 @@ ALTER TABLE ONLY public.employee
 --
 -- TOC entry 3929 (class 0 OID 0)
 -- Dependencies: 3670
--- Name: CONSTRAINT fk_bank_branch ON employee; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: CONSTRAINT fk_bank_branch ON employee; Type: COMMENT; Schema: public; Owner: paulmarcelinbejan
 --
 
 COMMENT ON CONSTRAINT fk_bank_branch ON public.employee IS 'The local bank branch where the employee works';
@@ -2311,7 +2311,7 @@ ALTER TABLE ONLY public.location
 
 --
 -- TOC entry 3666 (class 2606 OID 16924)
--- Name: country fk_continent; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: country fk_continent; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.country
@@ -2320,7 +2320,7 @@ ALTER TABLE ONLY public.country
 
 --
 -- TOC entry 3667 (class 2606 OID 16919)
--- Name: city fk_country; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: city fk_country; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.city
@@ -2338,7 +2338,7 @@ ALTER TABLE ONLY public.account_internal
 
 --
 -- TOC entry 3681 (class 2606 OID 17192)
--- Name: transaction fk_currency; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: transaction fk_currency; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.transaction
@@ -2356,7 +2356,7 @@ ALTER TABLE ONLY public.account_internal
 
 --
 -- TOC entry 3682 (class 2606 OID 17175)
--- Name: loan fk_customer; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: loan fk_customer; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.loan
@@ -2365,7 +2365,7 @@ ALTER TABLE ONLY public.loan
 
 --
 -- TOC entry 3674 (class 2606 OID 17417)
--- Name: customer_individual fk_customer; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer_individual fk_customer; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.customer_individual
@@ -2500,7 +2500,7 @@ ALTER TABLE ONLY public.loan_status_history
 
 --
 -- TOC entry 3683 (class 2606 OID 17170)
--- Name: loan fk_loan_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: loan fk_loan_type; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.loan
@@ -2509,7 +2509,7 @@ ALTER TABLE ONLY public.loan
 
 --
 -- TOC entry 3669 (class 2606 OID 16914)
--- Name: bank_branch fk_location; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bank_branch fk_location; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.bank_branch
@@ -2518,7 +2518,7 @@ ALTER TABLE ONLY public.bank_branch
 
 --
 -- TOC entry 3675 (class 2606 OID 16740)
--- Name: customer_individual fk_nationality; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer_individual fk_nationality; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.customer_individual
@@ -2527,7 +2527,7 @@ ALTER TABLE ONLY public.customer_individual
 
 --
 -- TOC entry 3671 (class 2606 OID 16944)
--- Name: employee fk_nationality; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: employee fk_nationality; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.employee
@@ -2536,7 +2536,7 @@ ALTER TABLE ONLY public.employee
 
 --
 -- TOC entry 3676 (class 2606 OID 16929)
--- Name: customer_individual fk_residence; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer_individual fk_residence; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.customer_individual
@@ -2545,7 +2545,7 @@ ALTER TABLE ONLY public.customer_individual
 
 --
 -- TOC entry 3672 (class 2606 OID 16949)
--- Name: employee fk_residence; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: employee fk_residence; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.employee
@@ -2554,7 +2554,7 @@ ALTER TABLE ONLY public.employee
 
 --
 -- TOC entry 3677 (class 2606 OID 16934)
--- Name: customer_individual fk_sex_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customer_individual fk_sex_type; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.customer_individual
@@ -2563,7 +2563,7 @@ ALTER TABLE ONLY public.customer_individual
 
 --
 -- TOC entry 3673 (class 2606 OID 16954)
--- Name: employee fk_sexy_type; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: employee fk_sexy_type; Type: FK CONSTRAINT; Schema: public; Owner: paulmarcelinbejan
 --
 
 ALTER TABLE ONLY public.employee
