@@ -10,7 +10,7 @@ RUN mkdir config
 
 RUN mkdir cloud_config
 
-COPY ${JAR_FILE} hyperbank-banks.jar
+COPY ${JAR_FILE} hyperbank-config-provider.jar
 
 COPY config/* config/
 
@@ -18,4 +18,4 @@ COPY cloud_config/* cloud_config/
 
 EXPOSE 8888
 
-CMD java -jar hyperbank-banks.jar --spring.config.import=config/application-config-provider--docker.yaml
+CMD java -jar hyperbank-config-provider.jar --spring.config.import=config/application-config-provider--docker.yaml
