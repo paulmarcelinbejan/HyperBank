@@ -3,6 +3,7 @@ version: '3.8'
 services:
   hyperbank-postgresql-db:
     image: postgres:latest
+    container_name: postgresql-db
     ports:
       - "5432:5432"
     volumes:
@@ -21,6 +22,7 @@ services:
 
   hyperbank-mongo-db:
     image: mongo:latest
+    container_name: mongo-db
     ports:
       - "27017:27017"
     volumes:
@@ -39,106 +41,126 @@ services:
 
   hyperbank-config-provider:
     image: hyperbank-config-provider:latest
+    container_name: config-provider
     ports:
       - "8888:8888"
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-postgresql-db
-      - hyperbank-mongo-db
+      hyperbank-postgresql-db:
+        condition: service_healthy
+      hyperbank-mongo-db:
+        condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl -s http://localhost:8888/actuator/health | jq -e '.status' | grep -q 'UP'"]
-      interval: 10s
-      timeout: 5s
-      retries: 4
+      test: "curl --fail --silent http://config-provider:8888/actuator/health | grep UP || exit 1"
+      start_period: 20s
+      interval: 5s
+      timeout: 10s
+      retries: 3
 
   hyperbank-accounts:
     image: hyperbank-accounts:latest
+    container_name: accounts
     ports:
       - "9001:9001"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-banks:
     image: hyperbank-banks:latest
+    container_name: banks
     ports:
       - "9002:9002"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-interests:
     image: hyperbank-interests:latest
+    container_name: interests
     ports:
       - "9003:9003"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-loans:
     image: hyperbank-loans:latest
+    container_name: loans
     ports:
       - "9004:9004"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-maps:
     image: hyperbank-maps:latest
+    container_name: maps
     ports:
       - "9005:9005"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-staff:
     image: hyperbank-staff:latest
+    container_name: staff
     ports:
       - "9006:9006"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-transactions:
     image: hyperbank-transactions:latest
+    container_name: transactions
     ports:
       - "9007:9007"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
   hyperbank-types:
     image: hyperbank-types:latest
+    container_name: types
     ports:
       - "9008:9008"
     environment:
-      CONFIG_PROVIDER_HOST: 127.0.0.1
+      CONFIG_PROVIDER_HOST: config-provider
     networks:
       - hyperbank-network
     depends_on:
-      - hyperbank-config-provider
+      hyperbank-config-provider:
+        condition: service_healthy
 
 networks:
   hyperbank-network:
