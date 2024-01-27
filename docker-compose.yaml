@@ -17,7 +17,7 @@ services:
       test: ["CMD", "pg_isready", "-q", "-d", "HyperBankDB", "-U", "paulmarcelinbejan"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 4
 
   hyperbank-mongo-db:
     image: mongo:latest
@@ -35,7 +35,7 @@ services:
       test: ["CMD", "mongo", "--eval", "db.getCollectionNames()"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 4
 
   hyperbank-config-provider:
     image: hyperbank-config-provider:latest
@@ -46,7 +46,11 @@ services:
     depends_on:
       - hyperbank-postgresql-db
       - hyperbank-mongo-db
-    command: ["./tools/script/wait_for_config_provider_healthy.sh"]
+    healthcheck:
+      test: ["CMD", "curl -s http://localhost:8888/actuator/health | jq -e '.status' | grep -q 'UP'"]
+      interval: 10s
+      timeout: 5s
+      retries: 4
 
   hyperbank-accounts:
     image: hyperbank-accounts:latest
