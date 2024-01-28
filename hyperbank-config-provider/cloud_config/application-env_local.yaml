@@ -25,22 +25,34 @@ endpoints:
 #      MB_NAME:
 #         host:
 #         port:
+
+
+
 services:
    hyperbank-config-provider:
+      host: localhost
       port: 8888
    hyperbank-accounts:
+      host: localhost
       port: 9001
    hyperbank-banks:
+      host: localhost
       port: 9002
    hyperbank-interests:
+      host: localhost
       port: 9003
    hyperbank-loans:
+      host: localhost
       port: 9004
    hyperbank-maps:
+      host: localhost
       port: 9005
    hyperbank-staff:
+      host: localhost
       port: 9006
    hyperbank-transactions:
+      host: localhost
       port: 9007
    hyperbank-types:
+      host: localhost
       port: 9008

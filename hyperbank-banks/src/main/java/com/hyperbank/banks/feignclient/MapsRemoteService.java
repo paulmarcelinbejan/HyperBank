@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.hyperbank.architecture.web.feign.configuration.HyperBankClientConfiguration;
 import com.hyperbank.banks.feignclient.response.LocationResponse;
 
-@FeignClient(name = "mapsClient", url = "http://localhost:9888", configuration = HyperBankClientConfiguration.class)
+@FeignClient(name = "mapsClient", url = "http://${services.hyperbank-maps.host}:${services.hyperbank-maps.port}", configuration = HyperBankClientConfiguration.class)
 public interface MapsRemoteService {
 
 	@GetMapping(value = "/api/location/{id}")

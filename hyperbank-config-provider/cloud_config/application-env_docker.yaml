@@ -35,22 +35,34 @@ endpoints:
 #      MB_NAME:
 #         host:
 #         port:
+
+
+
 services:
    hyperbank-config-provider:
+      host: config-provider
       port: 8888
    hyperbank-accounts:
+      host: accounts
       port: 9001
    hyperbank-banks:
+      host: banks
       port: 9002
    hyperbank-interests:
+      host: interests
       port: 9003
    hyperbank-loans:
+      host: loans
       port: 9004
    hyperbank-maps:
+      host: maps
       port: 9005
    hyperbank-staff:
+      host: staff
       port: 9006
    hyperbank-transactions:
+      host: transactions
       port: 9007
    hyperbank-types:
+      host: types
       port: 9008
