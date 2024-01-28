@@ -10,19 +10,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hyperbank.maps.location.api.delete.many.DeleteManyLocationCoordinator;
+import com.hyperbank.maps.location.api.delete.one.DeleteOneLocationCoordinator;
+import com.hyperbank.maps.location.api.find.all.FindAllLocationCoordinator;
+import com.hyperbank.maps.location.api.find.many.FindManyLocationCoordinator;
+import com.hyperbank.maps.location.api.find.one.FindOneLocationCoordinator;
+import com.hyperbank.maps.location.api.save.many.SaveManyLocationCoordinator;
+import com.hyperbank.maps.location.api.save.one.SaveOneLocationCoordinator;
+import com.hyperbank.maps.location.api.update.many.UpdateManyLocationCoordinator;
+import com.hyperbank.maps.location.api.update.one.UpdateOneLocationCoordinator;
 import com.hyperbank.maps.location.dto.LocationResponse;
 import com.hyperbank.maps.location.dto.LocationSaveRequest;
 import com.hyperbank.maps.location.dto.LocationUpdateRequest;
-import com.hyperbank.maps.location.mapper.LocationMapper;
-import com.hyperbank.maps.location.service.LocationService;
 
 import io.github.paulmarcelinbejan.toolbox.exception.functional.FunctionalException;
-import io.github.paulmarcelinbejan.toolbox.utils.validation.ValidatorUtils;
+import io.github.paulmarcelinbejan.toolbox.exception.technical.TechnicalException;
 import io.github.paulmarcelinbejan.toolbox.web.response.OkResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,51 +37,68 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/location")
 public class LocationRestController {
 
-	private final LocationService locationService;
+	private final SaveOneLocationCoordinator saveOneLocationCoordinator;
 	
-	private final LocationMapper locationMapper;
-
+	private final SaveManyLocationCoordinator saveManyLocationCoordinator;
+	
+	private final FindOneLocationCoordinator findOneLocationCoordinator;
+	
+	private final FindManyLocationCoordinator findManyLocationCoordinator;
+	
+	private final FindAllLocationCoordinator findAllLocationCoordinator;
+	
+	private final UpdateOneLocationCoordinator updateOneLocationCoordinator;
+	
+	private final UpdateManyLocationCoordinator updateManyLocationCoordinator;
+	
+	private final DeleteOneLocationCoordinator deleteOneLocationCoordinator;
+	
+	private final DeleteManyLocationCoordinator deleteManyLocationCoordinator;
+	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody LocationResponse findById(@PathVariable Long id) throws FunctionalException {
-		return locationMapper.toResponse(locationService.findById(id));
+	public @ResponseBody LocationResponse findById(@PathVariable Long id) throws FunctionalException, TechnicalException {
+		return findOneLocationCoordinator.process(id);
 	}
-
+	
+	@GetMapping(value = "/find-many", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<LocationResponse> findMany(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
+		return findManyLocationCoordinator.process(ids);
+	}
+	
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<LocationResponse> findAll() {
-		return locationMapper.toResponses(locationService.findAll());
+	public @ResponseBody List<LocationResponse> findAll() throws FunctionalException, TechnicalException {
+		return findAllLocationCoordinator.process();
 	}
-
+	
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long save(@Valid @RequestBody final LocationSaveRequest saveRequest) throws FunctionalException {
-		return locationService.save(locationMapper.fromSaveRequestToEntity(saveRequest));
+	public @ResponseBody LocationResponse save(@RequestBody final LocationSaveRequest saveRequest) throws FunctionalException, TechnicalException {
+		return saveOneLocationCoordinator.process(saveRequest);
 	}
-
+	
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Long> save(@RequestBody final List<LocationSaveRequest> saveRequests) throws FunctionalException {
-		ValidatorUtils.validateAll(saveRequests);
-		return locationService.save(locationMapper.fromSaveRequestsToEntities(saveRequests));
+	public @ResponseBody List<LocationResponse> save(@RequestBody final List<LocationSaveRequest> saveRequests) throws FunctionalException, TechnicalException {
+		return saveManyLocationCoordinator.process(saveRequests);
 	}
-
+	
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Long update(@Valid @RequestBody final LocationUpdateRequest updateRequest) throws FunctionalException {
-		return locationService.update(locationMapper.fromUpdateRequestToEntity(updateRequest));
+	public @ResponseBody LocationResponse update(@RequestBody final LocationUpdateRequest updateRequest) throws FunctionalException, TechnicalException {
+		return updateOneLocationCoordinator.process(updateRequest);
 	}
-
+	
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Long> update(@RequestBody final List<LocationUpdateRequest> updateRequests) throws FunctionalException {
-		ValidatorUtils.validateAll(updateRequests);
-		return locationService.update(locationMapper.fromUpdateRequestsToEntities(updateRequests));
+	public @ResponseBody List<LocationResponse> update(@RequestBody final List<LocationUpdateRequest> updateRequests) throws FunctionalException, TechnicalException {
+		return updateManyLocationCoordinator.process(updateRequests);
 	}
-
+	
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@PathVariable Long id) throws FunctionalException {
-		locationService.delete(id);
+	public @ResponseBody OkResponse delete(@PathVariable Long id) throws FunctionalException, TechnicalException {
+		deleteOneLocationCoordinator.process(id);
 		return new OkResponse();
 	}
-
-	@DeleteMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestBody List<Long> ids) throws FunctionalException {
-		locationService.deleteMany(ids);
+	
+	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody OkResponse delete(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
+		deleteManyLocationCoordinator.process(ids);
 		return new OkResponse();
 	}
 
