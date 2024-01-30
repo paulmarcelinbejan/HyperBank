@@ -13,6 +13,7 @@ endpoints:
          name: HyperBankMongoDB
          username: myawsusername
          password: myawssecret
+         authentication-database: admin
 #   cache:
 #      CACHE_NAME:
 #         host:

@@ -1,4 +1,5 @@
 spring:
+   #PostgreSQL
    datasource:
       driverClassName: org.postgresql.Driver
       url: jdbc:postgresql://${endpoints.sql.HyperBankDB.host}:${endpoints.sql.HyperBankDB.port}/${endpoints.sql.HyperBankDB.name}
@@ -15,3 +16,12 @@ spring:
       show-sql: true
       hibernate:
          ddl-auto: update
+   #MongoDB
+   data:
+      mongodb:
+         host: ${endpoints.nosql.HyperBankMongoDB.host}
+         port: ${endpoints.nosql.HyperBankMongoDB.port}
+         database: ${endpoints.nosql.HyperBankMongoDB.name}
+         username: ${endpoints.nosql.HyperBankMongoDB.username}
+         password: ${endpoints.nosql.HyperBankMongoDB.password}
+         authentication-database: ${endpoints.nosql.HyperBankMongoDB.authentication-database}

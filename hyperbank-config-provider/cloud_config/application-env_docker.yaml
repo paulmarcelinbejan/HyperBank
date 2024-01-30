@@ -16,6 +16,7 @@ endpoints:
          name: HyperBankMongoDB
          username: paulmarcelinbejan
          password: HyperBankPassword
+         authentication-database: admin
 #   nosql:
 #      DB_NAME:
 #         host: 

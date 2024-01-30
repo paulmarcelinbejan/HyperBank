@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hyperbank.staff.employee.api.delete.many.DeleteManyEmployeeCoordinator;
@@ -56,48 +55,48 @@ public class EmployeeRestController {
 	private final DeleteManyEmployeeCoordinator deleteManyEmployeeCoordinator;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody EmployeeResponse findById(@PathVariable Long id) throws FunctionalException, TechnicalException {
+	public EmployeeResponse findById(@PathVariable Long id) throws FunctionalException, TechnicalException {
 		return findOneEmployeeCoordinator.process(id);
 	}
 	
 	@GetMapping(value = "/find-many", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<EmployeeResponse> findMany(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
+	public List<EmployeeResponse> findMany(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
 		return findManyEmployeeCoordinator.process(ids);
 	}
 	
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<EmployeeResponse> findAll() throws FunctionalException, TechnicalException {
+	public List<EmployeeResponse> findAll() throws FunctionalException, TechnicalException {
 		return findAllEmployeeCoordinator.process();
 	}
 	
 	@PostMapping(value = "/save-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody EmployeeResponse save(@RequestBody final EmployeeSaveRequest saveRequest) throws FunctionalException, TechnicalException {
+	public EmployeeResponse save(@RequestBody final EmployeeSaveRequest saveRequest) throws FunctionalException, TechnicalException {
 		return saveOneEmployeeCoordinator.process(saveRequest);
 	}
 	
 	@PostMapping(value = "/save-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<EmployeeResponse> save(@RequestBody final List<EmployeeSaveRequest> saveRequests) throws FunctionalException, TechnicalException {
+	public List<EmployeeResponse> save(@RequestBody final List<EmployeeSaveRequest> saveRequests) throws FunctionalException, TechnicalException {
 		return saveManyEmployeeCoordinator.process(saveRequests);
 	}
 	
 	@PutMapping(value = "/update-one", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody EmployeeResponse update(@RequestBody final EmployeeUpdateRequest updateRequest) throws FunctionalException, TechnicalException {
+	public EmployeeResponse update(@RequestBody final EmployeeUpdateRequest updateRequest) throws FunctionalException, TechnicalException {
 		return updateOneEmployeeCoordinator.process(updateRequest);
 	}
 	
 	@PutMapping(value = "/update-many", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<EmployeeResponse> update(@RequestBody final List<EmployeeUpdateRequest> updateRequests) throws FunctionalException, TechnicalException {
+	public List<EmployeeResponse> update(@RequestBody final List<EmployeeUpdateRequest> updateRequests) throws FunctionalException, TechnicalException {
 		return updateManyEmployeeCoordinator.process(updateRequests);
 	}
 	
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@PathVariable Long id) throws FunctionalException, TechnicalException {
+	public OkResponse delete(@PathVariable Long id) throws FunctionalException, TechnicalException {
 		deleteOneEmployeeCoordinator.process(id);
 		return new OkResponse();
 	}
 	
 	@DeleteMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody OkResponse delete(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
+	public OkResponse delete(@RequestParam("id") List<Long> ids) throws FunctionalException, TechnicalException {
 		deleteManyEmployeeCoordinator.process(ids);
 		return new OkResponse();
 	}

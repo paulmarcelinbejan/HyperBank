@@ -13,6 +13,7 @@ endpoints:
          name: HyperBankMongoDB
          username: paulmarcelinbejan
          password: HyperBankPassword
+         authentication-database: admin
 #   cache:
 #      CACHE_NAME:
 #         host:

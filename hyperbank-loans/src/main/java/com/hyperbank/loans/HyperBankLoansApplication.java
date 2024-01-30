@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.hyperbank.architecture.base.AbstractHyperBankApplication;
 
@@ -12,6 +13,7 @@ import com.hyperbank.architecture.base.AbstractHyperBankApplication;
 @ComponentScan({ "com.hyperbank*", "io.github.paulmarcelinbejan*" })
 @EntityScan("com.hyperbank*")
 @EnableJpaRepositories("com.hyperbank*")
+@EnableMongoRepositories("com.hyperbank*")
 public class HyperBankLoansApplication extends AbstractHyperBankApplication {
 
 	public static void main(String[] args) {
