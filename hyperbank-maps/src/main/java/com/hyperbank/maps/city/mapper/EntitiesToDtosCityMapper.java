@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Named;
 
 import com.hyperbank.architecture.web.mapper.config.HyperBankMapperConfig;
 import com.hyperbank.maps.city.dto.CityResponse;
@@ -17,6 +18,7 @@ public interface EntitiesToDtosCityMapper
 	extends MapperOutput<List<City>, List<CityResponse>> {
 
 	@Override
+	@Named("fromEntitiesToDtos")
 	@IterableMapping(qualifiedByName = "fromEntityToDto")
 	List<CityResponse> toResponse(List<City> entities);
 
