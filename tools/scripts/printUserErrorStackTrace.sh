@@ -4,7 +4,7 @@ mongo_config() {
     mongo_host="localhost"
     mongo_port="27017"
     mongo_db="HyperBankMongoDB"
-    mongo_collection="userError"
+    mongo_collection="UserError"
     username="paulmarcelinbejan"
     password="HyperBankPassword"
 }
