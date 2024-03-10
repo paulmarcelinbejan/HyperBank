@@ -40,6 +40,52 @@ services:
       timeout: 5s
       retries: 4
 
+  hyperbank-zookeeper-server-1:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper-server-1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+    networks:
+      - hyperbank-network
+
+  hyperbank-kafka-broker-1:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka-broker-1
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://hyperbank-kafka-broker-1:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: "hyperbank-zookeeper-server-1:2181"
+      KAFKA_BROKER_ID: 1
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+    depends_on:
+      - hyperbank-zookeeper-server-1
+    networks:
+      - hyperbank-network
+
+  hyperbank-kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "39092:8080"
+    depends_on:
+      - hyperbank-zookeeper-server-1
+      - hyperbank-kafka-broker-1
+    environment:
+      KAFKA_CLUSTERS_0_NAME: hyperbank-cluster-1
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: hyperbank-kafka-broker-1:29092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: hyperbank-zookeeper-server-1:2181
+    networks:
+      - hyperbank-network
+
 networks:
   hyperbank-network:
     driver: bridge
